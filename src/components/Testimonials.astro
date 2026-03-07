@@ -1,0 +1,44 @@
+---
+import { testimonials } from '../data/testimonials';
+
+interface Props {
+  filter?: 'all' | 'masterclass' | 'other';
+  limit?: number;
+}
+
+const { filter = 'all', limit } = Astro.props;
+
+const filtered = testimonials
+  .filter(t => {
+    if (filter === 'masterclass') return t.isMasterclass;
+    if (filter === 'other') return !t.isMasterclass;
+    return true;
+  })
+  .slice(0, limit);
+---
+
+<div class="columns-1 md:columns-2 lg:columns-3 gap-5">
+  {filtered.map(t => (
+    <div class="break-inside-avoid mb-5 bg-white rounded-xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+      <blockquote class="font-serif italic text-navy leading-relaxed text-base">
+        &ldquo;{t.quote}&rdquo;
+      </blockquote>
+      <footer class="flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <p class="font-semibold text-navy text-sm">{t.name}</p>
+          <p class="text-gray-400 text-xs mt-0.5">{t.context}</p>
+        </div>
+        {(t.scoreBefore !== undefined && t.scoreAfter !== undefined) && (
+          <span class="bg-marigold text-navy text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+            {t.scoreBefore} → {t.scoreAfter}
+          </span>
+        )}
+        {(t.scoreBefore === undefined && t.scoreAfter !== undefined) && (
+          <span class="bg-marigold text-navy text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+            Scored {t.scoreAfter}
+          </span>
+        )}
+      </footer>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,100 @@
+---
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Masterclass', href: '/masterclass' },
+  { label: 'Book', href: '/book' },
+  { label: 'About', href: '/about' },
+  { label: 'Strategy', href: '/strategy' },
+  { label: 'Videos', href: '/videos' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="bg-navy sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="font-serif text-xl font-bold text-white tracking-tight hover:text-marigold transition-colors">
+        LearnSATMath
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden lg:flex items-center gap-6">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class={`text-sm font-medium transition-colors ${
+              currentPath === link.href
+                ? 'text-marigold'
+                : 'text-blue-100 hover:text-white'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a
+          href="/masterclass"
+          class="ml-2 bg-cta text-white text-sm font-semibold px-4 py-2 rounded hover:bg-orange-700 transition-colors"
+        >
+          Enroll in Masterclass
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="hamburger"
+        class="lg:hidden text-white p-2 rounded hover:bg-navy-light transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-navy-light">
+    <div class="px-6 py-4 flex flex-col gap-3">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`text-sm font-medium py-1 transition-colors ${
+            currentPath === link.href
+              ? 'text-marigold'
+              : 'text-blue-100 hover:text-white'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/masterclass"
+        class="mt-2 bg-cta text-white text-sm font-semibold px-4 py-2 rounded text-center hover:bg-orange-700 transition-colors"
+      >
+        Enroll in Masterclass
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+    mobileMenu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden', !isOpen);
+    iconClose?.classList.toggle('hidden', isOpen);
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>

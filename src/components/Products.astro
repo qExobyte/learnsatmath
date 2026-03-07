@@ -1,0 +1,146 @@
+---
+const book = {
+  name: 'SAT Math from the Ground Up',
+  price: '$49',
+  tagline: 'The definitive ebook',
+  features: [
+    '110-page comprehensive ebook',
+    '200+ conceptual questions with explanations',
+    '25 challenging SAT-style problems',
+    'Desmos tricks and procedures',
+    'Complete formula list',
+  ],
+  cta: 'Get the Book',
+  href: '/book',
+};
+
+const masterclass = {
+  name: 'Masterclass',
+  price: '$895',
+  priceNote: '$49 per hour',
+  tagline: 'Live small group classes',
+  badge: 'Best Results',
+  features: [
+    '15 hours of LIVE small group classes',
+    '3+ office hours for 1-on-1 support',
+    'Recordings of every class included',
+    'Book, practice tests & 500+ hard problems',
+    '$100–$500 cash prizes for participation',
+    'Community access',
+    'Most students finish with 750+',
+  ],
+  cta: 'Learn More',
+  href: '/masterclass',
+};
+
+const oneOnOne = {
+  name: '1-on-1 Sessions',
+  price: '$285',
+  priceNote: 'per hour',
+  tagline: 'Personalized instruction',
+  features: [
+    'Flexible scheduling',
+    'Personalized question answering',
+    'Structured improvement plan',
+    'Book included',
+    'Long-term plan options available',
+  ],
+  cta: 'Book a Session',
+  href: '/contact',
+};
+---
+
+<section id="pricing" class="py-20 lg:py-28 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-14">
+      <h2 class="font-serif text-3xl lg:text-4xl text-navy tracking-tight mb-3">Choose your path to 800</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Every option comes with expert instruction and a proven system.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 lg:items-stretch">
+
+      <!-- Book -->
+      <div class="bg-white rounded-2xl lg:rounded-r-none border border-gray-200 p-8 flex flex-col">
+        <div class="mb-6">
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{book.tagline}</p>
+          <h3 class="font-serif text-xl text-navy font-bold mb-4">{book.name}</h3>
+          <div class="flex items-baseline gap-1">
+            <span class="font-serif text-4xl font-bold text-navy">{book.price}</span>
+          </div>
+        </div>
+        <ul class="flex-1 space-y-3 mb-8">
+          {book.features.map(f => (
+            <li class="flex items-start gap-2 text-sm text-gray-600">
+              <span class="text-marigold font-bold mt-0.5">✓</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a
+          href={book.href}
+          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white transition-colors"
+        >
+          {book.cta}
+        </a>
+      </div>
+
+      <!-- Masterclass (featured) -->
+      <div class="bg-navy rounded-2xl border-2 border-marigold p-8 flex flex-col lg:-my-4 shadow-2xl relative z-10">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span class="bg-marigold text-navy text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">
+            {masterclass.badge}
+          </span>
+        </div>
+        <div class="mb-6 mt-4">
+          <p class="text-xs font-semibold uppercase tracking-widest text-blue-300 mb-2">{masterclass.tagline}</p>
+          <h3 class="font-serif text-2xl text-white font-bold mb-4">{masterclass.name}</h3>
+          <div class="flex items-baseline gap-2">
+            <span class="font-serif text-4xl font-bold text-white">{masterclass.price}</span>
+            <span class="text-blue-300 text-sm">{masterclass.priceNote}</span>
+          </div>
+        </div>
+        <ul class="flex-1 space-y-3 mb-8">
+          {masterclass.features.map((f, i) => (
+            <li class={`flex items-start gap-2 text-sm ${i === masterclass.features.length - 1 ? 'text-marigold font-semibold' : 'text-blue-100'}`}>
+              <span class="text-marigold font-bold mt-0.5">✓</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a
+          href={masterclass.href}
+          class="block text-center bg-cta text-white font-semibold py-3 rounded hover:bg-orange-700 transition-colors"
+        >
+          {masterclass.cta}
+        </a>
+      </div>
+
+      <!-- 1-on-1 -->
+      <div class="bg-white rounded-2xl lg:rounded-l-none border border-gray-200 p-8 flex flex-col">
+        <div class="mb-6">
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{oneOnOne.tagline}</p>
+          <h3 class="font-serif text-xl text-navy font-bold mb-4">{oneOnOne.name}</h3>
+          <div class="flex items-baseline gap-2">
+            <span class="font-serif text-4xl font-bold text-navy">{oneOnOne.price}</span>
+            <span class="text-gray-400 text-sm">{oneOnOne.priceNote}</span>
+          </div>
+        </div>
+        <ul class="flex-1 space-y-3 mb-8">
+          {oneOnOne.features.map(f => (
+            <li class="flex items-start gap-2 text-sm text-gray-600">
+              <span class="text-marigold font-bold mt-0.5">✓</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a
+          href={oneOnOne.href}
+          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white transition-colors"
+        >
+          {oneOnOne.cta}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

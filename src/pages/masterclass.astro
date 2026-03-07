@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/Testimonials.astro';
+
+// --- ENROLLMENT CONFIG ---
+// Set IS_FULL to false when a new cohort opens enrollment.
+const IS_FULL = true;
+const STRIPE_URL = 'https://buy.stripe.com/3cI14g4r44AH8OQb226wE12';
+const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
+
+const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
+const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
+// -------------------------
+
+const included = [
+  '15 hours of LIVE small group instruction',
+  '3+ office hours for direct 1-on-1 support',
+  'Recordings of every class session',
+  'SAT Math from the Ground Up (book) included',
+  '500+ hard problems with full explanations',
+  'Practice tests included',
+  '$100–$500 cash prizes for participation',
+  'Community access and ongoing support',
+];
+---
+
+<Layout
+  title="Masterclass"
+  description="15 hours of live SAT math instruction with Eric. Small groups, office hours, recordings, and proven results. Most students finish with 750+."
+>
+
+  <!-- Hero -->
+  <section class="bg-navy text-white py-20 lg:py-28">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      {IS_FULL && (
+        <span class="inline-block bg-marigold text-navy text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+          Currently Full — Join the Waitlist
+        </span>
+      )}
+      {!IS_FULL && (
+        <span class="inline-block bg-cta text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+          Enrollment Open
+        </span>
+      )}
+      <h1 class="font-serif text-4xl lg:text-6xl tracking-tight mb-5">The Masterclass</h1>
+      <p class="text-blue-100 text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
+        15 hours of live, small-group SAT math instruction—built around the exact skills and
+        strategies that produce 750+ scores on the digital SAT.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
+        <span class="font-serif text-4xl font-bold text-white">$895</span>
+        <span class="text-blue-300 text-lg">total &mdash; $49 per hour</span>
+      </div>
+      <a
+        href={enrollHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded hover:bg-orange-700 transition-colors text-base"
+      >
+        {enrollLabel}
+      </a>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Everything included</p>
+          <h2 class="font-serif text-3xl text-navy tracking-tight mb-6">What you get</h2>
+          <ul class="space-y-4">
+            {included.map(item => (
+              <li class="flex items-start gap-3">
+                <span class="text-marigold font-bold text-lg mt-0.5">✓</span>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="bg-ivory rounded-2xl p-8 border border-gray-100">
+          <p class="font-serif text-5xl font-bold text-marigold mb-1">750+</p>
+          <p class="text-navy font-semibold mb-4">Most students' final score</p>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            The Masterclass isn't about test tricks. It's about building the deep conceptual
+            understanding that makes hard problems feel straightforward.
+          </p>
+          <div class="border-t border-gray-200 pt-6">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Format</p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li>Small groups (more personalized than a course, more affordable than 1-on-1)</li>
+              <li>Live sessions over Zoom, recorded for replay</li>
+              <li>Office hours for direct Q&amp;A with Eric</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials (Masterclass only) -->
+  <section class="py-16 lg:py-24 bg-ivory">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">From Masterclass students</h2>
+        <p class="text-gray-500">Real results from real cohorts.</p>
+      </div>
+      <Testimonials filter="masterclass" />
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bg-navy py-16 lg:py-20 text-center">
+    <div class="max-w-xl mx-auto px-6">
+      <h2 class="font-serif text-3xl text-white tracking-tight mb-4">
+        {IS_FULL ? 'Be first in line for the next cohort.' : 'Ready to get started?'}
+      </h2>
+      <p class="text-blue-200 mb-8">
+        {IS_FULL
+          ? 'Spots fill quickly. Join the waitlist to get notified when enrollment opens.'
+          : 'Join the next cohort and join hundreds of students who have reached 750+.'}
+      </p>
+      <a
+        href={enrollHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded hover:bg-orange-700 transition-colors"
+      >
+        {enrollLabel}
+      </a>
+    </div>
+  </section>
+
+</Layout>

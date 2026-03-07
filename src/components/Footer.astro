@@ -1,0 +1,73 @@
+---
+const navLinks = [
+  { label: 'Masterclass', href: '/masterclass' },
+  { label: 'Book', href: '/book' },
+  { label: 'About', href: '/about' },
+  { label: 'Strategy', href: '/strategy' },
+  { label: 'Videos', href: '/videos' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<footer class="bg-navy text-blue-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8">
+
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <a href="/" class="font-serif text-xl font-bold text-white hover:text-marigold transition-colors">
+          LearnSATMath
+        </a>
+        <p class="mt-3 text-sm text-blue-200 leading-relaxed max-w-xs">
+          Expert SAT math instruction from a two-time perfect scorer. 400+ students helped.
+        </p>
+      </div>
+
+      <!-- Nav links -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-blue-300 mb-4">Pages</p>
+        <ul class="space-y-2">
+          {navLinks.map(link => (
+            <li>
+              <a href={link.href} class="text-sm text-blue-200 hover:text-white transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- CTA -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-blue-300 mb-4">Get Started</p>
+        <p class="text-sm text-blue-200 mb-4 leading-relaxed">
+          Join the next Masterclass cohort and join hundreds of students who've reached 750+.
+        </p>
+        <a
+          href="/masterclass"
+          class="inline-block bg-cta text-white text-sm font-semibold px-6 py-3 rounded hover:bg-orange-700 transition-colors"
+        >
+          Enroll in Masterclass
+        </a>
+      </div>
+
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-navy-light flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-blue-300">&copy; {new Date().getFullYear()} LearnSATMath. All rights reserved.</p>
+      <div class="flex gap-5">
+        <!-- Social placeholders — swap in real URLs -->
+        <a href="#" aria-label="YouTube" class="text-blue-300 hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .6 5.8 3 3 0 0 0 2 2.1c2 .5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="text-blue-300 hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 3.9 2.3 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
