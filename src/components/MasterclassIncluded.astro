@@ -1,0 +1,24 @@
+---
+import { masterclassFeatures } from '../data/masterclassFeatures';
+
+interface Props {
+  dark?: boolean;
+}
+
+const { dark = false } = Astro.props;
+---
+
+<ul class="space-y-3">
+  {masterclassFeatures.map((f, i) => {
+    const isLast = i === masterclassFeatures.length - 1;
+    const textClass = dark
+      ? (isLast ? 'text-marigold font-semibold' : 'text-blue-100')
+      : (isLast ? 'text-marigold font-semibold' : 'text-gray-700');
+    return (
+      <li class={`flex items-start gap-2 text-base ${textClass}`}>
+        <span class="text-marigold font-bold mt-0.5">✓</span>
+        {f}
+      </li>
+    );
+  })}
+</ul>

@@ -39,13 +39,8 @@ const trackId = `${id}-track`;
   >
     {filtered.map(t => (
       <article class="shrink-0 w-[420px] bg-white rounded-2xl border border-gray-100 shadow-sm p-7 flex flex-col gap-5">
-        <!-- Quote -->
-        <blockquote class="font-serif italic text-navy leading-relaxed text-base flex-1">
-          &ldquo;{t.quote}&rdquo;
-        </blockquote>
-
-        <!-- Footer: name + scores -->
-        <footer class="flex items-end justify-between gap-4 flex-wrap">
+        <!-- Header: name + context + scores -->
+        <header class="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <p class="font-semibold text-navy">{t.name}</p>
             <p class="text-gray-400 text-sm mt-0.5">{t.context}</p>
@@ -67,7 +62,12 @@ const trackId = `${id}-track`;
               </span>
             )}
           </div>
-        </footer>
+        </header>
+
+        <!-- Quote -->
+        <blockquote class="font-serif italic text-navy leading-relaxed text-base flex-1">
+          &ldquo;{t.quote}&rdquo;
+        </blockquote>
       </article>
     ))}
   </div>

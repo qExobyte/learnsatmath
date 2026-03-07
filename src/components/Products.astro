@@ -1,4 +1,6 @@
 ---
+import MasterclassIncluded from './MasterclassIncluded.astro';
+
 const book = {
   name: 'SAT Math from the Ground Up',
   price: '$49',
@@ -20,16 +22,6 @@ const masterclass = {
   priceNote: '$49 per hour',
   tagline: 'Live small group classes',
   badge: 'Best Results',
-  features: [
-    '15 hours of LIVE small group classes',
-    '3+ office hours for 1-on-1 support',
-    'Recordings of every class included',
-    'SAT Math from the Ground Up book included',
-    'Practice tests, desmos drills, and 500+ hard problems included',
-    '$100–$500 cash prizes for participation',
-    'Join a community of ambitious students',
-    'Most students end with a 750+',
-  ],
   cta: 'Learn More',
   href: '/masterclass',
 };
@@ -47,15 +39,14 @@ const oneOnOne = {
     'Long-term tutoring plan available',
   ],
   cta: 'Book a Session',
-  href: '/contact',
+  href: '/tutoring',
 };
 ---
 
 <section id="pricing" class="py-20 lg:py-28 bg-ivory">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-14">
-      <h2 class="font-serif text-3xl lg:text-4xl text-navy tracking-tight mb-3">Choose your path to 800</h2>
-      <p class="text-gray-500 max-w-xl mx-auto">Every option comes with expert instruction and a proven system.</p>
+      <h2 class="font-serif text-3xl lg:text-4xl text-navy tracking-tight mb-3">Choose your path to an 800</h2>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 lg:items-stretch">
@@ -100,14 +91,9 @@ const oneOnOne = {
             <span class="text-blue-300 text-sm">{masterclass.priceNote}</span>
           </div>
         </div>
-        <ul class="flex-1 space-y-3 mb-8">
-          {masterclass.features.map((f, i) => (
-            <li class={`flex items-start gap-2 text-sm ${i === masterclass.features.length - 1 ? 'text-marigold font-semibold' : 'text-blue-100'}`}>
-              <span class="text-marigold font-bold mt-0.5">✓</span>
-              {f}
-            </li>
-          ))}
-        </ul>
+        <div class="flex-1 mb-8">
+          <MasterclassIncluded dark={true} />
+        </div>
         <a
           href={masterclass.href}
           class="block text-center bg-cta text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors"

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
+import MasterclassIncluded from '../components/MasterclassIncluded.astro';
 
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
@@ -12,16 +13,6 @@ const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
 const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
 // -------------------------
 
-const included = [
-  '15 hours of LIVE small group instruction',
-  '3+ office hours for direct 1-on-1 support',
-  'Recordings of every class session',
-  'SAT Math from the Ground Up (book) included',
-  '500+ hard problems with full explanations',
-  'Practice tests included',
-  '$100–$500 cash prizes for participation',
-  'Community access and ongoing support',
-];
 ---
 
 <Layout
@@ -44,8 +35,7 @@ const included = [
       )}
       <h1 class="font-serif text-4xl lg:text-6xl tracking-tight mb-5">The Masterclass</h1>
       <p class="text-blue-100 text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-        15 hours of live, small-group SAT math instruction—built around the exact skills and
-        strategies that produce 750+ scores on the digital SAT.
+        An intensive 5-week program of <i>live</i> small-group classes, covering only the <i>hardest</i> problems, to get you to a 750 or higher.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
         <span class="font-serif text-4xl font-bold text-white">$895</span>
@@ -62,6 +52,21 @@ const included = [
     </div>
   </section>
 
+  <!-- Video -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg">
+        <iframe
+          src="https://www.youtube.com/embed/yNRrx2AQUwA"
+          title="Masterclass overview"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- What's included -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
@@ -69,30 +74,11 @@ const included = [
         <div>
           <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Everything included</p>
           <h2 class="font-serif text-3xl text-navy tracking-tight mb-6">What you get</h2>
-          <ul class="space-y-4">
-            {included.map(item => (
-              <li class="flex items-start gap-3">
-                <span class="text-marigold font-bold text-lg mt-0.5">✓</span>
-                <span class="text-gray-700">{item}</span>
-              </li>
-            ))}
-          </ul>
+          <MasterclassIncluded />
         </div>
-        <div class="bg-ivory rounded-2xl p-8 border border-gray-100">
-          <p class="font-serif text-5xl font-bold text-marigold mb-1">750+</p>
-          <p class="text-navy font-semibold mb-4">Most students' final score</p>
-          <p class="text-gray-500 text-sm leading-relaxed mb-6">
-            The Masterclass isn't about test tricks. It's about building the deep conceptual
-            understanding that makes hard problems feel straightforward.
-          </p>
-          <div class="border-t border-gray-200 pt-6">
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Format</p>
-            <ul class="space-y-2 text-sm text-gray-600">
-              <li>Small groups (more personalized than a course, more affordable than 1-on-1)</li>
-              <li>Live sessions over Zoom, recorded for replay</li>
-              <li>Office hours for direct Q&amp;A with Eric</li>
-            </ul>
-          </div>
+        <div class="bg-ivory rounded-2xl p-8 border border-gray-100 flex flex-col items-center justify-center text-center">
+          <p class="text-navy font-semibold text-xl mb-3">Most students end with a</p>
+          <p class="font-serif text-8xl font-bold text-marigold">750+</p>
         </div>
       </div>
     </div>
@@ -103,7 +89,7 @@ const included = [
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">From Masterclass students</h2>
-        <p class="text-gray-500">Real results from real cohorts.</p>
+        <p class="text-gray-500">Hear from students who have gone through the Masterclass.</p>
       </div>
       <Testimonials filter="masterclass" />
     </div>

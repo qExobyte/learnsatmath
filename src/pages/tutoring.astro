@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/Testimonials.astro';
+
+const features = [
+  'Flexible on-demand scheduling',
+  'Focus on your specific weaknesses',
+  'Structured improvement plan',
+  'SAT Math from the Ground Up book included',
+  'Long-term tutoring plan available',
+];
+---
+
+<Layout
+  title="1-on-1 Tutoring"
+  description="Private SAT math tutoring with Eric. Personalized instruction, flexible scheduling, and proven results. Book a session directly."
+>
+
+  <!-- Hero -->
+  <section class="bg-navy text-white py-20 lg:py-28">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <h1 class="font-serif text-4xl lg:text-6xl tracking-tight mb-5">1-on-1 Tutoring</h1>
+      <p class="text-blue-100 text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
+        Personalized instruction focused entirely on you — your weaknesses, your pace, your goals.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <span class="font-serif text-4xl font-bold text-white">$285</span>
+        <span class="text-blue-300 text-lg">per hour</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">What's included</p>
+      <h2 class="font-serif text-3xl text-navy tracking-tight mb-8">Everything in a session</h2>
+      <ul class="space-y-4">
+        {features.map(f => (
+          <li class="flex items-start gap-3">
+            <span class="text-marigold font-bold text-lg mt-0.5">✓</span>
+            <span class="text-gray-700 text-base">{f}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Calendly embed -->
+  <section class="py-16 lg:py-20 bg-ivory">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">Book a session</h2>
+        <p class="text-gray-500">Pick a time that works for you.</p>
+      </div>
+      <div
+        class="calendly-inline-widget rounded-2xl overflow-hidden shadow-lg"
+        data-url="https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring"
+        style="min-width:320px;height:700px;"
+      ></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">From tutoring students</h2>
+        <p class="text-gray-500">Real results from 1-on-1 sessions.</p>
+      </div>
+      <Testimonials filter="other" />
+    </div>
+  </section>
+
+</Layout>
