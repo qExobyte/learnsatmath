@@ -2,7 +2,7 @@
 const book = {
   name: 'SAT Math from the Ground Up',
   price: '$49',
-  tagline: 'The definitive ebook',
+  tagline: 'Master the concepts',
   features: [
     '110-page comprehensive ebook',
     '200+ conceptual questions with explanations',
@@ -24,10 +24,11 @@ const masterclass = {
     '15 hours of LIVE small group classes',
     '3+ office hours for 1-on-1 support',
     'Recordings of every class included',
-    'Book, practice tests & 500+ hard problems',
+    'SAT Math from the Ground Up book included',
+    'Practice tests, desmos drills, and 500+ hard problems included',
     '$100–$500 cash prizes for participation',
-    'Community access',
-    'Most students finish with 750+',
+    'Join a community of ambitious students',
+    'Most students end with a 750+',
   ],
   cta: 'Learn More',
   href: '/masterclass',
@@ -39,11 +40,11 @@ const oneOnOne = {
   priceNote: 'per hour',
   tagline: 'Personalized instruction',
   features: [
-    'Flexible scheduling',
-    'Personalized question answering',
+    'Flexible on-demand scheduling',
+    'Focus on your weaknesses',
     'Structured improvement plan',
-    'Book included',
-    'Long-term plan options available',
+    'SAT Math from the Ground Up book included',
+    'Long-term tutoring plan available',
   ],
   cta: 'Book a Session',
   href: '/contact',
@@ -78,7 +79,7 @@ const oneOnOne = {
         </ul>
         <a
           href={book.href}
-          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white transition-colors"
+          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded-full hover:bg-navy hover:text-white transition-colors"
         >
           {book.cta}
         </a>
@@ -109,7 +110,7 @@ const oneOnOne = {
         </ul>
         <a
           href={masterclass.href}
-          class="block text-center bg-cta text-white font-semibold py-3 rounded hover:bg-orange-700 transition-colors"
+          class="block text-center bg-cta text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors"
         >
           {masterclass.cta}
         </a>
@@ -135,7 +136,7 @@ const oneOnOne = {
         </ul>
         <a
           href={oneOnOne.href}
-          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white transition-colors"
+          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded-full hover:bg-navy hover:text-white transition-colors"
         >
           {oneOnOne.cta}
         </a>
