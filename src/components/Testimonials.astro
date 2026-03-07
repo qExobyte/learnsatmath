@@ -3,42 +3,105 @@ import { testimonials } from '../data/testimonials';
 
 interface Props {
   filter?: 'all' | 'masterclass' | 'other';
-  limit?: number;
+  id?: string;
 }
 
-const { filter = 'all', limit } = Astro.props;
+const { filter = 'all', id = 'carousel' } = Astro.props;
 
-const filtered = testimonials
-  .filter(t => {
-    if (filter === 'masterclass') return t.isMasterclass;
-    if (filter === 'other') return !t.isMasterclass;
-    return true;
-  })
-  .slice(0, limit);
+const filtered = testimonials.filter(t => {
+  if (filter === 'masterclass') return t.isMasterclass;
+  if (filter === 'other') return !t.isMasterclass;
+  return true;
+});
+
+const prevId = `${id}-prev`;
+const nextId = `${id}-next`;
+const trackId = `${id}-track`;
 ---
 
-<div class="columns-1 md:columns-2 lg:columns-3 gap-5">
-  {filtered.map(t => (
-    <div class="break-inside-avoid mb-5 bg-white rounded-xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
-      <blockquote class="font-serif italic text-navy leading-relaxed text-base">
-        &ldquo;{t.quote}&rdquo;
-      </blockquote>
-      <footer class="flex items-center justify-between gap-3 flex-wrap">
-        <div>
-          <p class="font-semibold text-navy text-sm">{t.name}</p>
-          <p class="text-gray-400 text-xs mt-0.5">{t.context}</p>
-        </div>
-        {(t.scoreBefore !== undefined && t.scoreAfter !== undefined) && (
-          <span class="bg-marigold text-navy text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
-            {t.scoreBefore} → {t.scoreAfter}
-          </span>
-        )}
-        {(t.scoreBefore === undefined && t.scoreAfter !== undefined) && (
-          <span class="bg-marigold text-navy text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
-            Scored {t.scoreAfter}
-          </span>
-        )}
-      </footer>
-    </div>
-  ))}
+<div class="relative">
+  <!-- Arrow buttons -->
+  <button
+    id={prevId}
+    aria-label="Previous testimonial"
+    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white border border-gray-200 shadow-md rounded-full w-11 h-11 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors hidden md:flex"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <!-- Carousel track -->
+  <div
+    id={trackId}
+    class="flex gap-5 overflow-x-auto scroll-smooth pb-4"
+    style="scrollbar-width: none; -ms-overflow-style: none;"
+  >
+    {filtered.map(t => (
+      <article class="shrink-0 w-[420px] bg-white rounded-2xl border border-gray-100 shadow-sm p-7 flex flex-col gap-5">
+        <!-- Quote -->
+        <blockquote class="font-serif italic text-navy leading-relaxed text-base flex-1">
+          &ldquo;{t.quote}&rdquo;
+        </blockquote>
+
+        <!-- Footer: name + scores -->
+        <footer class="flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <p class="font-semibold text-navy">{t.name}</p>
+            <p class="text-gray-400 text-sm mt-0.5">{t.context}</p>
+          </div>
+
+          <!-- Score pills -->
+          <div class="flex items-center gap-2 shrink-0">
+            {t.scoreBefore !== undefined && (
+              <span class="bg-red-100 text-red-700 text-sm font-bold px-3 py-1 rounded-full">
+                {t.scoreBefore}
+              </span>
+            )}
+            {t.scoreBefore !== undefined && t.scoreAfter !== undefined && (
+              <span class="text-gray-400 text-sm">→</span>
+            )}
+            {t.scoreAfter !== undefined && (
+              <span class="bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded-full">
+                {t.scoreAfter}
+              </span>
+            )}
+          </div>
+        </footer>
+      </article>
+    ))}
+  </div>
+
+  <!-- Right arrow -->
+  <button
+    id={nextId}
+    aria-label="Next testimonial"
+    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white border border-gray-200 shadow-md rounded-full w-11 h-11 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors hidden md:flex"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
 </div>
+
+<style>
+  /* Hide scrollbar visually but keep scroll functionality */
+  div[id$="-track"]::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script define:vars={{ trackId, prevId, nextId }}>
+  const track = document.getElementById(trackId);
+  const prev = document.getElementById(prevId);
+  const next = document.getElementById(nextId);
+  const STEP = 440;
+
+  prev?.addEventListener('click', () => {
+    track?.scrollBy({ left: -STEP, behavior: 'smooth' });
+  });
+
+  next?.addEventListener('click', () => {
+    track?.scrollBy({ left: STEP, behavior: 'smooth' });
+  });
+</script>

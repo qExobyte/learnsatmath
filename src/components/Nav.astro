@@ -20,8 +20,8 @@ const currentPath = Astro.url.pathname;
         LearnSATMath
       </a>
 
-      <!-- Desktop nav -->
-      <div class="hidden lg:flex items-center gap-6">
+      <!-- Desktop nav: links centered, enroll button pinned right -->
+      <div class="hidden lg:flex flex-1 items-center justify-center gap-7">
         {navLinks.map(link => (
           <a
             href={link.href}
@@ -34,9 +34,11 @@ const currentPath = Astro.url.pathname;
             {link.label}
           </a>
         ))}
+      </div>
+      <div class="hidden lg:block shrink-0">
         <a
           href="/masterclass"
-          class="ml-2 bg-cta text-white text-sm font-semibold px-4 py-2 rounded hover:bg-orange-700 transition-colors"
+          class="bg-cta text-white text-sm font-semibold px-4 py-2 rounded hover:bg-orange-700 transition-colors"
         >
           Enroll in Masterclass
         </a>
