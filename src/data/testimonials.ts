@@ -60,14 +60,15 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Yuna',
-    context: '770 in 8 hours of tutoring',
+    context: '1-on-1 Tutoring',
+    scoreBefore: 690,
     scoreAfter: 770,
     quote: "Learning from Eric was the best decision I made before taking the SAT. He put in a lot of time personalizing my experience, helping me focus on the areas I needed to improve.",
     isMasterclass: false,
   },
   {
     name: 'Sam',
-    context: 'December 2025 Cohort',
+    context: 'December 2024 Cohort',
     scoreBefore: 650,
     scoreAfter: 770,
     quote: "While I typically don't like studying math, I genuinely enjoyed each session. His materials were well-thought-out and personalized, and I encountered several concepts we covered together on the actual SAT.",
@@ -81,7 +82,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Wyatt',
-    context: 'December 2025 Cohort',
+    context: 'December 2024 Cohort',
     scoreBefore: 630,
     scoreAfter: 740,
     quote: "Taking Eric's December classes and doing no work outside of sessions improved my score by 100 points. If you're serious about improving your SAT score fast, it's a no-brainer.",
@@ -89,7 +90,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'James',
-    context: '640 to 750 in 8 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 640,
     scoreAfter: 750,
     quote: "My score increased faster than I thought was possible. Eric taught me not just how to solve problems, but how to think about them—and I've become a much better problem solver because of it.",
@@ -111,13 +112,13 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Mujtaba',
-    context: '1-on-1 tutoring',
+    context: '1-on-1 Tutoring',
     quote: "Each hard concept, with just a little bit of practice and explanation from Eric, improved my score another 10–20 points. His materials are exactly what you need to get as close to 800 as possible.",
     isMasterclass: false,
   },
   {
     name: 'Aanya',
-    context: '580 to 710 in 8 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 580,
     scoreAfter: 710,
     quote: "I was stuck at the same score for months of self-studying. Eric not only helped me get to the right answer, but made sure I understood the reasoning behind it in depth.",
@@ -125,14 +126,14 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Zoé',
-    context: 'October 2025 Cohort',
+    context: 'October 2024 Cohort',
     scoreAfter: 760,
     quote: "Classes were fun and interactive and gave me tips and methods which helped me secure the score I was aiming for. Eric is patient and encouraged us to find answers ourselves.",
     isMasterclass: true,
   },
   {
     name: 'Viraat',
-    context: '680 to 750 in 6 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 680,
     scoreAfter: 750,
     quote: "With just six lessons, I improved my score by 70 points. Eric's method of teaching concepts helped me answer any question that falls under a given topic.",
@@ -140,7 +141,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Mukhammad',
-    context: '630 to 730 in 8 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 630,
     scoreAfter: 730,
     quote: "Eric is very clear when explaining math concepts and makes sure you understand the material before moving on. His lessons are so worth it, and his affordable rates make it accessible to everyone.",
@@ -148,7 +149,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Ryan',
-    context: '530 to 600 in 3 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 530,
     scoreAfter: 600,
     quote: "After only three lessons, my actual SAT math score improved by 70 points. He demonstrated multiple methods for each problem to ensure a thorough understanding of the reasoning.",
@@ -156,7 +157,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Julia',
-    context: 'SAT Math & Precalculus',
+    context: '1-on-1 Tutoring',
     quote: "Eric is a great tutor who makes math enjoyable and bearable. I like and understand the unit circle for precalc now—I'm glad we found him.",
     isMasterclass: false,
   },
@@ -168,7 +169,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: 'Naoki',
-    context: '660 to 760 in 8 hours',
+    context: '1-on-1 Tutoring',
     scoreBefore: 660,
     scoreAfter: 760,
     quote: "I was struggling and feeling discouraged, but Eric's patient approach helped me gain confidence. With his guidance, I was able to achieve my goal of 750+.",
