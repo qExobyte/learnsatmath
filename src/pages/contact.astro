@@ -6,20 +6,102 @@ import Layout from '../layouts/Layout.astro';
   <section class="bg-navy text-white py-20 text-center">
     <div class="max-w-2xl mx-auto px-6">
       <h1 class="font-serif text-4xl lg:text-5xl tracking-tight mb-4">Contact</h1>
-      <p class="text-blue-200 text-lg">Questions about 1-on-1 sessions or anything else.</p>
+      <p class="text-blue-200 text-lg">Reach out for any reason!</p>
     </div>
   </section>
-  <section class="py-16 bg-ivory">
-    <div class="max-w-2xl mx-auto px-6 text-center">
-      <p class="text-gray-500 text-lg mb-6">Contact form coming soon. For now, reach out directly via the Masterclass waitlist form.</p>
-      <a
-        href="https://forms.gle/5njHK2AFm8A3pTsb8"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block bg-cta text-white font-semibold px-8 py-3 rounded-full hover:bg-orange-700 transition-colors"
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <section class="py-16 lg:py-24 bg-ivory">
+    <div class="max-w-xl mx-auto px-6">
+      <form
+        id="contact-form"
+        action="https://formspree.io/f/mldrzyvr"
+        method="POST"
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10 flex flex-col gap-6"
       >
-        Get in Touch
-      </a>
+        <div class="flex flex-col gap-1.5">
+          <label for="name" class="text-sm font-semibold text-navy">Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            required
+            class="border border-gray-200 rounded-lg px-4 py-3 text-base text-navy placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-marigold focus:border-transparent"
+          />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="email" class="text-sm font-semibold text-navy">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="_replyto"
+            placeholder="your@email.com"
+            required
+            class="border border-gray-200 rounded-lg px-4 py-3 text-base text-navy placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-marigold focus:border-transparent"
+          />
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="message" class="text-sm font-semibold text-navy">Message</label>
+          <textarea
+            id="message"
+            name="text"
+            rows="6"
+            placeholder="What would you like to know?"
+            required
+            class="border border-gray-200 rounded-lg px-4 py-3 text-base text-navy placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-marigold focus:border-transparent resize-none"
+          ></textarea>
+        </div>
+        <div class="flex justify-center">
+          <div class="g-recaptcha" data-sitekey="6LchSQ8qAAAAANqEbVSmEj5nkSd3oOO-4kb-lHMp"></div>
+        </div>
+        <div id="form-error" class="hidden text-red-600 text-sm">
+          Something went wrong. Please try again or email directly.
+        </div>
+        <button
+          id="submit-btn"
+          type="submit"
+          class="bg-cta text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          Send Message
+        </button>
+      </form>
+
+      <div id="form-success" class="hidden bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10 text-center">
+        <p class="text-marigold text-4xl mb-4">✓</p>
+        <h2 class="font-serif text-2xl text-navy mb-2">Message sent!</h2>
+        <p class="text-gray-500">Thanks for reaching out — I'll get back to you soon.</p>
+      </div>
+
+      <script>
+        const form = document.getElementById('contact-form') as HTMLFormElement | null;
+        const success = document.getElementById('form-success');
+        const errorMsg = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+
+        form?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          errorMsg?.classList.add('hidden');
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+          try {
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { Accept: 'application/json' },
+            });
+
+            if (res.ok) {
+              form.classList.add('hidden');
+              success?.classList.remove('hidden');
+            } else {
+              throw new Error();
+            }
+          } catch {
+            errorMsg?.classList.remove('hidden');
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Send Message'; }
+          }
+        });
+      </script>
     </div>
   </section>
 </Layout>
