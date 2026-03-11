@@ -144,7 +144,7 @@ export const testimonials: Testimonial[] = [
     context: '1-on-1 Tutoring',
     scoreBefore: 630,
     scoreAfter: 730,
-    quote: "Eric is very clear when explaining math concepts and makes sure you understand the material before moving on. His lessons are so worth it, and his affordable rates make it accessible to everyone.",
+    quote: "Eric is very clear when explaining math concepts and makes sure you understand the material before moving on. His lessons are so worth it!",
     isMasterclass: false,
   },
   {
