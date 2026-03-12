@@ -24,6 +24,18 @@ const { title, description = 'SAT Math tutoring with Eric. 400+ students, 750+ a
     <style>
       html { font-size: 18px; }
     </style>
+    <style is:global>
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
   <body class="bg-ivory font-sans text-navy antialiased">
     <Nav />
@@ -31,5 +43,19 @@ const { title, description = 'SAT Math tutoring with Eric. 400+ students, 750+ a
       <slot />
     </main>
     <Footer />
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>
