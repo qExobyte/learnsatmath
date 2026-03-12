@@ -15,7 +15,7 @@ const chapters = [
   {
     num: 3,
     title: 'Quadratics',
-    topics: 'Quadratic Equations · Quadratic Functions · Polynomial Functions',
+    topics: 'Factoring · Quadratic Equations · Quadratic Functions · Polynomial Functions · Rational Functions',
   },
   {
     num: 4,
@@ -30,12 +30,12 @@ const chapters = [
   {
     num: 6,
     title: 'Overview of Every Topic',
-    topics: '',
+    topics: 'Know exactly what to know.',
   },
   {
     num: 7,
     title: '25 Challenging Problems',
-    topics: '',
+    topics: 'If you can solve these, you can get a 750+.',
   },
 ];
 
@@ -184,6 +184,15 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
           </li>
         ))}
       </ul>
+      <a
+        href={gumroadUrl}
+        data-gumroad-overlay-checkout="true"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-lg mt-10"
+      >
+        Buy Now
+      </a>
     </div>
   </section>
 
@@ -194,14 +203,16 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
         <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Inside the book</p>
         <h2 class="font-serif text-3xl text-navy tracking-tight">Table of contents</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="max-w-2xl mx-auto flex flex-col divide-y divide-gray-200 border border-gray-200 rounded-xl overflow-hidden">
         {chapters.map(ch => (
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Chapter {ch.num}</p>
-            <p class="font-serif text-lg text-navy font-bold leading-snug">{ch.title}</p>
-            {ch.topics && (
-              <p class="text-sm text-gray-400 mt-2 leading-relaxed">{ch.topics}</p>
-            )}
+          <div class="bg-white px-6 py-5 flex gap-6 items-baseline">
+            <span class="text-xs font-semibold uppercase tracking-widest text-gray-400 w-20 shrink-0">Ch. {ch.num}</span>
+            <div>
+              <p class="font-serif text-lg text-navy font-bold leading-snug">{ch.title}</p>
+              {ch.topics && (
+                <p class="text-sm text-gray-400 mt-1 leading-relaxed">{ch.topics}</p>
+              )}
+            </div>
           </div>
         ))}
       </div>
