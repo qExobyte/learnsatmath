@@ -13,11 +13,11 @@ function mc(context: string): boolean {
 
 export const testimonials: Testimonial[] = [
   {
-    name: 'Eli',
-    context: 'August 2025 Cohort',
-    scoreBefore: 680,
-    scoreAfter: 760,
-    quote: "Eric's masterclass is the best educational investment I have made to date. He knows what he's talking about and is there for you every step of the way.",
+    name: 'Parent of Will',
+    context: 'Asynchronous Cohort',
+    scoreBefore: 720,
+    scoreAfter: 800,
+    quote: "Just wanted to say thank you! Will scored a 1550 with an 800 on math both times! This boost is literally just from watching your asynchronous videos!",
     isMasterclass: true,
   },
   {
@@ -37,11 +37,35 @@ export const testimonials: Testimonial[] = [
     isMasterclass: true,
   },
   {
+    name: 'Wyatt',
+    context: 'December 2024 Cohort',
+    scoreBefore: 630,
+    scoreAfter: 790,
+    quote: "Taking Eric's December classes and doing no work outside of sessions improved my score by 160 points. If you're serious about improving your SAT score fast, it's a no-brainer.",
+    isMasterclass: true,
+  },
+  {
+    name: 'Eli',
+    context: 'August 2025 Cohort',
+    scoreBefore: 680,
+    scoreAfter: 760,
+    quote: "Eric's masterclass is the best educational investment I have made to date. He knows what he's talking about and is there for you every step of the way.",
+    isMasterclass: true,
+  },
+  {
     name: 'Illa',
     context: 'December 2025 Cohort',
     scoreBefore: 690,
     scoreAfter: 770,
     quote: "I was completely stuck and unsure how to improve my math score. Eric's group classes changed everything—he covered everything I encountered on test day, building real understanding instead of rote memorization.",
+    isMasterclass: true,
+  },
+  {
+    name: 'Parent of Nick',
+    context: 'August 2025 Cohort',
+    scoreBefore: 670,
+    scoreAfter: 750,
+    quote: "Thanks for designing an engaging and rigorous course and being a great teacher and role model for the kids!",
     isMasterclass: true,
   },
   {
@@ -53,8 +77,18 @@ export const testimonials: Testimonial[] = [
     isMasterclass: true,
   },
   {
+    name: 'Petra',
+    context: 'October 2025 Cohort (PSAT prep)',
+    scoreBefore: 580,
+    scoreAfter: 690,
+    quote: "I took your October Masterclass to study for the PSAT, not the SAT, but I improved greatly! I went from a 580 last year to a 690/760 this year!",
+    isMasterclass: true,
+  },
+  {
     name: 'Jack',
     context: 'March 2025 Cohort',
+    scoreBefore: 650,
+    scoreAfter: 750,
     quote: "I was initially worried that in a group setting I wouldn't receive enough direct teaching—I was wrong. Eric made sure to answer everyone's questions, and the pacing allowed us to learn everything thoroughly.",
     isMasterclass: true,
   },
@@ -67,25 +101,9 @@ export const testimonials: Testimonial[] = [
     isMasterclass: false,
   },
   {
-    name: 'Sam',
-    context: 'December 2024 Cohort',
-    scoreBefore: 650,
-    scoreAfter: 770,
-    quote: "While I typically don't like studying math, I genuinely enjoyed each session. His materials were well-thought-out and personalized, and I encountered several concepts we covered together on the actual SAT.",
-    isMasterclass: true,
-  },
-  {
     name: 'Aster',
     context: 'March 2025 Cohort',
     quote: "Eric's group classes were engaging, well-structured, and filled with helpful strategies that made even the toughest problems feel manageable. His practice problems and test-taking tips helped me gain confidence.",
-    isMasterclass: true,
-  },
-  {
-    name: 'Wyatt',
-    context: 'December 2024 Cohort',
-    scoreBefore: 630,
-    scoreAfter: 740,
-    quote: "Taking Eric's December classes and doing no work outside of sessions improved my score by 100 points. If you're serious about improving your SAT score fast, it's a no-brainer.",
     isMasterclass: true,
   },
   {
@@ -174,5 +192,13 @@ export const testimonials: Testimonial[] = [
     scoreAfter: 760,
     quote: "I was struggling and feeling discouraged, but Eric's patient approach helped me gain confidence. With his guidance, I was able to achieve my goal of 750+.",
     isMasterclass: false,
+  },
+  {
+    name: 'Sam',
+    context: 'December 2024 Cohort',
+    scoreBefore: 650,
+    scoreAfter: 770,
+    quote: "While I typically don't like studying math, I genuinely enjoyed each session. His materials were well-thought-out and personalized, and I encountered several concepts we covered together on the actual SAT.",
+    isMasterclass: true,
   },
 ];

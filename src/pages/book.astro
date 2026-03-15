@@ -173,26 +173,40 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
 
   <!-- What's included -->
   <section class="py-16 lg:py-24 bg-white">
-    <div class="max-w-2xl mx-auto px-6 lg:px-8 text-center">
-      <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Everything included</p>
-      <h2 class="font-serif text-3xl text-navy tracking-tight mb-10">What you get</h2>
-      <ul class="space-y-3 text-left mx-auto w-fit">
-        {included.map(f => (
-          <li class="flex items-start gap-3 text-base text-gray-700">
-            <span class="text-marigold font-bold mt-0.5">✓</span>
-            {f}
-          </li>
-        ))}
-      </ul>
-      <a
-        href={gumroadUrl}
-        data-gumroad-overlay-checkout="true"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-lg mt-10"
-      >
-        Buy Now
-      </a>
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-12 items-start">
+        <div>
+          <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Everything included</p>
+          <h2 class="font-serif text-3xl text-navy tracking-tight mb-6">What you get</h2>
+          <ul class="space-y-3">
+            {included.map(f => (
+              <li class="flex items-start gap-3 text-base text-gray-700">
+                <span class="text-marigold font-bold mt-0.5">✓</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={gumroadUrl}
+            data-gumroad-overlay-checkout="true"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-lg mt-8"
+          >
+            Buy Now
+          </a>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <video
+            src="/ground_up_sizzle.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="w-full rounded-2xl shadow-lg"
+          ></video>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -203,16 +217,14 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
         <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Inside the book</p>
         <h2 class="font-serif text-3xl text-navy tracking-tight">Table of contents</h2>
       </div>
-      <div class="max-w-2xl mx-auto flex flex-col divide-y divide-gray-200 border border-gray-200 rounded-xl overflow-hidden">
+      <div class="max-w-xl mx-auto relative pl-6 border-l-2 border-navy flex flex-col gap-8">
         {chapters.map(ch => (
-          <div class="bg-white px-6 py-5 flex gap-6 items-baseline">
-            <span class="text-xs font-semibold uppercase tracking-widest text-gray-400 w-20 shrink-0">Ch. {ch.num}</span>
-            <div>
-              <p class="font-serif text-lg text-navy font-bold leading-snug">{ch.title}</p>
-              {ch.topics && (
-                <p class="text-sm text-gray-400 mt-1 leading-relaxed">{ch.topics}</p>
-              )}
-            </div>
+          <div class="relative">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Ch. {ch.num}</p>
+            <p class="font-serif text-lg text-navy font-bold leading-snug">{ch.title}</p>
+            {ch.topics && (
+              <p class="text-sm text-gray-400 mt-1 leading-relaxed">{ch.topics}</p>
+            )}
           </div>
         ))}
       </div>
