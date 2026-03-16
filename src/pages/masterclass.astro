@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
 import MasterclassIncluded from '../components/MasterclassIncluded.astro';
+import MasterclassSchedule from '../components/MasterclassSchedule.astro';
+import MasterclassRhythm from '../components/MasterclassRhythm.astro';
 
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
@@ -89,6 +91,12 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
       </div>
     </div>
   </section>
+
+  <!-- Weekly Rhythm -->
+  <MasterclassRhythm />
+
+  <!-- Schedule -->
+  <MasterclassSchedule enrollHref={enrollHref} enrollLabel={enrollLabel} />
 
   <!-- Testimonials (Masterclass only) -->
   <section class="py-16 lg:py-24 bg-ivory">
