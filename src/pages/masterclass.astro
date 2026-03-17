@@ -10,6 +10,7 @@ import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 // Set IS_FULL to false when a new cohort opens enrollment.
 const IS_FULL = false;
 const STRIPE_URL = 'https://buy.stripe.com/3cI14g4r44AH8OQb226wE12';
+const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
 
 const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
@@ -171,7 +172,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </li>
           </ul>
           <a
-            href={STRIPE_URL}
+            href={SELF_PACED_URL}
             target="_blank"
             rel="noopener noreferrer"
             class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"

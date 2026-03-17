@@ -1,17 +1,184 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { resources } from '../data/resources';
 ---
 
-<Layout title="Resources" description="Free SAT Math resources from Eric — videos, lessons, and practice material.">
-  <section class="bg-navy text-white py-14 text-center">
+<Layout title="Resources" description="Free SAT Math resources from Eric — PDFs and practice material to accompany each video.">
+
+  <!-- Hero -->
+  <section class="bg-ink-mid text-chalk py-14 text-center">
     <div class="max-w-2xl mx-auto px-6">
-      <h1 class="font-serif text-4xl lg:text-5xl tracking-tight mb-4">Resources</h1>
-      <p class="text-blue-200 text-lg">Free stuff!</p>
+      <h1 class="font-sans text-5xl lg:text-6xl font-black tracking-tight mb-4">Resources</h1>
+      <p class="text-chalk/70 font-semibold text-lg"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">Free</span> PDFs to go along with each video.</p>
     </div>
   </section>
-  <section class="py-16 bg-ivory">
-    <div class="max-w-2xl mx-auto px-6 text-center">
-      <p class="text-gray-500 text-lg">Coming soon.</p>
+
+  <!-- Accordion list -->
+  <section class="py-16 lg:py-24 bg-chalk">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 flex flex-col gap-4">
+      {resources.map((r) => (
+        <div class="resource-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+
+          <!-- Header row -->
+          <button class="resource-trigger w-full flex items-center gap-4 px-6 py-4 text-left">
+            <img
+              src={`https://img.youtube.com/vi/${r.youtubeId}/hqdefault.jpg`}
+              alt={r.title}
+              class="w-20 h-14 object-cover rounded-lg border-2 border-ink flex-shrink-0"
+            />
+            <div class="flex-1 min-w-0">
+              <p class="font-sans font-extrabold text-lg text-ink leading-snug">{r.title}</p>
+              <p class="text-ink/60 font-semibold text-sm mt-0.5 truncate">{r.description}</p>
+            </div>
+            <svg
+              class="resource-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path fill-rule="evenodd" d="M7.293 4.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L10.586 9 7.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <!-- Expandable body -->
+          <div class="resource-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 border-t-2 border-ink">
+
+              <!-- YouTube embed (src set lazily by JS) -->
+              <div class="aspect-video border-2 border-ink rounded-xl overflow-hidden">
+                <iframe
+                  data-src={`https://www.youtube.com/embed/${r.youtubeId}`}
+                  title={r.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  class="w-full h-full"
+                ></iframe>
+              </div>
+
+              <!-- Resource card -->
+              <div class="bg-chalk border-2 border-ink rounded-xl p-5 flex flex-col">
+                <img
+                  src={r.previewImage}
+                  alt={r.resourceName}
+                  class="w-full rounded-lg border-2 border-ink mb-4 object-cover"
+                />
+                <p class="font-sans font-extrabold text-lg text-ink mb-1">{r.resourceName}</p>
+                <p class="text-ink/60 font-semibold text-sm leading-relaxed mb-5 flex-1">{r.resourceDescription}</p>
+                <button
+                  class="download-trigger bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-center"
+                  data-resource-file={r.resourceFile}
+                >
+                  Download PDF
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
+
+  <!-- Shared download modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-ink/60 flex items-center justify-center z-50 px-4">
+    <div class="bg-white border-2 border-ink rounded-2xl shadow-offset-md p-8 max-w-md w-full relative">
+      <button id="close-modal" class="absolute top-4 right-5 text-ink/40 hover:text-ink text-2xl font-black leading-none">&times;</button>
+      <h2 class="font-sans font-extrabold text-xl text-ink mb-5">Enter your email to download</h2>
+      <div class="flex flex-col gap-4">
+        <input
+          id="email-input"
+          type="email"
+          placeholder="your@email.com"
+          class="border-2 border-ink rounded-xl px-4 py-3 text-base text-ink placeholder-ink/40 focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral w-full"
+        />
+        <div class="flex items-start gap-3">
+          <input id="consent-checkbox" type="checkbox" class="mt-1 w-4 h-4 accent-coral flex-shrink-0" />
+          <label for="consent-checkbox" class="text-sm text-ink/70 font-semibold leading-snug">
+            I agree to receive promotional and instructional emails from LearnSATMath.
+          </label>
+        </div>
+        <p id="modal-error" class="hidden text-red-600 text-sm font-semibold">Please enter a valid email and check the box above.</p>
+        <button
+          id="submit-download"
+          class="bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+        >
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
 </Layout>
+
+<script>
+  // ── Accordion ──────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.resource-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.resource-item') as HTMLElement;
+      const body = item.querySelector<HTMLElement>('.resource-body')!;
+      const arrow = item.querySelector<HTMLElement>('.resource-arrow')!;
+      const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+      // Close all items
+      document.querySelectorAll<HTMLElement>('.resource-body').forEach(b => { b.style.maxHeight = '0px'; });
+      document.querySelectorAll<HTMLElement>('.resource-arrow').forEach(a => { a.style.transform = ''; });
+      document.querySelectorAll<HTMLIFrameElement>('.resource-body iframe').forEach(f => { f.src = ''; });
+
+      if (!isOpen) {
+        const iframe = body.querySelector<HTMLIFrameElement>('iframe');
+        if (iframe?.dataset.src) iframe.src = iframe.dataset.src;
+        body.style.maxHeight = body.scrollHeight + 'px';
+        arrow.style.transform = 'rotate(90deg)';
+      }
+    });
+  });
+
+  // ── Download modal ─────────────────────────────────────────
+  const modal = document.getElementById('modal')!;
+  const closeBtn = document.getElementById('close-modal')!;
+  const emailInput = document.getElementById('email-input') as HTMLInputElement;
+  const checkbox = document.getElementById('consent-checkbox') as HTMLInputElement;
+  const errorMsg = document.getElementById('modal-error')!;
+  const submitBtn = document.getElementById('submit-download')!;
+  let activeFile = '';
+
+  document.querySelectorAll<HTMLButtonElement>('.download-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeFile = btn.dataset.resourceFile ?? '';
+      emailInput.value = '';
+      checkbox.checked = false;
+      errorMsg.classList.add('hidden');
+      modal.classList.remove('hidden');
+    });
+  });
+
+  closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+
+  const isValidEmail = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+  submitBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    if (!isValidEmail(email) || !checkbox.checked) {
+      errorMsg.classList.remove('hidden');
+      return;
+    }
+    errorMsg.classList.add('hidden');
+
+    // Capture email (fire and forget)
+    fetch('https://formspree.io/f/xpwrbzzn', {
+      method: 'POST',
+      body: JSON.stringify({ email, resource: activeFile }),
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    }).catch(() => {});
+
+    // Trigger download
+    const a = document.createElement('a');
+    a.href = '/' + activeFile;
+    a.download = activeFile;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    modal.classList.add('hidden');
+  });
+</script>
