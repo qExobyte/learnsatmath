@@ -13,14 +13,6 @@ function mc(context: string): boolean {
 
 export const testimonials: Testimonial[] = [
   {
-    name: 'Parent of Will',
-    context: 'Asynchronous Cohort',
-    scoreBefore: 720,
-    scoreAfter: 800,
-    quote: "Just wanted to say thank you! Will scored a 1550 with an 800 on math both times! This boost is literally just from watching your asynchronous videos!",
-    isMasterclass: true,
-  },
-  {
     name: 'Octavia',
     context: 'August 2025 Cohort',
     scoreBefore: 690,
@@ -192,6 +184,14 @@ export const testimonials: Testimonial[] = [
     scoreAfter: 760,
     quote: "I was struggling and feeling discouraged, but Eric's patient approach helped me gain confidence. With his guidance, I was able to achieve my goal of 750+.",
     isMasterclass: false,
+  },
+  {
+    name: 'Parent of Will',
+    context: 'Self-Paced Masterclass',
+    scoreBefore: 720,
+    scoreAfter: 800,
+    quote: "Just wanted to say thank you! Will scored a 1550 with an 800 on math both times! This boost is literally just from watching your asynchronous videos!",
+    isMasterclass: true,
   },
   {
     name: 'Sam',

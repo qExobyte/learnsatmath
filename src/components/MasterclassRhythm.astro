@@ -4,41 +4,46 @@ const steps = [
     heading: 'Come to Live Sessions',
     description: '90-minute classes on Saturdays and Sundays, covering every topic on the test with interactive discussions.',
     emoji: '🗓️',
+    badge: '1',
+    badgeClass: 'bg-electric text-ink',
   },
   {
     heading: 'Practice on Your Own',
     description: 'Grind through practice problems and Desmos drills on OnePrep or PrepPros between sessions.',
     emoji: '✏️',
+    badge: '2',
+    badgeClass: 'bg-sky text-ink',
   },
   {
     heading: 'Get Personalized Support',
     description: 'Ask questions in the Discord or drop into office hours for real-time help when you get stuck.',
     emoji: '💬',
+    badge: '3',
+    badgeClass: 'bg-mint text-ink',
   },
   {
     heading: 'Level Up',
-    description: 'Take a full practice test and track your score progress week over week.',
+    description: 'Take a full practice test and track your score progress week over week. Earn prizes along the way.',
     emoji: '📈',
+    badge: '4',
+    badgeClass: 'bg-peach text-ink border-2 border-ink',
   },
 ];
 ---
 
-<section class="py-16 lg:py-24 bg-ivory">
+<section class="py-16 lg:py-24 bg-lavender">
   <div class="max-w-6xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-12">
-      <span class="inline-flex items-center gap-2 border-2 border-navy text-navy text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full mb-6">
-        ⏱️ The Weekly Rhythm
-      </span>
-      <h2 class="font-serif text-3xl lg:text-4xl text-navy tracking-tight">A look at each week</h2>
+      <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">A look at each week</h2>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {steps.map((step) => (
-        <div class="bg-white border-2 border-navy rounded-2xl px-6 py-7 flex flex-col items-center text-center gap-4">
+        <div class="bg-white border-2 border-ink rounded-2xl px-6 py-7 flex flex-col items-center text-center gap-4 shadow-offset-sm transition-transform duration-150 hover:-translate-y-1">
           <span class="text-4xl">{step.emoji}</span>
           <div>
-            <p class="font-serif text-navy font-bold text-lg leading-snug mb-2">{step.heading}</p>
-            <p class="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+            <p class="font-sans text-ink font-bold text-lg leading-snug mb-2">{step.heading}</p>
+            <p class="text-ink/60 text-sm leading-relaxed font-semibold">{step.description}</p>
           </div>
         </div>
       ))}

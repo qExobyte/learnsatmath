@@ -2,12 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
 
+const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring';
+
 const features = [
-  'Flexible on-demand scheduling',
-  'Personalized to your weaknesses',
-  'Master the Desmos calculator',
-  'SAT Math from the Ground Up book included',
-  'Setup a structured plan for your prep',
+  { icon: '📅', title: 'Flexible scheduling', body: 'Book on-demand whenever you need a session. No rigid weekly commitment.' },
+  { icon: '🎯', title: 'Fully personalized', body: 'Every session is built around your weaknesses. No generic curriculum.' },
+  { icon: '🧮', title: 'Desmos mastery', body: 'Learn to use the Desmos calculator as much as possible.' },
+  { icon: '📖', title: 'Book included', body: 'Every student gets a free copy of SAT Math from the Ground Up to reinforce sessions.' },
+  { icon: '🗺️', title: 'Structured plan', body: 'We close every session with a clear roadmap of what to tackle before we meet again.' },
 ];
 ---
 
@@ -17,77 +19,94 @@ const features = [
 >
 
   <!-- Hero -->
-  <section class="bg-navy text-white py-14 lg:py-20">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-      <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-4">PERSONALIZED INSTRUCTION</p>
-      <h1 class="font-serif text-4xl lg:text-6xl tracking-tight mb-5">1-on-1 Tutoring</h1>
-      <p class="text-blue-100 text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-        Personalized instruction focused entirely on you — your weaknesses, your pace, your goals.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-        <span class="font-serif text-4xl font-bold text-white">$285</span>
-        <span class="text-blue-300 text-lg">per hour</span>
-      </div>
-      <a
-        href="#book"
-        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-lg"
-      >
-        Book a Session
-      </a>
-    </div>
-  </section>
-
-  <!-- What's included -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-ink-mid text-white py-14 lg:py-24">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-12 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-[11fr_9fr] gap-12 items-center">
+
+        <!-- Left: text -->
         <div>
-          <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">What's included</p>
-          <h2 class="font-serif text-3xl text-navy tracking-tight mb-6">What you get</h2>
-          <ul class="space-y-3">
-            {features.map(f => (
-              <li class="flex items-start gap-2 text-base text-gray-700">
-                <span class="text-marigold font-bold mt-0.5">✓</span>
-                {f}
-              </li>
-            ))}
-          </ul>
+          <h1 class="font-sans font-black text-5xl lg:text-7xl tracking-tight mb-3">1-on-1 Tutoring</h1>
+          <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
+            Focused entirely on <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">you</span>
+          </p>
+          <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-6">
+            Personalized instruction around your weaknesses, your pace, and your goals — one session at a time.
+          </p>
+          <a
+            href="#book"
+            class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+          >
+            Book a Session
+          </a>
         </div>
-        <div class="flex flex-col items-center gap-3">
+
+        <!-- Right: video -->
+        <div>
           <video
             src="/tutoring_sizzle.mp4"
             autoplay
             loop
             muted
             playsinline
-            class="w-full rounded-2xl shadow-lg"
+            class="w-full rounded-2xl border-2 border-ink shadow-offset-md"
           ></video>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="py-16 lg:py-24 bg-peach">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">What you get</h2>
+      </div>
+      <div class="flex flex-col items-center gap-5">
+        <div class="flex flex-wrap justify-center gap-5">
+          {features.slice(0, 2).map(({ icon, title, body }) => (
+            <div class="w-full sm:w-80 bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-6 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-200">
+              <span class="text-3xl">{icon}</span>
+              <h3 class="font-sans font-bold text-lg text-ink">{title}</h3>
+              <p class="text-ink/70 font-semibold leading-relaxed text-sm">{body}</p>
+            </div>
+          ))}
+        </div>
+        <div class="flex flex-wrap justify-center gap-5">
+          {features.slice(2).map(({ icon, title, body }) => (
+            <div class="w-full sm:w-72 bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-6 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-200">
+              <span class="text-3xl">{icon}</span>
+              <h3 class="font-sans font-bold text-lg text-ink">{title}</h3>
+              <p class="text-ink/70 font-semibold leading-relaxed text-sm">{body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials -->
-  <section class="py-16 lg:py-24 bg-ivory">
+  <section class="py-16 lg:py-24 bg-sky">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">From tutoring students</h2>
-        <p class="text-gray-500">Real results from 1-on-1 sessions.</p>
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">From tutoring students</h2>
       </div>
       <Testimonials filter="other" />
     </div>
   </section>
 
-  <!-- Calendly embed -->
-  <section id="book" class="py-16 lg:py-20 bg-white">
+  <!-- Calendly booking -->
+  <section id="book" class="py-16 lg:py-24 bg-chalk">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">Book a session</h2>
-        <p class="text-gray-500">Pick a time that works for you.</p>
+      <div class="text-center mb-10">
+
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">Book a session</h2>
+        <p class="text-ink/60 font-semibold">Only book what you need! No massive packages.</p>
       </div>
       <div
         class="calendly-inline-widget"
-        data-url="https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring"
+        data-url={CALENDLY_URL}
         style="min-width:320px;height:700px;width:100%;"
       ></div>
       <script is:inline type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -95,99 +114,163 @@ const features = [
   </section>
 
   <!-- FAQ -->
-  <section class="py-16 lg:py-24 bg-ivory">
+  <section class="py-16 lg:py-24 bg-mint">
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">FAQ</p>
-        <h2 class="font-serif text-3xl text-navy tracking-tight">Common questions</h2>
+      <div class="text-center mb-10">
+
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">Common questions</h2>
       </div>
       <div class="space-y-3" id="faq-list">
-        {[
-          {
-            q: "Should I get 1-on-1 tutoring or join the Masterclass?",
-            a: [
-              "If you're scoring under a 630, then 1-on-1 sessions. You should always prioritize the easiest problems that you're missing, and the group classes will focus on the SAT math's hardest problems.",
-              "If you're scoring above a 630, then I'd recommend the Masterclass, with 1-on-1 sessions as a supplement if needed. Think of the Masterclass as teaching you the content of the test and 1-on-1 sessions as \"office hours\" for the topics and problems that you just can't wrap your head around. Not to mention, group classes cost much less!",
-            ],
-          },
-          {
-            q: "What makes your tutoring better than test prep companies?",
-            a: [
-              "A simple google search for \"princeton review tutor salaries\" or \"kaplan tutor salaries\" shows that they pay their tutors around $20-$40/hr, despite charging $250/hr+ for their tutoring. You're not paying for the tutor, you're paying for the brand.",
-              "Furthermore, their exorbitant bundles (up to $10,000!) prioritize quantity over quality. They advertise hundreds of unengaging videos and thousands of problems (which are increasingly AI-generated or outsourced), but students only have so much time.",
-              "My tutoring is focused on efficiency and outcomes. At any point in our prep, we focus all attention on the topic that yields the highest return in the lowest amount of time.",
-            ],
-          },
-          {
-            q: "What materials should I use?",
-            a: [
-              "Getting a representative score → Bluebook.",
-              "Learning & reinforcing concepts → SAT Math from the Ground Up.",
-              "Practice problems → OnePrep or PrepPros.",
-            ],
-          },
-          {
-            q: "How much will my score improve with x hours of tutoring?",
-            a: [
-              "At the end of the day, there's no golden ticket where you can pay a certain amount of money for a certain SAT score. Almost every test prep company that advertises score guarantees has caveats in the fineprint (i.e. \"must complete all 500 hours of material\").",
-              "Instead, I prefer to let the results of students speak for themselves. Most Masterclass students score over a 750, and many of my 1-on-1 students improve 150+ points or surpass their personal goals.",
-              "But this progress inevitably takes time and effort. I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.",
-            ],
-          },
-          {
-            q: "Do you assign homework? How much?",
-            a: [
-                "Sessions are fully personalized, so there's no rigid curriculum to follow. Instead, I meet each student where they are and we close every session with a clear sense of which areas to prioritize before we meet again.",
-                "I recommend spending at least 2 hours on practice problems between sessions. This keeps our time together focused entirely on your weaknesses and questions, which is where the real gains happen."
-              ],
-          },
-          {
-            q: "What if I want to cancel a session?",
-            a: "Sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. Otherwise, the full session price is charged.",
-          },
-          {
-            q: "Do you tutor [blank] as well?",
-            a: "Nope! I've specialized so that I can become the best SAT math tutor online.",
-          },
-        ].map(({ q, a }) => (
-          <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <button class="faq-trigger flex items-center gap-3 w-full px-8 py-5 text-left font-semibold text-navy text-base hover:bg-gray-50 transition-colors">
-              <svg class="faq-icon shrink-0 w-5 h-5 text-marigold transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-              </svg>
-              {q}
-            </button>
-            <div class="faq-body overflow-hidden" style="max-height: 0; transition: max-height 0.3s ease;">
-              <hr class="border-gray-200 mx-8" />
-              {(Array.isArray(a) ? a : [a]).map((para) => (
-                <p class="px-10 pt-7 last:pb-8 text-gray-600 text-base leading-relaxed">{para}</p>
-              ))}
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Should I get 1-on-1 tutoring or join the Masterclass?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>If you're scoring under a 630, start with 1-on-1 sessions. You should always prioritize the easiest problems you're missing, and the group classes focus on SAT math's hardest problems.</p>
+              <p>If you're above a 630, I'd recommend the Masterclass — with 1-on-1 sessions as a supplement if needed. Think of the Masterclass as teaching you the content of the test, and 1-on-1 sessions as "office hours" for topics you just can't wrap your head around. Plus, group classes cost much less!</p>
             </div>
           </div>
-        ))}
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What makes your tutoring better than test prep companies?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>A simple Google search for "Princeton Review tutor salaries" shows they pay tutors $20–$40/hr while charging $250/hr+. You're paying for the brand, not the tutor.</p>
+              <p>Their bundles (up to $10,000!) prioritize quantity over quality — hundreds of unengaging videos and thousands of problems, many AI-generated. But students only have so much time.</p>
+              <p>My tutoring is focused on efficiency and outcomes. At any point in our prep, we focus entirely on the topic that yields the highest return in the lowest amount of time.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What materials should I use?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p><strong>Getting a representative score</strong> → Bluebook.</p>
+              <p><strong>Learning &amp; reinforcing concepts</strong> → SAT Math from the Ground Up.</p>
+              <p><strong>Practice problems</strong> → OnePrep or PrepPros.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">How much will my score improve with tutoring?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>There's no golden ticket where you can pay a certain amount for a certain SAT score. Almost every test prep company with score guarantees has caveats in the fineprint.</p>
+              <p>Instead, I let the results of my students speak for themselves. Most Masterclass students score over 750, and many of my 1-on-1 students improve 150+ points or surpass their personal goals.</p>
+              <p>But this progress takes time and effort. I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Do you assign homework? How much?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>Sessions are fully personalized, so there's no rigid curriculum. Instead, I meet each student where they are and we close every session with a clear sense of which areas to prioritize before we meet again.</p>
+              <p>I recommend spending at least 2 hours on practice problems between sessions. This keeps our time together focused entirely on your weaknesses and questions — where the real gains happen.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What if I need to cancel a session?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. Otherwise, the full session price is charged.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Do you tutor other subjects too?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Nope! I've specialized so that I can become the best SAT math tutor online.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <script is:inline>
-    document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
-      trigger.addEventListener('click', function() {
-        var item = trigger.closest('.faq-item');
-        var body = item.querySelector('.faq-body');
-        var icon = item.querySelector('.faq-icon');
-        var isOpen = item.dataset.open === 'true';
-
-        if (isOpen) {
-          body.style.maxHeight = '0';
-          icon.style.transform = 'rotate(0deg)';
-          item.dataset.open = 'false';
-        } else {
-          body.style.maxHeight = body.scrollHeight + 'px';
-          icon.style.transform = 'rotate(180deg)';
-          item.dataset.open = 'true';
-        }
-      });
-    });
-  </script>
+  <!-- Bottom CTA -->
+  <section class="py-16 lg:py-20 bg-ink-mid text-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+      <h2 class="font-sans font-black text-3xl lg:text-5xl tracking-tight mb-4">Ready to start?</h2>
+      <p class="text-chalk/70 font-semibold text-lg mb-8">Pick a time that works and let's get to work on your score.</p>
+      <a
+        href="#book"
+        class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+      >
+        Book a Session
+      </a>
+    </div>
+  </section>
 
 </Layout>
+
+<script>
+  document.querySelectorAll('.book-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const el = document.getElementById('book');
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
+        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      }
+    });
+  });
+
+  document.querySelectorAll('.faq-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item') as HTMLElement;
+      const body = item?.querySelector('.faq-body') as HTMLElement;
+      const arrow = trigger.querySelector('.faq-arrow') as HTMLElement;
+      const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+      if (isOpen) {
+        body.style.maxHeight = '0px';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>

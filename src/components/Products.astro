@@ -43,52 +43,52 @@ const oneOnOne = {
 };
 ---
 
-<section id="pricing" class="py-20 lg:py-28 bg-ivory reveal">
+<section id="pricing" class="py-20 lg:py-28 bg-peach reveal">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-14">
-      <h2 class="font-serif text-3xl lg:text-4xl text-navy tracking-tight mb-3">Choose your path to an 800</h2>
+      <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-3">Choose your path to an 800</h2>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 lg:items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:items-stretch">
 
       <!-- Book -->
-      <div class="bg-white rounded-2xl lg:rounded-r-none border border-gray-200 p-8 flex flex-col">
+      <div class="bg-white rounded-2xl border-2 border-ink shadow-offset-md p-8 flex flex-col hover:-translate-y-1 transition-transform duration-200">
         <div class="mb-6">
-          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{book.tagline}</p>
-          <h3 class="font-serif text-xl text-navy font-bold mb-4">{book.name}</h3>
+          <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">{book.tagline}</p>
+          <h3 class="font-sans text-xl text-ink font-bold mb-4">{book.name}</h3>
           <div class="flex items-baseline gap-1">
-            <span class="font-serif text-4xl font-bold text-navy">{book.price}</span>
+            <span class="font-sans text-4xl font-black text-ink">{book.price}</span>
           </div>
         </div>
         <ul class="flex-1 space-y-3 mb-8">
           {book.features.map(f => (
-            <li class="flex items-start gap-2 text-base text-gray-600">
-              <span class="text-marigold font-bold mt-0.5">✓</span>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
               {f}
             </li>
           ))}
         </ul>
         <a
           href={book.href}
-          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded-full hover:bg-navy hover:text-white transition-colors"
+          class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
           {book.cta}
         </a>
       </div>
 
       <!-- Masterclass (featured) -->
-      <div class="bg-navy rounded-2xl border-2 border-marigold p-8 flex flex-col lg:-my-4 shadow-2xl relative z-10">
+      <div class="bg-ink-mid rounded-2xl border-2 border-coral p-8 flex flex-col lg:-my-4 shadow-[5px_5px_0_0_#FF5533] relative z-10 hover:-translate-y-1 transition-transform duration-200">
         <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-          <span class="bg-marigold text-navy text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">
+          <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink">
             {masterclass.badge}
           </span>
         </div>
         <div class="mb-6 mt-4">
-          <p class="text-xs font-semibold uppercase tracking-widest text-blue-300 mb-2">{masterclass.tagline}</p>
-          <h3 class="font-serif text-2xl text-white font-bold mb-4">{masterclass.name}</h3>
+          <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">{masterclass.tagline}</p>
+          <h3 class="font-sans text-2xl text-chalk font-bold mb-4">{masterclass.name}</h3>
           <div class="flex items-baseline gap-2">
-            <span class="font-serif text-4xl font-bold text-white">{masterclass.price}</span>
-            <span class="text-blue-300 text-sm">{masterclass.priceNote}</span>
+            <span class="font-sans text-4xl font-black text-chalk">{masterclass.price}</span>
+            <span class="text-chalk/60 text-sm">{masterclass.priceNote}</span>
           </div>
         </div>
         <div class="flex-1 mb-8">
@@ -96,33 +96,33 @@ const oneOnOne = {
         </div>
         <a
           href={masterclass.href}
-          class="block text-center bg-cta text-white font-semibold py-3 rounded-full hover:bg-orange-700 transition-colors"
+          class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk hover:opacity-90 transition-opacity"
         >
           {masterclass.cta}
         </a>
       </div>
 
       <!-- 1-on-1 -->
-      <div class="bg-white rounded-2xl lg:rounded-l-none border border-gray-200 p-8 flex flex-col">
+      <div class="bg-white rounded-2xl border-2 border-ink shadow-offset-md p-8 flex flex-col hover:-translate-y-1 transition-transform duration-200">
         <div class="mb-6">
-          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{oneOnOne.tagline}</p>
-          <h3 class="font-serif text-xl text-navy font-bold mb-4">{oneOnOne.name}</h3>
+          <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">{oneOnOne.tagline}</p>
+          <h3 class="font-sans text-xl text-ink font-bold mb-4">{oneOnOne.name}</h3>
           <div class="flex items-baseline gap-2">
-            <span class="font-serif text-4xl font-bold text-navy">{oneOnOne.price}</span>
-            <span class="text-gray-400 text-sm">{oneOnOne.priceNote}</span>
+            <span class="font-sans text-4xl font-black text-ink">{oneOnOne.price}</span>
+            <span class="text-ink/50 text-sm">{oneOnOne.priceNote}</span>
           </div>
         </div>
         <ul class="flex-1 space-y-3 mb-8">
           {oneOnOne.features.map(f => (
-            <li class="flex items-start gap-2 text-base text-gray-600">
-              <span class="text-marigold font-bold mt-0.5">✓</span>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
               {f}
             </li>
           ))}
         </ul>
         <a
           href={oneOnOne.href}
-          class="block text-center border-2 border-navy text-navy font-semibold py-3 rounded-full hover:bg-navy hover:text-white transition-colors"
+          class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
           {oneOnOne.cta}
         </a>

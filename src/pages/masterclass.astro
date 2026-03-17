@@ -1,18 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
-import MasterclassIncluded from '../components/MasterclassIncluded.astro';
 import MasterclassSchedule from '../components/MasterclassSchedule.astro';
 import MasterclassRhythm from '../components/MasterclassRhythm.astro';
+import MasterclassIncluded from '../components/MasterclassIncluded.astro';
+import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
-const IS_FULL = true;
+const IS_FULL = false;
 const STRIPE_URL = 'https://buy.stripe.com/3cI14g4r44AH8OQb226wE12';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
 
 const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
-const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
+const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 // -------------------------
 
 ---
@@ -23,64 +24,78 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
 >
 
   <!-- Hero -->
-  <section class="bg-navy text-white py-14 lg:py-20">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-      {IS_FULL && (
-        <span class="inline-block bg-marigold text-navy text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-          Currently Full — Join the Waitlist
-        </span>
-      )}
-      {!IS_FULL && (
-        <span class="inline-block bg-cta text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-          Enrollment Open
-        </span>
-      )}
-      <h1 class="font-serif text-4xl lg:text-6xl tracking-tight mb-5">The Masterclass</h1>
-      <p class="text-blue-100 text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-        An intensive 5-week program of <i>live</i> small-group classes, covering only the <i>hardest</i> topics, to get you to a 750 or higher.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
-        <span class="font-serif text-4xl font-bold text-white">$895</span>
-        <span class="text-blue-300 text-lg">total &mdash; $49 per hour</span>
-      </div>
-      <a
-        href={enrollHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-base"
-      >
-        {enrollLabel}
-      </a>
-    </div>
-  </section>
-
-  <!-- What's included -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-ink-mid text-white py-14 lg:py-24">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-12 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-[11fr_9fr] gap-12 items-center">
+
+        <!-- Left: text -->
         <div>
-          <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">Everything included</p>
-          <h2 class="font-serif text-3xl text-navy tracking-tight mb-6">What you get</h2>
-          <MasterclassIncluded />
+          {IS_FULL && (
+            <span class="inline-block bg-electric text-ink border-2 border-ink text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-6">
+              Currently Full — Join the Waitlist
+            </span>
+          )}
+          {!IS_FULL && (
+            <span class="inline-block bg-white text-ink border-2 border-ink text-sm font-black px-6 py-3 rounded-full mb-6 shadow-offset-sm">
+              🟢 Enrollment OPEN · Limited spots available
+            </span>
+          )}
+          <h1 class="font-sans font-black text-5xl lg:text-7xl tracking-tight mb-3">The Masterclass</h1>
+          <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
+            Score a 750+ in just <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">5 weeks</span>
+          </p>
+          <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-8">
+            An intensive 5-week program of <em>live</em> small-group classes, covering only the <em>hardest</em> topics, to get you to a 750 or higher.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            {IS_FULL ? (
+              <a
+                href={WAITLIST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+              >
+                {enrollLabel}
+              </a>
+            ) : (
+              <a
+                href="#pricing"
+                id="hero-enroll-btn"
+                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+              >
+                {enrollLabel}
+              </a>
+            )}
+            <a
+              href="#masterclass-video"
+              id="learn-more-btn"
+              class="inline-block bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+            >
+              Learn More
+            </a>
+          </div>
         </div>
-        <div class="flex flex-col items-center gap-3">
+
+        <!-- Right: video -->
+        <div>
           <video
             src="/masterclass_clips.mp4"
             autoplay
             loop
             muted
             playsinline
-            class="w-full rounded-2xl shadow-lg"
+            class="w-full rounded-2xl border-2 border-ink shadow-offset-md"
           ></video>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- Video -->
-  <section class="py-16 lg:py-20 bg-white">
+  <section id="masterclass-video" class="py-16 lg:py-20 bg-chalk">
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
-      <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg">
+      <div class="aspect-video w-full rounded-2xl overflow-hidden border-2 border-ink shadow-offset-md">
         <iframe
           src="https://www.youtube.com/embed/yNRrx2AQUwA"
           title="Masterclass overview"
@@ -92,43 +107,430 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now — $895';
     </div>
   </section>
 
+  <!-- Testimonials (Masterclass only) -->
+  <section class="py-16 lg:py-24 bg-mint">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">From Masterclass students</h2>
+      </div>
+      <Testimonials filter="masterclass" />
+    </div>
+  </section>
+
+  <!-- vs. The Rest -->
+  <MasterclassVsRest />
+
   <!-- Weekly Rhythm -->
   <MasterclassRhythm />
 
   <!-- Schedule -->
   <MasterclassSchedule enrollHref={enrollHref} enrollLabel={enrollLabel} />
 
-  <!-- Testimonials (Masterclass only) -->
-  <section class="py-16 lg:py-24 bg-ivory">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">From Masterclass students</h2>
-        <p class="text-gray-500">Hear from students who have gone through the Masterclass.</p>
+  <!-- Pricing cards -->
+  <section id="pricing" class="py-16 lg:py-24 bg-peach">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- Self-Paced Card -->
+        <div class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
+          <div class="mb-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Just the recordings</p>
+            <h3 class="font-sans text-2xl text-ink font-bold mb-4">Self-Paced Masterclass</h3>
+            <div class="flex items-baseline gap-2">
+              <span class="font-sans text-4xl font-black text-ink">$395</span>
+            </div>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>15 hours of <strong>recordings</strong> of every class from the October 2025 cohort</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Office hours with live cohorts for 1-on-1 support</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span><em>SAT Math from the Ground Up</em> included</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Plan &amp; resources to keep you on track for a 750+</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Discord server to collaborate with other students</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/30">
+              <span class="font-black mt-0.5">✗</span>
+              <span>Access to live sessions</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/30">
+              <span class="font-black mt-0.5">✗</span>
+              <span>Updated curriculum for the Spring SATs</span>
+            </li>
+          </ul>
+          <a
+            href={STRIPE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+          >
+            Enroll Now
+          </a>
+        </div>
+
+        <!-- Live Masterclass Card -->
+        <div class="bg-ink-mid rounded-2xl border-2 border-coral p-8 flex flex-col shadow-[5px_5px_0_0_#FF5533] relative hover:-translate-y-1 transition-transform duration-200">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
+              Best Results
+            </span>
+          </div>
+          <div class="mb-6 mt-4">
+            <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Live small group classes</p>
+            <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Masterclass</h3>
+            <div class="flex items-baseline gap-2">
+              <span class="font-sans text-4xl font-black text-chalk">$895</span>
+              <span class="text-chalk/60 text-sm">$49 per hour</span>
+            </div>
+          </div>
+          <div class="flex-1 mb-8">
+            <MasterclassIncluded dark={true} />
+          </div>
+          <a
+            href={enrollHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk hover:opacity-90 transition-opacity"
+          >
+            {enrollLabel}
+          </a>
+        </div>
+
       </div>
-      <Testimonials filter="masterclass" />
     </div>
   </section>
 
-  <!-- Bottom CTA -->
-  <section class="bg-navy py-16 lg:py-20 text-center">
-    <div class="max-w-xl mx-auto px-6">
-      <h2 class="font-serif text-3xl text-white tracking-tight mb-4">
-        {IS_FULL ? 'Be first in line for the next cohort.' : 'Ready to get started?'}
-      </h2>
-      <p class="text-blue-200 mb-8">
-        {IS_FULL
-          ? 'Spots fill quickly. Join the waitlist to get notified when enrollment opens.'
-          : 'Join the next cohort and join dozens of students who have reached 750+.'}
-      </p>
-      <a
-        href={enrollHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors"
-      >
-        {enrollLabel}
-      </a>
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-chalk">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">Frequently Asked Questions</h2>
+        <p class="text-ink/60 font-semibold">Everything you need to know before enrolling.</p>
+      </div>
+
+      <!-- Tab toggle -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex border-2 border-ink rounded-full p-1 bg-white shadow-offset-sm">
+          <button
+            id="faq-tab-async"
+            class="px-6 py-2 rounded-full font-sans font-bold text-sm uppercase tracking-wide transition-colors duration-200 bg-transparent text-ink"
+          >
+            Self-Paced
+          </button>
+          <button
+            id="faq-tab-live"
+            class="px-6 py-2 rounded-full font-sans font-bold text-sm uppercase tracking-wide transition-colors duration-200 bg-ink text-chalk"
+          >
+            Live Masterclass
+          </button>
+        </div>
+      </div>
+
+      <!-- Live FAQ -->
+      <div id="faq-live" class="space-y-3">
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What score do I need to enter the class?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 630 and 750, who are aiming for a 750-800. If you're below a 630, you can still join, but you'll need to work extra hard to keep up.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What if I need to miss a session?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">No worries! Every session will be recorded, so you'll never get behind. If you have questions from the recording, shoot me an email.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">How small is the class?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>The Masterclass has a hard cap of 15 students. It's much lower than most test prep, because I want the class to feel like a discussion, not a lecture.</p>
+              <p>Also, since the sessions are recorded, expect a lot of absences. Typically each session is only 50-75% full, so don't worry, it's far more interactive than your typical high school class.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What is the time commitment between classes?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>While all Masterclass students are aiming for top scores, some students want to push harder than others. So, I've developed two distinct plans:</p>
+              <p>The <strong>Standard Plan</strong> is around 4-5 hours a week outside of classes, for students aiming for a 700-760 / generally an 80-100 point improvement.</p>
+              <p>The <strong>Advanced Plan</strong> is around 6-10+ hours a week outside of classes, for students who are gunning for a perfect score. The main difference aside from volume is that the Standard Plan uses OnePrep for practice problems and the Advanced Plan uses the PrepPros book.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Do I need to buy myself any additional resources?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>Not with the Standard Plan! (see the question above for clarification on what the standard plan is)</p>
+              <p>With the Advanced Plan, I highly recommend students buy the PrepPros Complete Guide to Digital SAT Math and the answer explanation videos, which total to around $50.</p>
+              <p>OnePrep and PrepPros are both great resources for practice problems. However, PrepPros has a greater share of niche challenging problems. If you're going for an 800, these are essential! But for a 700-750, these niche problems can end up a distraction from the core material. That's why I no longer buy every student the PrepPros book (like I did in the fall).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">How do office hours work?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Office hours are a chance for students to get personalized help with any topics/problems they're struggling with, live in a Google Meet call with other students. Sometimes, students don't have any particular questions, but still tune in to the call in case anything interesting comes up!</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What if a session gets cancelled?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Schedules aren't always predictable this far in advance! If I ever need to cancel a session due to sickness or major events, we'll reschedule to Tuesday 7:00 - 8:30 pm ET the following week.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Do you guarantee a 750+?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>I do not offer score guarantees. Almost every test prep platform with score guarantees has caveats in the fineprint (i.e. "must complete all 500 hours of material").</p>
+              <p>Instead, I let the results of my students speak for themselves. Nearly every Masterclass student who has put the requisite time and effort to get a 750 has achieved it. I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Can I get a refund if I change my mind?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>Within 7 days from the first session, you're able to request a full refund of the masterclass, no questions asked. If you get a refund, you'll lose access to the class's recordings and resources.</p>
+              <p>So far, however, I have not had a single one of the 80+ masterclass students request a refund. Hope to keep it that way!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Async FAQ -->
+      <div id="faq-async" class="space-y-3 hidden">
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">What score do I need to enter the class?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 630 and 750, who are aiming for a 750-800. If you're below a 630, you can still join, but you'll need to work extra hard to keep up.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">If I join the self-paced class but want to upgrade to the live classes later, do I get a discount?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Yes! If you join the self-paced class but want to upgrade, you only need to pay the difference between the two cohort costs. For example, if the live cohort is $900, and you already paid $400 for the self-paced class, you will only need to pay $500 to join the live cohort!</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Can I email you with questions?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>Short questions and logistical questions? Yes, of course!</p>
+              <p>Longer questions about content? Book a 1-on-1 session and we'll be able to go much deeper about the material than in an email conversation. I also encourage you to seek help from other students in our Discord server!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">How do office hours work?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Office hours are a chance for students to get personalized help with any topics/problems they're struggling with, live in a Google Meet call with other students. Sometimes, students don't have any particular questions, but still tune in to the call in case anything interesting comes up!</p>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">How should I follow the material from the class?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>Upon purchasing, you'll be sent a syllabus that tells you exactly which chapters in SAT Math from the Ground Up and the PrepPros book to complete alongside each recording.</p>
+              <p>I also spend around 15 minutes in the first session detailing how best to utilize both resources. This is arguably the most important part of the entire class!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Do you guarantee a 750+?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+              <p>I do not offer score guarantees. Almost every test prep platform with score guarantees has caveats in the fineprint (i.e. "must complete all 500 hours of material").</p>
+              <p>Instead, I let the results of my students speak for themselves. Every Masterclass student who has put the requisite time and effort to get a 750 has achieved it. I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+            <span class="font-sans font-bold text-lg text-ink">Can I get a refund if I change my mind?</span>
+            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Since purchasing the class instantly sends you the syllabus and all recordings, I do not offer refunds. If you're unsure about joining, please reach out! I'm happy to address any questions or concerns.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
 </Layout>
+
+<script>
+  const tabLive = document.getElementById('faq-tab-live') as HTMLElement;
+  const tabAsync = document.getElementById('faq-tab-async') as HTMLElement;
+  const panelLive = document.getElementById('faq-live') as HTMLElement;
+  const panelAsync = document.getElementById('faq-async') as HTMLElement;
+
+  function activateTab(tab: 'live' | 'async') {
+    const isLive = tab === 'live';
+    tabLive.classList.toggle('bg-ink', isLive);
+    tabLive.classList.toggle('text-chalk', isLive);
+    tabLive.classList.toggle('bg-transparent', !isLive);
+    tabLive.classList.toggle('text-ink', !isLive);
+    tabAsync.classList.toggle('bg-ink', !isLive);
+    tabAsync.classList.toggle('text-chalk', !isLive);
+    tabAsync.classList.toggle('bg-transparent', isLive);
+    tabAsync.classList.toggle('text-ink', isLive);
+    panelLive.classList.toggle('hidden', !isLive);
+    panelAsync.classList.toggle('hidden', isLive);
+    // Close all open accordions in the newly shown panel
+    const panel = isLive ? panelLive : panelAsync;
+    panel.querySelectorAll<HTMLElement>('.faq-body').forEach((b) => { b.style.maxHeight = '0px'; });
+    panel.querySelectorAll<HTMLElement>('.faq-arrow').forEach((a) => { a.style.transform = 'rotate(0deg)'; });
+  }
+
+  tabLive.addEventListener('click', () => activateTab('live'));
+  tabAsync.addEventListener('click', () => activateTab('async'));
+
+  document.querySelectorAll('.faq-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item') as HTMLElement;
+      const body = item?.querySelector('.faq-body') as HTMLElement;
+      const arrow = trigger.querySelector('.faq-arrow') as HTMLElement;
+      const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+      if (isOpen) {
+        body.style.maxHeight = '0px';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
+  document.getElementById('learn-more-btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const el = document.getElementById('masterclass-video');
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
+      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+    }
+  });
+
+  document.getElementById('hero-enroll-btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const el = document.getElementById('pricing');
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
+      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+    }
+  });
+</script>

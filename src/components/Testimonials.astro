@@ -19,64 +19,67 @@ const nextId = `${id}-next`;
 const trackId = `${id}-track`;
 ---
 
-<div class="relative">
-  <!-- Arrow buttons -->
+<div class="relative flex items-center gap-4">
+  <!-- Left arrow -->
   <button
     id={prevId}
     aria-label="Previous testimonial"
-    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white border border-gray-200 shadow-md rounded-full w-11 h-11 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors hidden md:flex"
+    class="shrink-0 bg-white border-2 border-ink shadow-offset-sm rounded-full w-11 h-11 flex items-center justify-center text-ink hover:bg-ink hover:text-chalk transition-colors duration-200"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
     </svg>
   </button>
 
-  <!-- Carousel track -->
-  <div
-    id={trackId}
-    class="flex gap-5 overflow-x-auto scroll-smooth pb-4"
-    style="scrollbar-width: none; -ms-overflow-style: none;"
-  >
-    {filtered.map(t => (
-      <article class="shrink-0 w-[420px] bg-white rounded-2xl border border-gray-100 shadow-sm p-7 flex flex-col gap-5">
-        <!-- Header: name + context + scores -->
-        <header class="flex items-start justify-between gap-4 flex-wrap">
-          <div>
-            <p class="font-semibold text-navy">{t.name}</p>
-            <p class="text-gray-400 text-sm mt-0.5">{t.context}</p>
-          </div>
+  <!-- Viewport -->
+  <div class="flex-1 overflow-hidden py-3 -my-3">
+    <div
+      id={trackId}
+      class="flex"
+    >
+      {filtered.map(t => (
+        <article class="shrink-0 w-full md:w-1/2 lg:w-1/3 px-2 flex flex-col gap-5">
+        <div class="bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-7 flex flex-col gap-5 h-full hover:-translate-y-1 hover:shadow-offset-md transition-all duration-200">
+          <!-- Header: name + context + scores -->
+          <header class="flex flex-col md:flex-row md:items-start md:justify-between gap-3 md:gap-4">
+            <div class="min-w-0">
+              <p class="font-bold text-ink">{t.name}</p>
+              <p class="text-ink/50 text-sm mt-0.5">{t.context}</p>
+            </div>
 
-          <!-- Score pills -->
-          <div class="flex items-center gap-2 shrink-0">
-            {t.scoreBefore !== undefined && (
-              <span class="bg-red-100 text-red-700 text-sm font-bold px-3 py-1 rounded-full">
-                {t.scoreBefore}
-              </span>
-            )}
-            {t.scoreBefore !== undefined && t.scoreAfter !== undefined && (
-              <span class="text-gray-400 text-sm">→</span>
-            )}
-            {t.scoreAfter !== undefined && (
-              <span class="bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded-full">
-                {t.scoreAfter}
-              </span>
-            )}
-          </div>
-        </header>
+            <!-- Score pills -->
+            <div class="flex items-center gap-2 shrink-0">
+              {t.scoreBefore !== undefined && (
+                <span class="bg-red-100 text-red-700 border border-red-300 text-sm font-black px-3 py-1 rounded-full">
+                  {t.scoreBefore}
+                </span>
+              )}
+              {t.scoreBefore !== undefined && t.scoreAfter !== undefined && (
+                <span class="text-ink/50 text-sm">→</span>
+              )}
+              {t.scoreAfter !== undefined && (
+                <span class="bg-green-100 text-green-700 border border-green-300 text-sm font-black px-3 py-1 rounded-full">
+                  {t.scoreAfter}
+                </span>
+              )}
+            </div>
+          </header>
 
-        <!-- Quote -->
-        <blockquote class="font-serif italic text-navy leading-relaxed text-base flex-1">
-          &ldquo;{t.quote}&rdquo;
-        </blockquote>
-      </article>
-    ))}
+          <!-- Quote -->
+          <blockquote class="font-serif italic text-ink leading-relaxed text-base flex-1">
+            &ldquo;{t.quote}&rdquo;
+          </blockquote>
+        </div>
+        </article>
+      ))}
+    </div>
   </div>
 
   <!-- Right arrow -->
   <button
     id={nextId}
     aria-label="Next testimonial"
-    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white border border-gray-200 shadow-md rounded-full w-11 h-11 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors hidden md:flex"
+    class="shrink-0 bg-white border-2 border-ink shadow-offset-sm rounded-full w-11 h-11 flex items-center justify-center text-ink hover:bg-ink hover:text-chalk transition-colors duration-200"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -84,60 +87,58 @@ const trackId = `${id}-track`;
   </button>
 </div>
 
-<style>
-  /* Hide scrollbar visually but keep scroll functionality */
-  div[id$="-track"]::-webkit-scrollbar {
-    display: none;
-  }
-</style>
-
 <script is:inline define:vars={{ trackId, prevId, nextId }}>
   const track = document.getElementById(trackId);
   const prev = document.getElementById(prevId);
   const next = document.getElementById(nextId);
   if (!track) return;
 
-  const STEP = 440;
+  const origCards = Array.from(track.children);
+  const n = origCards.length;
 
-  // Clone all cards before and after the originals so scrolling feels infinite.
-  // Structure: [prepended clones | real cards | appended clones]
-  const originals = Array.from(track.children);
-  const n = originals.length;
+  // Prepend clone of last card, append clone of first card
+  track.insertBefore(origCards[n - 1].cloneNode(true), origCards[0]);
+  track.appendChild(origCards[0].cloneNode(true));
 
-  const before = document.createDocumentFragment();
-  originals.forEach(c => before.appendChild(c.cloneNode(true)));
-  track.prepend(before);
+  // pos: 0 = clone-of-last, 1..n = real cards, n+1 = clone-of-first
+  let pos = 1;
+  let busy = false;
 
-  const after = document.createDocumentFragment();
-  originals.forEach(c => after.appendChild(c.cloneNode(true)));
-  track.appendChild(after);
-
-  // Start scrolled to the first real card (index n in the expanded list).
-  let pos = n;
-  track.scrollTo({ left: pos * STEP, behavior: 'instant' });
-
-  function goTo(newPos) {
-    pos = Math.max(0, Math.min(3 * n - 1, newPos));
-    track.scrollTo({ left: pos * STEP, behavior: 'smooth' });
-
-    // After animation completes, silently jump from clone back to the equivalent real card.
-    let done = false;
-    const reposition = () => {
-      if (done) return;
-      done = true;
-      if (pos < n) {
-        pos += n;
-        track.scrollTo({ left: pos * STEP, behavior: 'instant' });
-      } else if (pos >= 2 * n) {
-        pos -= n;
-        track.scrollTo({ left: pos * STEP, behavior: 'instant' });
-      }
-    };
-
-    track.addEventListener('scrollend', reposition, { once: true });
-    setTimeout(reposition, 600); // fallback for browsers without scrollend
+  function getLayout() {
+    const w = window.innerWidth;
+    if (w >= 1024) return { count: 3, offset: 1 }; // center slot active
+    if (w >= 768)  return { count: 2, offset: 0 }; // left slot active
+    return           { count: 1, offset: 0 }; // full width
   }
 
-  prev?.addEventListener('click', () => goTo(pos - 1));
-  next?.addEventListener('click', () => goTo(pos + 1));
+  function setPos(i, animate) {
+    const { count, offset } = getLayout();
+    track.style.transition = animate ? 'transform 300ms ease-in-out' : 'none';
+    track.style.transform = `translateX(${(offset - i) * (100 / count)}%)`;
+    pos = i;
+  }
+
+  // Init: place real first card in center with no animation
+  setPos(1, false);
+
+  window.addEventListener('resize', () => setPos(pos, false));
+
+  track.addEventListener('transitionend', (e) => {
+    if (e.target !== track) return;
+    busy = false;
+    if (pos === 0) setPos(n, false);         // jumped past start → snap to real last
+    else if (pos === n + 1) setPos(1, false); // jumped past end → snap to real first
+  });
+
+  prev?.addEventListener('click', () => {
+    if (busy) return;
+    busy = true;
+    setPos(pos - 1, true);
+  });
+
+  next?.addEventListener('click', () => {
+    if (busy) return;
+    busy = true;
+    setPos(pos + 1, true);
+  });
 </script>

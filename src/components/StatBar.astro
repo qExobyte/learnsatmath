@@ -7,13 +7,13 @@ const stats = [
 ];
 ---
 
-<section class="bg-white border-y border-gray-100 py-10 reveal">
+<section class="bg-chalk border-y-2 border-ink py-10 reveal">
   <div class="max-w-5xl mx-auto px-6 lg:px-8">
-    <dl class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-gray-200">
+    <dl class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x-2 lg:divide-ink">
       {stats.map(stat => (
         <div class="text-center lg:px-8">
-          <dt class="font-serif text-3xl font-bold text-navy tracking-tight">{stat.value}</dt>
-          <dd class="mt-1 text-sm text-gray-500 font-medium">{stat.label}</dd>
+          <dt class="font-sans text-5xl font-black text-ink tracking-tight">{stat.value}</dt>
+          <dd class="mt-1 text-xs font-bold uppercase tracking-widest text-ink">{stat.label}</dd>
         </div>
       ))}
     </dl>

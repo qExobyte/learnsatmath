@@ -24,79 +24,79 @@ const weeks: Week[] = [
     number: 1,
     name: 'Algebra with Desmos',
     sessions: [
-      { type: 'class', topic: 'How to Prep & Functions', date: 'Sat 4/5' },
-      { type: 'class', topic: 'Algebra w/ Desmos & Regressions', date: 'Sun 4/6' },
+      { type: 'class', topic: 'How to Prep & Functions', date: 'Sat 3/28' },
+      { type: 'class', topic: 'Algebra w/ Desmos & Regressions', date: 'Sun 3/29' },
     ],
   },
   {
     number: 2,
     name: 'Linear & Exponential Functions',
     sessions: [
-      { type: 'class', topic: 'Linear Functions', date: 'Sat 4/12' },
-      { type: 'class', topic: 'Exponential Functions', date: 'Sun 4/13' },
-      { type: 'office-hours', topic: 'Office Hours', date: 'Tue 4/15', time: '7:00 – 8:00 pm ET' },
+      { type: 'class', topic: 'Linear Functions', date: 'Sat 4/4' },
+      { type: 'class', topic: 'Exponential Functions', date: 'Sun 4/5' },
+      { type: 'office-hours', topic: 'Office Hours', date: 'Tue 4/7', time: '7:00 – 8:00 pm ET' },
     ],
   },
   {
     number: 3,
     name: 'Quadratics & Polynomials',
     sessions: [
-      { type: 'class', topic: 'Quadratics', date: 'Sat 4/19' },
-      { type: 'class', topic: 'Advanced Quadratics & Polynomials', date: 'Sun 4/20' },
+      { type: 'class', topic: 'Quadratics', date: 'Sat 4/11' },
+      { type: 'class', topic: 'Advanced Quadratics & Polynomials', date: 'Sun 4/12' },
     ],
   },
   {
     number: 4,
     name: 'Geometry',
     sessions: [
-      { type: 'class', topic: 'Triangles', date: 'Sat 4/26' },
-      { type: 'class', topic: 'Circles, Surface Area & Volume', date: 'Sun 4/27' },
-      { type: 'office-hours', topic: 'Office Hours', date: 'Thu 5/1', time: '8:30 – 9:30 pm ET' },
+      { type: 'class', topic: 'Triangles', date: 'Sat 4/18' },
+      { type: 'class', topic: 'Circles, Surface Area & Volume', date: 'Sun 4/19' },
+      { type: 'office-hours', topic: 'Office Hours', date: 'Wed 4/22', time: '8:00 – 9:00 pm ET' },
     ],
   },
   {
     number: 5,
     name: 'Statistics & Review Game',
     sessions: [
-      { type: 'class', topic: 'Unit Conversion & Statistics', date: 'Sat 5/3' },
-      { type: 'class', topic: 'Final Review', date: 'Sun 5/4' },
-      { type: 'office-hours', topic: 'Office Hours', date: 'Sun 5/11', time: '7:00 – 8:00 pm ET' },
+      { type: 'class', topic: 'Unit Conversion & Statistics', date: 'Sat 4/25' },
+      { type: 'class', topic: 'Final Review', date: 'Sun 4/26' },
+      { type: 'office-hours', topic: 'Office Hours', date: 'Thu 4/30', time: '8:00 – 9:00 pm ET' },
     ],
   },
 ];
 
-const satDate = '6/7';
+const satDate = '5/2';
 ---
 
-<section class="py-16 lg:py-24 bg-white">
+<section class="py-16 lg:py-24 bg-sky">
   <div class="max-w-xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-12">
-      <p class="text-marigold text-xs font-semibold uppercase tracking-widest mb-3">What to expect</p>
-      <h2 class="font-serif text-3xl text-navy tracking-tight mb-2">Cohort Schedule</h2>
-      <p class="text-gray-500 text-sm">5 weeks &middot; 10 live sessions &middot; All classes 12:00 &ndash; 1:30 pm ET</p>
+      <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">May Cohort Schedule</h2>
+      <p class="text-ink/60 text-xl font-semibold">5 weeks &middot; 10 live sessions</p>
+      <p class="text-ink/60 text-xl font-semibold mt-1">All classes <span class="bg-electric text-ink font-black px-1">12:00 &ndash; 1:30 pm ET</span></p>
     </div>
 
-    <div class="relative pl-6 border-l-2 border-navy flex flex-col gap-4">
+    <div class="relative pl-6 border-l-2 border-ink flex flex-col gap-4">
       {weeks.map((week) => {
         const classSessions = week.sessions.filter(s => s.type === 'class');
         const ohSessions = week.sessions.filter(s => s.type === 'office-hours');
         const classDates = classSessions.map(s => s.date).join(' · ');
         return (
-          <div class="bg-ivory rounded-2xl px-5 py-4 transition-transform duration-200 hover:scale-[1.02]">
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Week {week.number}</p>
-            <p class="font-serif text-lg text-navy font-bold leading-snug">{week.name}</p>
-            <p class="text-base text-gray-500 mt-1">{classDates}</p>
+          <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5">
+            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number}</p>
+            <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
+            <p class="text-sm text-ink/60 font-semibold mt-1">{classDates}</p>
             {ohSessions.map(oh => (
-              <p class="text-base text-gray-500 italic mt-0.5">{oh.topic} &middot; {oh.date} &middot; {oh.time}</p>
+              <p class="text-sm text-ink/50 font-semibold italic mt-0.5">{oh.topic} &middot; {oh.date} &middot; {oh.time}</p>
             ))}
           </div>
         );
       })}
 
       <!-- SAT -->
-      <div class="bg-ivory rounded-2xl px-5 py-4 transition-transform duration-200 hover:scale-[1.02]">
-        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">SAT</p>
-        <p class="font-serif text-lg text-navy font-bold">{satDate} &mdash; Good luck!</p>
+      <div class="bg-electric border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm">
+        <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT</p>
+        <p class="font-sans text-lg text-ink font-black">{satDate} &mdash; Good luck!</p>
       </div>
     </div>
 
@@ -105,7 +105,7 @@ const satDate = '6/7';
         href={enrollHref}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-block bg-cta text-white font-semibold px-10 py-4 rounded-full hover:bg-orange-700 transition-colors text-base"
+        class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
       >
         {enrollLabel}
       </a>
