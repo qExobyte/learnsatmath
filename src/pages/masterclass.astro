@@ -9,9 +9,12 @@ import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
 const IS_FULL = false;
-const STRIPE_URL = 'https://buy.stripe.com/3cI14g4r44AH8OQb226wE12';
+const STRIPE_URL = 'https://buy.stripe.com/3cI8wI1eSaZ50ik2vw6wE17';
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
+const SELF_PACED_PRICE = 395;
+const REFUND_DEADLINE = '4/3/26';
+const CONSULTATION_URL = 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-consultation';
 
 const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
 const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
@@ -138,7 +141,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Just the recordings</p>
             <h3 class="font-sans text-2xl text-ink font-bold mb-4">Self-Paced Masterclass</h3>
             <div class="flex items-baseline gap-2">
-              <span class="font-sans text-4xl font-black text-ink">$395</span>
+              <span class="font-sans text-4xl font-black text-ink">${SELF_PACED_PRICE}</span>
             </div>
           </div>
           <ul class="space-y-3 flex-1 mb-8">
@@ -171,6 +174,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
               <span>Updated curriculum for the Spring SATs</span>
             </li>
           </ul>
+          <p class="text-xs text-ink/50 text-center mb-3">Includes a ${SELF_PACED_PRICE} discount on any live cohort in the future.</p>
           <a
             href={SELF_PACED_URL}
             target="_blank"
@@ -199,6 +203,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           <div class="flex-1 mb-8">
             <MasterclassIncluded dark={true} />
           </div>
+          <p class="text-xs text-chalk/40 text-center mb-3">Purchase is fully refundable through {REFUND_DEADLINE}.</p>
           <a
             href={enrollHref}
             target="_blank"
@@ -210,6 +215,9 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
         </div>
 
       </div>
+      <p class="text-center text-base text-ink/50 mt-8">
+        Not sure yet? <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer" class="underline hover:text-ink transition-colors">Book a free consultation call</a> or <a href="/contact" class="underline hover:text-ink transition-colors">reach out by email</a>.
+      </p>
     </div>
   </section>
 
