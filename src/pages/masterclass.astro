@@ -28,8 +28,8 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 >
 
   <!-- Hero -->
-  <section class="bg-ink-mid text-white py-14 lg:py-24">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+  <section class="bg-ink-mid text-white py-14 lg:py-24 hero-section">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[11fr_9fr] gap-12 items-center">
 
         <!-- Left: text -->
@@ -44,7 +44,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
               🟢 Enrollment OPEN · Limited spots available
             </span>
           )}
-          <h1 class="font-sans font-black text-5xl lg:text-7xl tracking-tight mb-3">The Masterclass</h1>
+          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">The Masterclass</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
             Score a 750+ in just <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">5 weeks</span>
           </p>
@@ -65,7 +65,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
               <a
                 href="#pricing"
                 id="hero-enroll-btn"
-                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
               >
                 {enrollLabel}
               </a>
@@ -73,7 +73,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             <a
               href="#masterclass-video"
               id="learn-more-btn"
-              class="inline-block bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+              class="inline-block bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
             >
               Learn More
             </a>
@@ -115,7 +115,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <section class="hidden [@media(min-width:900px)]:block py-16 lg:py-24 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">From Masterclass students</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From Masterclass students</h2>
       </div>
       <Testimonials filter="masterclass" />
     </div>
@@ -159,7 +159,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Plan &amp; resources to keep you on track for a 750+</span>
+              <span>Plan &amp; resources to get you a 750+</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
@@ -225,7 +225,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <section id="faq" class="py-16 lg:py-24 bg-chalk">
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-10">
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">Frequently Asked Questions</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Frequently Asked Questions</h2>
         <p class="text-ink/60 font-semibold">Everything you need to know before enrolling.</p>
       </div>
 
@@ -543,3 +543,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
     }
   });
 </script>
+
+<style>
+  .hero-section {
+    padding-top: clamp(1.5rem, 8vh, 6rem);
+    padding-bottom: clamp(1.5rem, 8vh, 6rem);
+  }
+</style>

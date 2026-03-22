@@ -53,9 +53,9 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
 <Layout title="Book" description="SAT Math from the Ground Up — the definitive 110-page SAT math ebook by Eric Wolpert. Master every topic from scratch.">
 
   <!-- Hero -->
-  <section class="bg-ink-mid text-chalk py-16 lg:py-24">
+  <section class="bg-ink-mid text-chalk py-16 lg:py-24 hero-section">
     <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-      <h1 class="font-sans text-5xl lg:text-7xl font-black tracking-tight mb-4 leading-tight">SAT Math from the Ground Up</h1>
+      <h1 class="font-sans text-4xl lg:text-6xl font-black tracking-tight mb-4 leading-tight">SAT Math from the Ground Up</h1>
       <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
         Learn the <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">concepts</span> behind the test
       </p>
@@ -92,7 +92,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The Problem</span></p>
-          <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-4">Formulas are not enough</h2>
+          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">Formulas are not enough</h2>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
             The SAT is becoming more and more <b>conceptual,</b> rewarding <b>understanding</b> over memorization.
           </p>
@@ -129,7 +129,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
         </div>
         <div class="order-1 lg:order-2">
           <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The Value</span></p>
-          <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-4">A year of lessons for just $49</h2>
+          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">A year of lessons for just $49</h2>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
             Many questions target <b>specific mistakes</b> that I see students make over and over again. I've spent over a year compiling the best lessons from my $285/hr tutoring.
           </p>
@@ -148,7 +148,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The Goal</span></p>
-          <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-4">Built to get you an 800</h2>
+          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">Built to get you an 800</h2>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
             All content in the book is divided by difficulty, so students can build their understanding level-by-level.
           </p>
@@ -204,7 +204,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="inline-block bg-electric text-ink border-2 border-ink font-black uppercase tracking-widest rounded-full px-4 py-1.5 text-xs mb-4">Inside the Book</span>
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">Table of contents</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Table of contents</h2>
       </div>
       <div class="max-w-xl mx-auto relative pl-6 border-l-2 border-ink flex flex-col gap-4">
         {chapters.map(ch => (
@@ -223,7 +223,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
   <!-- Bottom CTA -->
   <section class="py-20 lg:py-28 bg-ink-mid text-chalk text-center">
     <div class="max-w-2xl mx-auto px-6">
-      <h2 class="font-sans text-3xl lg:text-5xl font-extrabold tracking-tight mb-8">Ready to master SAT math?</h2>
+      <h2 class="font-sans text-2xl lg:text-4xl font-extrabold tracking-tight mb-8">Ready to master SAT math?</h2>
       <a
         href={gumroadUrl}
         data-gumroad-overlay-checkout="true"
@@ -238,3 +238,10 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
 
   <script src="https://gumroad.com/js/gumroad.js"></script>
 </Layout>
+
+<style>
+  .hero-section {
+    padding-top: clamp(1.5rem, 8vh, 6rem);
+    padding-bottom: clamp(1.5rem, 8vh, 6rem);
+  }
+</style>

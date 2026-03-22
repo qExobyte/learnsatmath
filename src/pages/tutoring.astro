@@ -19,13 +19,13 @@ const features = [
 >
 
   <!-- Hero -->
-  <section class="bg-ink-mid text-white py-14 lg:py-24">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+  <section class="bg-ink-mid text-white py-16 lg:py-24 hero-section">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[11fr_9fr] gap-12 items-center">
 
         <!-- Left: text -->
         <div>
-          <h1 class="font-sans font-black text-5xl lg:text-7xl tracking-tight mb-3">1-on-1 Tutoring</h1>
+          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Tutoring</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
             Focused entirely on <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">you</span>
           </p>
@@ -34,7 +34,7 @@ const features = [
           </p>
           <a
             href="#book"
-            class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+            class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
           >
             Book a Session
           </a>
@@ -61,7 +61,7 @@ const features = [
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
 
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">What you get</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">What you get</h2>
       </div>
       <div class="flex flex-col items-center gap-5">
         <div class="flex flex-wrap justify-center gap-5">
@@ -90,7 +90,7 @@ const features = [
   <section class="hidden [@media(min-width:900px)]:block py-16 lg:py-24 bg-sky">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">From tutoring students</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From tutoring students</h2>
       </div>
       <Testimonials filter="other" />
     </div>
@@ -101,7 +101,7 @@ const features = [
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-10">
 
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight mb-2">Book a session</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Book a session</h2>
         <p class="text-ink/60 font-semibold">Only book what you need! No massive packages.</p>
       </div>
       <div
@@ -118,7 +118,7 @@ const features = [
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-10">
 
-        <h2 class="font-sans text-3xl lg:text-5xl font-extrabold text-ink tracking-tight">Common questions</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Common questions</h2>
       </div>
       <div class="space-y-3" id="faq-list">
 
@@ -231,11 +231,11 @@ const features = [
   <!-- Bottom CTA -->
   <section class="py-16 lg:py-20 bg-ink-mid text-white">
     <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-      <h2 class="font-sans font-black text-3xl lg:text-5xl tracking-tight mb-4">Ready to start?</h2>
+      <h2 class="font-sans font-black text-2xl lg:text-4xl tracking-tight mb-4">Ready to start?</h2>
       <p class="text-chalk/70 font-semibold text-lg mb-8">Pick a time that works and let's get to work on your score.</p>
       <a
         href="#book"
-        class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+        class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
       >
         Book a Session
       </a>
@@ -274,3 +274,10 @@ const features = [
     });
   });
 </script>
+
+<style>
+  .hero-section {
+    padding-top: clamp(1.5rem, 8vh, 6rem);
+    padding-bottom: clamp(1.5rem, 8vh, 6rem);
+  }
+</style>
