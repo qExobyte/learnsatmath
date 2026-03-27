@@ -9,6 +9,8 @@ import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
 const IS_FULL = false;
+// Set SELF_PACED_AVAILABLE to true when the live cohort is full and self-paced should be offered.
+const SELF_PACED_AVAILABLE = false;
 const STRIPE_URL = 'https://buy.stripe.com/3cI8wI1eSaZ50ik2vw6wE17';
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
@@ -133,9 +135,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <!-- Pricing cards -->
   <section id="pricing" class="py-16 lg:py-24 bg-peach">
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class={`grid grid-cols-1 gap-8 items-start ${SELF_PACED_AVAILABLE ? 'lg:grid-cols-2' : ''}`}>
 
         <!-- Self-Paced Card -->
+        {SELF_PACED_AVAILABLE && (
         <div class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
           <div class="mb-6">
             <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Just the recordings</p>
@@ -184,9 +187,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             Enroll Now
           </a>
         </div>
+        )}
 
         <!-- Live Masterclass Card -->
-        <div class="bg-ink-mid rounded-2xl border-2 border-coral p-8 flex flex-col shadow-[5px_5px_0_0_#FF5533] relative hover:-translate-y-1 transition-transform duration-200">
+        <div class={`bg-ink-mid rounded-2xl border-2 border-coral p-8 flex flex-col shadow-[5px_5px_0_0_#FF5533] relative hover:-translate-y-1 transition-transform duration-200${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
               Best Results
@@ -230,6 +234,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
       </div>
 
       <!-- Tab toggle -->
+      {SELF_PACED_AVAILABLE && (
       <div class="flex justify-center mb-10">
         <div class="inline-flex border-2 border-ink rounded-full p-1 bg-white shadow-offset-sm">
           <button
@@ -246,6 +251,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           </button>
         </div>
       </div>
+      )}
 
       <!-- Live FAQ -->
       <div id="faq-live" class="space-y-3">
@@ -378,6 +384,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
       </div>
 
       <!-- Async FAQ -->
+      {SELF_PACED_AVAILABLE && (
       <div id="faq-async" class="space-y-3 hidden">
 
         <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
@@ -474,37 +481,40 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
         </div>
 
       </div>
+      )}
     </div>
   </section>
 
 </Layout>
 
 <script>
-  const tabLive = document.getElementById('faq-tab-live') as HTMLElement;
-  const tabAsync = document.getElementById('faq-tab-async') as HTMLElement;
+  const tabLive = document.getElementById('faq-tab-live') as HTMLElement | null;
+  const tabAsync = document.getElementById('faq-tab-async') as HTMLElement | null;
   const panelLive = document.getElementById('faq-live') as HTMLElement;
-  const panelAsync = document.getElementById('faq-async') as HTMLElement;
+  const panelAsync = document.getElementById('faq-async') as HTMLElement | null;
 
-  function activateTab(tab: 'live' | 'async') {
-    const isLive = tab === 'live';
-    tabLive.classList.toggle('bg-ink', isLive);
-    tabLive.classList.toggle('text-chalk', isLive);
-    tabLive.classList.toggle('bg-transparent', !isLive);
-    tabLive.classList.toggle('text-ink', !isLive);
-    tabAsync.classList.toggle('bg-ink', !isLive);
-    tabAsync.classList.toggle('text-chalk', !isLive);
-    tabAsync.classList.toggle('bg-transparent', isLive);
-    tabAsync.classList.toggle('text-ink', isLive);
-    panelLive.classList.toggle('hidden', !isLive);
-    panelAsync.classList.toggle('hidden', isLive);
-    // Close all open accordions in the newly shown panel
-    const panel = isLive ? panelLive : panelAsync;
-    panel.querySelectorAll<HTMLElement>('.faq-body').forEach((b) => { b.style.maxHeight = '0px'; });
-    panel.querySelectorAll<HTMLElement>('.faq-arrow').forEach((a) => { a.style.transform = 'rotate(0deg)'; });
+  if (tabLive && tabAsync && panelAsync) {
+    function activateTab(tab: 'live' | 'async') {
+      const isLive = tab === 'live';
+      tabLive!.classList.toggle('bg-ink', isLive);
+      tabLive!.classList.toggle('text-chalk', isLive);
+      tabLive!.classList.toggle('bg-transparent', !isLive);
+      tabLive!.classList.toggle('text-ink', !isLive);
+      tabAsync!.classList.toggle('bg-ink', !isLive);
+      tabAsync!.classList.toggle('text-chalk', !isLive);
+      tabAsync!.classList.toggle('bg-transparent', isLive);
+      tabAsync!.classList.toggle('text-ink', isLive);
+      panelLive.classList.toggle('hidden', !isLive);
+      panelAsync!.classList.toggle('hidden', isLive);
+      // Close all open accordions in the newly shown panel
+      const panel = isLive ? panelLive : panelAsync!;
+      panel.querySelectorAll<HTMLElement>('.faq-body').forEach((b) => { b.style.maxHeight = '0px'; });
+      panel.querySelectorAll<HTMLElement>('.faq-arrow').forEach((a) => { a.style.transform = 'rotate(0deg)'; });
+    }
+
+    tabLive.addEventListener('click', () => activateTab('live'));
+    tabAsync.addEventListener('click', () => activateTab('async'));
   }
-
-  tabLive.addEventListener('click', () => activateTab('live'));
-  tabAsync.addEventListener('click', () => activateTab('async'));
 
   document.querySelectorAll('.faq-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
