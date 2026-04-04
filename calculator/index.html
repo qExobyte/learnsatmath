@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Estimate how many hours per week you need to study to reach your SAT Math goal score by test day."><link rel="icon" type="image/png" href="/favicon-imprecise.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"><title>Prep Hours Calculator | LearnSATMath</title><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-EKENVY91TK"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EKENVY91TK');
+    </script><link rel="stylesheet" href="/_astro/book.BHyvASXw.css">
+<style>input[data-astro-cid-c3zj3n4r][type=range]{width:100%;accent-color:#378ADD;cursor:pointer;height:6px}
+</style><script type="module" src="/_astro/hoisted.ByQfmw9i.js"></script></head> <body class="bg-chalk font-sans text-ink antialiased" data-astro-cid-sckkx6r4> <nav class="bg-chalk sticky top-0 z-50 border-b-2 border-ink"> <div class="max-w-7xl mx-auto px-6 lg:px-8"> <div class="flex items-center justify-between h-16"> <!-- Logo --> <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0"> <img src="/lsmlogo-navy-transparent.svg" alt="LearnSATMath" class="h-8 w-8"> <span class="font-sans text-xl font-black text-ink tracking-tight">LearnSATMath</span> </a> <!-- Desktop nav: links centered, enroll button pinned right --> <div class="hidden lg:flex flex-1 items-center justify-center gap-7"> <a href="/" class="text-sm font-semibold transition-colors text-ink hover:text-coral"> Home </a><a href="/masterclass" class="text-sm font-semibold transition-colors text-ink hover:text-coral"> Masterclass </a><a href="/tutoring" class="text-sm font-semibold transition-colors text-ink hover:text-coral"> Tutoring </a><a href="/book" class="text-sm font-semibold transition-colors text-ink hover:text-coral"> Book </a><a href="/resources" class="text-sm font-semibold transition-colors text-ink hover:text-coral"> Resources </a> </div> <div class="hidden lg:block shrink-0"> <a href="/masterclass" class="bg-coral text-white text-sm font-bold px-4 py-2 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200">
+Enroll in Masterclass
+</a> </div> <!-- Mobile hamburger --> <button id="hamburger" class="lg:hidden text-ink p-2 rounded hover:bg-ink/10 transition-colors" aria-label="Toggle menu" aria-expanded="false"> <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile menu --> <div id="mobile-menu" class="hidden lg:hidden border-t-2 border-ink"> <div class="px-6 py-4 flex flex-col gap-3"> <a href="/" class="text-sm font-semibold py-1 transition-colors text-ink hover:text-coral"> Home </a><a href="/masterclass" class="text-sm font-semibold py-1 transition-colors text-ink hover:text-coral"> Masterclass </a><a href="/tutoring" class="text-sm font-semibold py-1 transition-colors text-ink hover:text-coral"> Tutoring </a><a href="/book" class="text-sm font-semibold py-1 transition-colors text-ink hover:text-coral"> Book </a><a href="/resources" class="text-sm font-semibold py-1 transition-colors text-ink hover:text-coral"> Resources </a> <a href="/masterclass" class="mt-2 bg-coral text-white text-sm font-bold px-4 py-2 rounded-xl border-2 border-ink text-center shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200">
+Enroll in Masterclass
+</a> </div> </div> </nav>  <main data-astro-cid-sckkx6r4>    <section class="bg-peach py-8" data-astro-cid-c3zj3n4r> <div class="max-w-4xl mx-auto px-6 lg:px-8 mb-6" data-astro-cid-c3zj3n4r> <h1 class="font-sans text-3xl font-black text-ink tracking-tight text-center" data-astro-cid-c3zj3n4r>Study Plan Calculator</h1> </div> <div class="max-w-4xl mx-auto px-6 lg:px-8" data-astro-cid-c3zj3n4r> <!-- ── Inputs ── --> <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4" data-astro-cid-c3zj3n4r> <!-- Scores card --> <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-offset-sm" data-astro-cid-c3zj3n4r> <div class="space-y-4" data-astro-cid-c3zj3n4r> <div data-astro-cid-c3zj3n4r> <div class="flex items-baseline justify-between mb-2" data-astro-cid-c3zj3n4r> <label for="curr" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest" data-astro-cid-c3zj3n4r>Current score</label> <span id="cv" class="font-sans font-black text-xl text-ink" data-astro-cid-c3zj3n4r>680</span> </div> <input type="range" min="400" max="790" step="10" value="650" id="curr" data-astro-cid-c3zj3n4r> <div class="flex justify-between text-xs text-ink/25 mt-1 font-medium select-none" data-astro-cid-c3zj3n4r> <span data-astro-cid-c3zj3n4r>400</span><span data-astro-cid-c3zj3n4r>790</span> </div> </div> <div data-astro-cid-c3zj3n4r> <div class="flex items-baseline justify-between mb-2" data-astro-cid-c3zj3n4r> <label for="goal" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest" data-astro-cid-c3zj3n4r>Goal score</label> <span id="gv" class="font-sans font-black text-xl text-ink" data-astro-cid-c3zj3n4r>750</span> </div> <input type="range" min="420" max="800" step="10" value="750" id="goal" data-astro-cid-c3zj3n4r> <div class="flex justify-between text-xs text-ink/25 mt-1 font-medium select-none" data-astro-cid-c3zj3n4r> <span data-astro-cid-c3zj3n4r>420</span><span data-astro-cid-c3zj3n4r>800</span> </div> </div> </div> </div> <!-- Context card --> <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-offset-sm" data-astro-cid-c3zj3n4r> <div class="space-y-3" data-astro-cid-c3zj3n4r> <div data-astro-cid-c3zj3n4r> <label for="wks" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest block mb-1.5" data-astro-cid-c3zj3n4r>Weeks to test</label> <select id="wks" class="font-sans text-sm px-3 py-2 rounded-lg border-2 border-ink/20 bg-white text-ink cursor-pointer w-full focus:outline-none focus:border-ink/50 transition-colors" data-astro-cid-c3zj3n4r> <option value="1" data-astro-cid-c3zj3n4r>1 week</option> <option value="2" data-astro-cid-c3zj3n4r>2 weeks</option> <option value="3" data-astro-cid-c3zj3n4r>3 weeks</option> <option value="4" selected data-astro-cid-c3zj3n4r>4 weeks</option> <option value="6" data-astro-cid-c3zj3n4r>6 weeks</option> <option value="8" data-astro-cid-c3zj3n4r>8 weeks</option> <option value="12" data-astro-cid-c3zj3n4r>12+ weeks</option> </select> </div> <div data-astro-cid-c3zj3n4r> <label for="prior" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest block mb-1.5" data-astro-cid-c3zj3n4r>Prior prep</label> <select id="prior" class="font-sans text-sm px-3 py-2 rounded-lg border-2 border-ink/20 bg-white text-ink cursor-pointer w-full focus:outline-none focus:border-ink/50 transition-colors" data-astro-cid-c3zj3n4r> <option value="none" data-astro-cid-c3zj3n4r>None</option> <option value="moderate" selected data-astro-cid-c3zj3n4r>Moderate — some prior work</option> <option value="extensive" data-astro-cid-c3zj3n4r>Extensive — heavily prepped already</option> </select> </div> <div data-astro-cid-c3zj3n4r> <label for="desmos" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest block mb-1.5" data-astro-cid-c3zj3n4r>Prior Desmos usage</label> <select id="desmos" class="font-sans text-sm px-3 py-2 rounded-lg border-2 border-ink/20 bg-white text-ink cursor-pointer w-full focus:outline-none focus:border-ink/50 transition-colors" data-astro-cid-c3zj3n4r> <option value="none" data-astro-cid-c3zj3n4r>None</option> <option value="moderate" selected data-astro-cid-c3zj3n4r>Moderate — using on some problems</option> <option value="heavy" data-astro-cid-c3zj3n4r>Heavy — understand almost every trick</option> </select> </div> </div> </div> </div> <!-- ── Metric cards ── --> <div class="grid grid-cols-4 gap-3 mb-4" data-astro-cid-c3zj3n4r> <div class="bg-white border-2 border-ink rounded-xl p-4 shadow-offset-sm transition-transform duration-150 hover:scale-105 cursor-default" data-astro-cid-c3zj3n4r> <p class="font-sans text-[9px] font-bold uppercase tracking-widest text-ink/40 mb-2" data-astro-cid-c3zj3n4r>hrs / week</p> <p class="font-sans text-2xl font-black text-ink leading-none" id="m-hpw" data-astro-cid-c3zj3n4r>—</p> </div> <div class="bg-white border-2 border-ink rounded-xl p-4 shadow-offset-sm transition-transform duration-150 hover:scale-105 cursor-default" data-astro-cid-c3zj3n4r> <p class="font-sans text-[9px] font-bold uppercase tracking-widest text-ink/40 mb-2" data-astro-cid-c3zj3n4r>total hours</p> <p class="font-sans text-2xl font-black text-ink leading-none" id="m-h" data-astro-cid-c3zj3n4r>—</p> </div> <div class="bg-white border-2 border-ink rounded-xl p-4 shadow-offset-sm transition-transform duration-150 hover:scale-105 cursor-default" data-astro-cid-c3zj3n4r> <p class="font-sans text-[9px] font-bold uppercase tracking-widest text-ink/40 mb-2" data-astro-cid-c3zj3n4r>score ceiling</p> <p class="font-sans text-2xl font-black text-ink leading-none" id="m-ceil" data-astro-cid-c3zj3n4r>—</p> </div> <div class="bg-white border-2 border-ink rounded-xl p-4 shadow-offset-sm transition-transform duration-150 hover:scale-105 cursor-default" data-astro-cid-c3zj3n4r> <p class="font-sans text-[9px] font-bold uppercase tracking-widest text-ink/40 mb-2" data-astro-cid-c3zj3n4r>assessment</p> <p class="font-sans text-xl font-black leading-tight" id="m-stat" data-astro-cid-c3zj3n4r>—</p> </div> </div> <!-- ── Chart ── --> <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-offset-sm mb-6" data-astro-cid-c3zj3n4r> <!-- Legend --> <div class="flex flex-wrap gap-4 mb-3 font-sans text-[11px] text-ink/50" data-astro-cid-c3zj3n4r> <div class="flex items-center gap-1.5" data-astro-cid-c3zj3n4r> <span class="inline-block w-5 h-0.5 rounded bg-[#378ADD]" data-astro-cid-c3zj3n4r></span> <span data-astro-cid-c3zj3n4r>Cumulative gain</span> </div> <div class="flex items-center gap-1.5" data-astro-cid-c3zj3n4r> <span class="inline-block w-5" style="border-top: 1.5px dashed rgba(20,20,20,0.4); height:0;" data-astro-cid-c3zj3n4r></span> <span data-astro-cid-c3zj3n4r>Goal &amp; hours needed</span> </div> <div class="flex items-center gap-1.5" id="kink-legend" style="display:none;" data-astro-cid-c3zj3n4r> <span class="inline-block w-5 h-0.5 rounded bg-[#d97706]" data-astro-cid-c3zj3n4r></span> <span data-astro-cid-c3zj3n4r>Desmos bonus ends (50 pt mark)</span> </div> </div> <div class="relative w-full" style="height: 195px;" data-astro-cid-c3zj3n4r> <canvas id="mainChart" data-astro-cid-c3zj3n4r></canvas> </div> </div> <!-- ── Model notes ── --> <div class="border-t-2 border-ink/10 pt-8" data-astro-cid-c3zj3n4r> <p class="font-sans text-xs text-ink/35 leading-relaxed" data-astro-cid-c3zj3n4r> <strong class="text-ink/45 font-semibold" data-astro-cid-c3zj3n4r>Model:</strong>
+τ = 25 hrs &nbsp;·&nbsp;
+          r₀(score) = min(10, 1025·e<sup data-astro-cid-c3zj3n4r>−0.00732·score</sup> + floor(score)) where floor = 0.5 + 1.5·max(0, (score−700)/100)<br data-astro-cid-c3zj3n4r> <span class="pl-4 inline-block" data-astro-cid-c3zj3n4r>→ cap of 10 slows low-start students (~23% in scores &lt;628); floor ramps 0.5→2.0 from score 700→800</span><br data-astro-cid-c3zj3n4r>
+M: 1 wk = 0.8×, 2 wks = 0.9×, 3+ wks = 1.0× &nbsp;·&nbsp;
+          Prior prep: none = 1.0×, moderate = 0.85×, extensive = 0.70× — flat ceiling &amp; rate multiplier<br data-astro-cid-c3zj3n4r>
+Desmos D: none = 1.3×, moderate = 1.0×, heavy = 0.9× (applies to first 50 pts of new gain only)<br data-astro-cid-c3zj3n4r>
+Rate at time t: r₀(current_score) × M × priorDecay × D(gain) × 2<sup data-astro-cid-c3zj3n4r>−t/25</sup> — integrated numerically
+</p> </div> </div> </section>  </main> <footer class="bg-ink-mid text-chalk/80"> <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16"> <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8"> <!-- Brand --> <div class="lg:col-span-1"> <a href="/" class="font-sans text-xl font-black text-chalk hover:text-electric transition-colors">
+LearnSATMath
+</a> <p class="mt-3 text-sm text-chalk/70 leading-relaxed max-w-xs">
+Expert SAT math instruction from a two-time perfect scorer. 400+ students helped.
+</p> </div> <!-- Nav links --> <div> <p class="text-xs font-bold uppercase tracking-widest text-chalk/50 mb-4">Pages</p> <ul class="space-y-2"> <li> <a href="/masterclass" class="text-sm text-chalk/70 hover:text-chalk transition-colors"> Masterclass </a> </li><li> <a href="/tutoring" class="text-sm text-chalk/70 hover:text-chalk transition-colors"> Tutoring </a> </li><li> <a href="/book" class="text-sm text-chalk/70 hover:text-chalk transition-colors"> Book </a> </li><li> <a href="/resources" class="text-sm text-chalk/70 hover:text-chalk transition-colors"> Resources </a> </li> </ul> </div> <!-- CTA --> <div> <p class="text-xs font-bold uppercase tracking-widest text-chalk/50 mb-4">Get Started</p> <p class="text-sm text-chalk/70 mb-4 leading-relaxed">
+Join the next Masterclass cohort and join dozens of students who've reached 750+.
+</p> <a href="/masterclass" class="inline-block bg-coral text-white text-sm font-bold px-6 py-3 rounded-xl border-2 border-chalk hover:opacity-90 transition-opacity">
+Enroll in Masterclass
+</a> <p class="text-sm text-chalk/70 mt-6 leading-relaxed">
+Have a question? <a href="mailto:eric.wolpert@learnsatmath.com" class="text-chalk hover:text-electric transition-colors underline">Send me an email</a>.
+</p> <p class="text-sm text-chalk/50 mt-1">eric.wolpert [at] learnsatmath [dot] com</p> </div> </div> <div class="mt-12 pt-8 border-t border-chalk/20 flex flex-col sm:flex-row items-center justify-between gap-4"> <p class="text-xs text-chalk/50">&copy; 2026 Bedrock Test Prep LLC. All rights reserved.</p> <div class="flex gap-5"> <a href="https://www.youtube.com/@learnsatmath" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="text-chalk/50 hover:text-chalk transition-colors"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .6 5.8 3 3 0 0 0 2 2.1c2 .5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"></path> </svg> </a> </div> </div> </div> </footer>  </body> </html> <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script> <script>
+const TAU = 25;
+const r0fn = s => {
+  const expPart = 1025 * Math.exp(-0.00732 * s);
+  const floor = 0.5 + 1.5 * Math.max(0, (s - 700) / 100);
+  return Math.min(10, expPart + floor);
+};
+const PRIOR  = { none: 1.0, moderate: 0.85, extensive: 0.70 };
+const DESMOS = { none: 1.3, moderate: 1.0, heavy: 0.9 };
+const multFor = w => w <= 1 ? 0.8 : w <= 2 ? 0.9 : 1.0;
+const DT = 0.05;
+
+function simulate(score, goal, M, priorDecay, D) {
+  const G = Math.max(0, goal - score);
+  let t = 0, gain = 0;
+  let H = null, H1 = null;
+  const pts = [{ x: 0, y: 0 }];
+  let lastRecord = 0;
+
+  for (let i = 0; i < 6000; i++) {
+    const currentScore = score + gain;
+    const dD = gain < 50 ? D : 1.0;
+    const rate = r0fn(currentScore) * M * priorDecay * Math.pow(2, -t / TAU) * dD;
+    const newGain = gain + rate * DT;
+    const newT = t + DT;
+
+    if (H1 === null && D !== 1.0 && gain < 50 && newGain >= 50) {
+      H1 = t + (50 - gain) / rate;
+    }
+    if (H === null && G > 0 && gain < G && newGain >= G) {
+      H = t + (G - gain) / rate;
+    }
+
+    gain = newGain;
+    t = newT;
+
+    if (t - lastRecord >= 0.49) {
+      pts.push({ x: +t.toFixed(1), y: +gain.toFixed(2) });
+      lastRecord = t;
+    }
+
+    if (rate < 0.003) break;
+  }
+
+  if (pts[pts.length - 1].x < t) pts.push({ x: +t.toFixed(1), y: +gain.toFixed(2) });
+
+  const ceilScore = Math.min(800, Math.round(score + gain));
+  return { pts, H, H1, ceilScore, ceilGain: gain };
+}
+
+const ctx = document.getElementById('mainChart').getContext('2d');
+let chart = null;
+
+function buildChart(pts, G, H, H1, xMax, score, statusColor, D) {
+  if (chart) chart.destroy();
+
+  const displayPts = pts.filter(p => p.x <= xMax + 0.5);
+  const tc = 'rgba(0,0,0,0.32)';
+  const gc = 'rgba(0,0,0,0.05)';
+  const showKink = H1 !== null && D !== 1.0 && H1 <= xMax;
+
+  chart = new window.Chart(ctx, {
+    type: 'line',
+    data: { datasets: [{ data: displayPts, borderColor: '#378ADD', borderWidth: 2.5,
+        pointRadius: 0, tension: 0.2, fill: false }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: i => `Hour ${Math.round(i[0].raw.x)}`,
+          label: i => `Score: ~${Math.round(score + i[0].raw.y)} (gain +${Math.round(i[0].raw.y)})`,
+        }},
+      },
+      scales: {
+        x: { type: 'linear', min: 0, max: xMax, border: { display: false },
+          ticks: { color: tc, font: { size: 11 }, maxTicksLimit: 7, callback: v => `${Math.round(v)}h` },
+          grid: { color: gc } },
+        y: { border: { display: false },
+          ticks: { color: tc, font: { size: 11 }, maxTicksLimit: 5, callback: v => `+${Math.round(v)}` },
+          grid: { color: gc } },
+      },
+    },
+    plugins: [{
+      id: 'overlays',
+      afterDraw(c) {
+        const { ctx: cx, scales: { x, y } } = c;
+        cx.save();
+
+        cx.strokeStyle = statusColor + 'bb';
+        cx.lineWidth = 1.5;
+        cx.setLineDash([5, 4]);
+        const yGoalPx = y.getPixelForValue(G);
+        cx.beginPath(); cx.moveTo(x.left, yGoalPx); cx.lineTo(x.right, yGoalPx); cx.stroke();
+        if (H !== null && H <= xMax) {
+          const xHPx = x.getPixelForValue(H);
+          cx.beginPath(); cx.moveTo(xHPx, y.top); cx.lineTo(xHPx, y.bottom); cx.stroke();
+        }
+
+        if (showKink) {
+          cx.strokeStyle = '#d97706aa';
+          cx.lineWidth = 1;
+          cx.setLineDash([3, 3]);
+          const xK = x.getPixelForValue(H1);
+          const yK = y.getPixelForValue(50);
+          cx.beginPath(); cx.moveTo(xK, y.top); cx.lineTo(xK, yK); cx.stroke();
+          cx.beginPath(); cx.moveTo(x.left, yK); cx.lineTo(xK, yK); cx.stroke();
+        }
+
+        cx.setLineDash([]);
+        cx.font = '11px "DM Sans", system-ui, sans-serif';
+        cx.fillStyle = statusColor;
+        cx.fillText(`goal: +${Math.round(G)} pts`, x.left + 6, yGoalPx - 6);
+
+        cx.restore();
+      },
+    }],
+  });
+}
+
+function update() {
+  const score     = +document.getElementById('curr').value;
+  const goal      = +document.getElementById('goal').value;
+  const weeks     = +document.getElementById('wks').value;
+  const priorKey  = document.getElementById('prior').value;
+  const dKey      = document.getElementById('desmos').value;
+
+  document.getElementById('cv').textContent = score;
+  document.getElementById('gv').textContent = goal;
+
+  const G = goal - score;
+  if (G <= 0) {
+    ['m-hpw','m-h','m-ceil','m-stat'].forEach(id => {
+      document.getElementById(id).textContent = '—';
+      document.getElementById(id).style.color = '#141414';
+    });
+    ['m-hpw-s','m-h-s','m-ceil-s'].forEach(id => document.getElementById(id).textContent = '');
+    return;
+  }
+
+  const M          = multFor(weeks);
+  const priorDecay = PRIOR[priorKey];
+  const D          = DESMOS[dKey];
+  const { pts, H, H1, ceilScore } = simulate(score, goal, M, priorDecay, D);
+
+  const hpw = H !== null ? H / weeks : null;
+
+  let status, statusColor;
+  if (H === null)     { status = 'Not feasible';   statusColor = '#ef4444'; }
+  else if (hpw > 15)  { status = 'Very intensive'; statusColor = '#d97706'; }
+  else if (hpw > 7)   { status = 'Intensive';      statusColor = '#d97706'; }
+  else                { status = 'Feasible';        statusColor = '#16a34a'; }
+
+  const hpwEl = document.getElementById('m-hpw');
+  hpwEl.textContent = hpw !== null ? hpw.toFixed(1) : '—';
+  hpwEl.style.color = hpw !== null ? statusColor : '#141414';
+  document.getElementById('m-h').textContent = H !== null ? Math.round(H) : '—';
+
+  document.getElementById('m-ceil').textContent = ceilScore >= 800 ? '800+' : ceilScore;
+
+  const statEl = document.getElementById('m-stat');
+  statEl.textContent  = status;
+  statEl.style.color  = statusColor;
+
+  document.getElementById('kink-legend').style.display = D !== 1.0 ? 'flex' : 'none';
+
+  const xMax = H !== null ? Math.min(H * 1.8, 110) : 100;
+  buildChart(pts, G, H, H1, xMax, score, statusColor, D);
+}
+
+['curr','goal','wks','prior','desmos'].forEach(id =>
+  document.getElementById(id).addEventListener('change', update));
+
+['curr','goal'].forEach(id =>
+  document.getElementById(id).addEventListener('input', update));
+
+update();
+</script>

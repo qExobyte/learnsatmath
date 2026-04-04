@@ -1,1 +1,0 @@
-import"./Nav.astro_astro_type_script_index_0_lang.ByQfmw9i.js";document.getElementById("see-all-options")?.addEventListener("click",e=>{e.preventDefault(),document.getElementById("pricing")?.scrollIntoView({behavior:"smooth"})});
