@@ -1,20 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
+import CoachingFeatures from '../components/CoachingFeatures.astro';
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
 const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring';
+const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call';
 
-const features = [
-  { icon: '📅', title: 'Flexible scheduling', body: 'Book on-demand whenever you need a session. No rigid weekly commitment.' },
-  { icon: '🎯', title: 'Fully personalized', body: 'Every session is built around your weaknesses. No generic curriculum.' },
-  { icon: '🧮', title: 'Desmos mastery', body: 'Learn to use the Desmos calculator as much as possible.' },
-  { icon: '📖', title: 'Book included', body: 'Every student gets a free copy of SAT Math from the Ground Up to reinforce sessions.' },
-  { icon: '🗺️', title: 'Structured plan', body: 'We close every session with a clear roadmap of what to tackle before we meet again.' },
-];
 ---
 
 <Layout
-  title="1-on-1 Tutoring"
+  title="1-on-1 Tutoring & Coaching"
   description="Private SAT math tutoring with Eric. Personalized instruction, flexible scheduling, and proven results. Book a session directly."
 >
 
@@ -25,16 +22,16 @@ const features = [
 
         <!-- Left: text -->
         <div>
-          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Tutoring</h1>
+          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Tutoring & Coaching</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
             Focused entirely on <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">you</span>
           </p>
           <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-6">
-            Personalized instruction around your weaknesses, your pace, and your goals — one session at a time.
+            Personalized instruction with the sole focus of getting you to your goal score.
           </p>
           <a
-            href="#book"
-            class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
+            href="#pricing"
+            class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
           >
             Book a Session
           </a>
@@ -56,38 +53,8 @@ const features = [
     </div>
   </section>
 
-  <!-- What's included -->
-  <section class="py-16 lg:py-24 bg-peach">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-12">
-
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">What you get</h2>
-      </div>
-      <div class="flex flex-col items-center gap-5">
-        <div class="flex flex-wrap justify-center gap-5">
-          {features.slice(0, 2).map(({ icon, title, body }) => (
-            <div class="w-full sm:w-80 bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-6 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-200">
-              <span class="text-3xl">{icon}</span>
-              <h3 class="font-sans font-bold text-lg text-ink">{title}</h3>
-              <p class="text-ink/70 font-semibold leading-relaxed text-sm">{body}</p>
-            </div>
-          ))}
-        </div>
-        <div class="flex flex-wrap justify-center gap-5">
-          {features.slice(2).map(({ icon, title, body }) => (
-            <div class="w-full sm:w-72 bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-6 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-200">
-              <span class="text-3xl">{icon}</span>
-              <h3 class="font-sans font-bold text-lg text-ink">{title}</h3>
-              <p class="text-ink/70 font-semibold leading-relaxed text-sm">{body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Testimonials -->
-  <section class="hidden [@media(min-width:900px)]:block py-16 lg:py-24 bg-sky">
+  <section class="hidden [@media(min-width:900px)]:block py-16 lg:py-24 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From tutoring students</h2>
@@ -96,166 +63,273 @@ const features = [
     </div>
   </section>
 
-  <!-- Calendly booking -->
-  <section id="book" class="py-16 lg:py-24 bg-chalk">
+  <!-- Coaching selling point -->
+  <section class="py-16 lg:py-24 bg-sky">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-10">
-
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Book a session</h2>
-        <p class="text-ink/60 font-semibold">Only book what you need! No massive packages.</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The plan</span></p>
+          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">Know exactly what and when to study</h2>
+          <p class="text-ink/80 font-semibold text-lg leading-relaxed">
+            Most test prep treats every student the same. My coaching starts with your current score, your goal, and your schedule, and then builds a custom roadmap to close the gap.
+          </p>
+          <br>
+          <p class="text-ink/80 font-semibold text-lg leading-relaxed">
+            Every 1-on-1 session is laser-focused on your weakest concepts and problems. And every assignment is calibrated to your schedule. 
+          </p>
+          <br>
+          <p class="text-ink/80 font-semibold text-lg leading-relaxed">
+            Of course, schedules and progress are not always predictable! After each Bluebook test, we'll look back on the plan and revise as needed.
+          </p>
+        </div>
+        <div>
+          <img
+            src="/coaching_plan.png"
+            alt="Example personalized coaching plan"
+            class="w-full rounded-2xl border-2 border-ink shadow-offset-md"
+          />
+          <p class="text-center text-sm text-ink/40 mt-3">yes, the plan will look just like this</p>
+        </div>
       </div>
-      <div
-        class="calendly-inline-widget"
-        data-url={CALENDLY_URL}
-        style="min-width:320px;height:700px;width:100%;"
-      ></div>
-      <script is:inline type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
   </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 lg:py-24 bg-peach">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Choose your path</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- On-Demand Sessions Card -->
+        <div class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md hover:-translate-y-1 transition-transform duration-200">
+          <div class="mb-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Pay as you go</p>
+            <h3 class="font-sans text-2xl text-ink font-bold mb-4">On-Demand Sessions</h3>
+            <div class="flex items-baseline gap-2">
+              <span class="font-sans text-4xl font-black text-ink">${TUTORING_HOURLY_PRICE}</span>
+              <span class="text-ink/50 text-sm">per hour</span>
+            </div>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Book only what you need</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Deep dive on your weaknesses</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Learn Desmos tricks that CollegeBoard won't tell you</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Cover specific problems that you're struggling with</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Get a structured plan to help you reach your goal score</span>
+            </li>
+          </ul>
+          <p class="text-xs text-ink/50 text-center mb-3">Able to cancel or reschedule up to 6 hours in advance.</p>
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center bg-white text-ink font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+          >
+            Book a Session
+          </a>
+        </div>
+
+        <!-- Personalized Coaching Card -->
+        <div class="animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
+              Best results
+            </span>
+          </div>
+          <div class="bg-ink-mid rounded-[14px] p-8 flex flex-col">
+            <div class="mb-6 mt-4">
+              <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Full-service prep</p>
+              <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Personalized Coaching</h3>
+              <div class="flex items-baseline gap-2">
+                <span class="font-sans text-4xl font-black text-chalk">$495+</span>
+                <span class="text-chalk/50 text-sm">Custom pricing</span>
+              </div>
+            </div>
+            <div class="flex-1 mb-8">
+              <CoachingFeatures dark={true} />
+            </div>
+            <a
+              href={COACHING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            >
+              Book a Free Strategy Call
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <CalculatorCTA />
 
   <!-- FAQ -->
-  <section class="py-16 lg:py-24 bg-mint">
-    <div class="max-w-3xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-10">
-
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Common questions</h2>
-      </div>
-      <div class="space-y-3" id="faq-list">
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">Should I get 1-on-1 tutoring or join the Masterclass?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-              <p>If you're scoring under a 630, start with 1-on-1 sessions. You should always prioritize the easiest problems you're missing, and the Masterclass focuses on SAT math's hardest problems.</p>
-              <p>If you're above a 630, I'd recommend the Masterclass — with 1-on-1 sessions as a supplement if needed. Think of the Masterclass as teaching you the content of the test, and 1-on-1 sessions as "office hours" for topics you just can't wrap your head around. Plus, group classes cost much less!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">What makes your tutoring better than test prep companies?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-              <p>A simple Google search for "Princeton Review tutor salaries" shows they pay tutors $20–$40/hr while charging $250/hr+. You're paying for the brand, not the tutor.</p>
-              <p>Their bundles (up to $10,000!) prioritize quantity over quality — hundreds of unengaging videos and thousands of problems, many AI-generated. But students only have so much time.</p>
-              <p>My tutoring is focused on efficiency and outcomes. At any point in our prep, we focus entirely on the topic that yields the highest return in the lowest amount of time.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">What materials should I use?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-              <p><strong>Getting a representative score</strong> → Bluebook.</p>
-              <p><strong>Learning &amp; reinforcing concepts</strong> → SAT Math from the Ground Up.</p>
-              <p><strong>Practice problems</strong> → OnePrep or PrepPros.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">How much will my score improve with tutoring?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-              <p>There's no golden ticket where you can pay a certain amount for a certain SAT score. Almost every test prep company with score guarantees has caveats in the fineprint.</p>
-              <p>Instead, I let the results of my students speak for themselves. Most Masterclass students score over 750, and many of my 1-on-1 students improve 150+ points or surpass their personal goals.</p>
-              <p>But this progress takes time and effort. I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">Do you assign homework? How much?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-              <p>Sessions are fully personalized, so there's no rigid curriculum. Instead, I meet each student where they are and we close every session with a clear sense of which areas to prioritize before we meet again.</p>
-              <p>I recommend spending at least 2 hours on practice problems between sessions. This keeps our time together focused entirely on your weaknesses and questions — where the real gains happen.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">What if I need to cancel a session?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. Otherwise, the full session price is charged.</p>
-          </div>
-        </div>
-
-        <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-          <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-            <span class="font-sans font-bold text-lg text-ink">Do you tutor other subjects too?</span>
-            <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Nope! I've specialized so that I can become the best SAT math tutor online.</p>
-          </div>
-        </div>
-
-      </div>
+<section class="py-16 lg:py-24 bg-chalk">
+  <div class="max-w-3xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Common questions</h2>
     </div>
-  </section>
+    <div class="space-y-3" id="faq-list">
 
-  <!-- Bottom CTA -->
-  <section class="py-16 lg:py-20 bg-ink-mid text-white">
-    <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-      <h2 class="font-sans font-black text-2xl lg:text-4xl tracking-tight mb-4">Ready to start?</h2>
-      <p class="text-chalk/70 font-semibold text-lg mb-8">Pick a time that works and let's get to work on your score.</p>
-      <a
-        href="#book"
-        class="book-btn inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
-      >
-        Book a Session
-      </a>
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">Should I book an on-demand session, join the masterclass, or personalized coaching?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>If your SAT is less than 2 weeks away → Book a session on-demand or buy the self-paced masterclass and grind through the recordings.</p>
+            <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 630 → Join the live Masterclass.</p>
+            <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then book a strategy call and we'll come up with a coaching plan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">What do you assign between sessions?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>With personalized coaching, you'll be provided a concrete list of tasks between each session.</p>
+            <p>These include:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>SAT Math Masterclass recordings, covering the concepts and problems in-depth</li>
+              <li>Bluebook tests with specific score range targets for each test</li>
+              <li>Focus areas – Tasks assigned based on your weaknesses from the last session. These may be chapters from SAT Math from the Ground Up, sets of practice questions, regression drills, or videos to watch.</li>
+              <li>OnePrep problems or select problems from your resource of choice.</li>
+              <li>My own resources like "25 challenging problems"</li>
+            </ul>
+            <p>The custom plan schedules tasks based on their expected duration to complete, keeping you on track with your expected weekly prep hours for your goal score.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">How much will my coaching plan cost?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>Coaching plans start at $495, but can go much higher if you're trying to see substantial improvement. The biggest differentiator is the number of 1-on-1 sessions. Note that the total prices will be lower than the sum of their parts.</p>
+            <p>Here are some examples of what plans might look like:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>470 → 650 with 4x sessions + self-paced masterclass + resources: ~$1295</li>
+              <li>720 → 780 with 2x sessions + self-paced masterclass + resources: ~$795</li>
+              <li>590 → 760 with 8x sessions + live masterclass + resources: ~$2795</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">What makes your tutoring better than test prep companies?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>A simple Google search for "Princeton Review tutor salaries" shows they pay tutors $20–$40/hr while charging $250/hr+. You're paying for the brand, not the tutor.</p>
+            <p>Their bundles (up to $10,000!) prioritize quantity over quality — hundreds of unengaging videos and thousands of problems, many AI-generated. But students only have so much time.</p>
+            <p>My tutoring is focused on efficiency and outcomes. At any point in our prep, we focus entirely on the topic that yields the highest return in the lowest amount of time.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">Do you offer a score guarantee?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>I do not offer score guarantees. Almost every test prep platform with score guarantees has caveats in the fineprint (i.e. "must complete all 500 hours of material"). I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
+            <p>However, my score improvement calculator is based on data from over 100 students across the masterclass and 1-on-1 sessions. You'll get a reliable metric for how many hours per week are needed to reach your goal score, and there will be periodic Bluebook tests to ensure you're on the right track.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">What if I need to cancel a session?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
+            <p>On-demand sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. We can also reschedule to another time! Otherwise, the full session price is charged.</p>
+            <p>Sessions in personalized coaching plans may also be rescheduled at least 6 hours before the scheduled start time. However, each custom plan has custom pricing, so there is no one standard refund policy for all plans. Please reach out with questions specific to your plan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+          <span class="font-sans font-bold text-lg text-ink">Do you tutor other subjects too?</span>
+          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+          <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Nope! I've specialized so that I can become the best SAT math tutor online.</p>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
 
 <script>
-  document.querySelectorAll('.book-btn').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const el = document.getElementById('book');
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
-        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
-      }
-    });
+  function scrollToPricingCenter(smooth = true) {
+    const pricing = document.getElementById('pricing');
+    if (pricing) {
+      const top = pricing.getBoundingClientRect().top + window.scrollY;
+      const center = top + pricing.offsetHeight / 2 - window.innerHeight / 2;
+      window.scrollTo({ top: center, behavior: smooth ? 'smooth' : 'instant' });
+    }
+  }
+
+  document.querySelector('a[href="#pricing"]')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    scrollToPricingCenter();
   });
+
+  if (window.location.hash === '#pricing') {
+    scrollToPricingCenter(false);
+  }
 
   document.querySelectorAll('.faq-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
@@ -279,5 +353,21 @@ const features = [
   .hero-section {
     padding-top: clamp(1.5rem, 8vh, 6rem);
     padding-bottom: clamp(1.5rem, 8vh, 6rem);
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  @keyframes spin-border {
+    to { --angle: 360deg; }
+  }
+
+  .animated-border-wrapper {
+    padding: 3px;
+    background: conic-gradient(from var(--angle), #141414 65%, #FF5533 72%, #FF5533 78%, #141414 85%);
+    animation: spin-border 3s linear infinite;
   }
 </style>

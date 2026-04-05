@@ -1,0 +1,18 @@
+---
+import { coachingFeatures } from '../data/coachingFeatures';
+
+interface Props {
+  dark?: boolean;
+}
+
+const { dark = true } = Astro.props;
+---
+
+<ul class="space-y-3">
+  {coachingFeatures.map((f, i) => (
+    <li class={`flex items-start gap-2 text-base ${dark && i === 0 ? 'text-electric font-bold' : dark ? 'text-chalk/80' : 'text-ink/80'}`}>
+      <span class={`font-black mt-0.5 ${dark && i === 0 ? 'text-electric' : 'text-coral'}`}>✓</span>
+      <span>{f}</span>
+    </li>
+  ))}
+</ul>

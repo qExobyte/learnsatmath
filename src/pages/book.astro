@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
 const chapters = [
   {
@@ -131,7 +132,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
           <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The Value</span></p>
           <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">A year of lessons for just $49</h2>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
-            Many questions target <b>specific mistakes</b> that I see students make over and over again. I've spent over a year compiling the best lessons from my $285/hr tutoring.
+            Many questions target <b>specific mistakes</b> that I see students make over and over again. I've spent over a year compiling the best lessons from my ${TUTORING_HOURLY_PRICE}/hr tutoring.
           </p>
           <br>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">

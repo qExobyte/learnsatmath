@@ -5,6 +5,7 @@ import MasterclassSchedule from '../components/MasterclassSchedule.astro';
 import MasterclassRhythm from '../components/MasterclassRhythm.astro';
 import MasterclassIncluded from '../components/MasterclassIncluded.astro';
 import MasterclassVsRest from '../components/MasterclassVsRest.astro';
+import { MASTERCLASS_PRICE } from '../data/pricing';
 
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
@@ -150,7 +151,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           <ul class="space-y-3 flex-1 mb-8">
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>15 hours of <strong>recordings</strong> of every class from the October 2025 cohort</span>
+              <span>15 hours of <strong>recordings</strong> of every class from the March 2026 cohort</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
@@ -174,7 +175,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </li>
             <li class="flex items-start gap-2 text-base text-ink/30">
               <span class="font-black mt-0.5">✗</span>
-              <span>Updated curriculum for the Spring SATs</span>
+              <span>Updated curriculum for newest cohort</span>
             </li>
           </ul>
           <p class="text-xs text-ink/50 text-center mb-3">Includes a ${SELF_PACED_PRICE} discount on any live cohort in the future.</p>
@@ -182,7 +183,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             href={SELF_PACED_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            class="block text-center bg-white text-ink font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
             Enroll Now
           </a>
@@ -190,32 +191,34 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
         )}
 
         <!-- Live Masterclass Card -->
-        <div class={`bg-ink-mid rounded-2xl border-2 border-coral p-8 flex flex-col shadow-[5px_5px_0_0_#FF5533] relative hover:-translate-y-1 transition-transform duration-200${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
+        <div class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
               Best Results
             </span>
           </div>
-          <div class="mb-6 mt-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Live small group classes</p>
-            <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Masterclass</h3>
-            <div class="flex items-baseline gap-2">
-              <span class="font-sans text-4xl font-black text-chalk">$895</span>
-              <span class="text-chalk/60 text-sm">$49 per hour</span>
+          <div class="bg-ink-mid rounded-[14px] p-8 flex flex-col">
+            <div class="mb-6 mt-4">
+              <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Live small group classes</p>
+              <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Masterclass</h3>
+              <div class="flex items-baseline gap-2">
+                <span class="font-sans text-4xl font-black text-chalk">${MASTERCLASS_PRICE}</span>
+                <span class="text-chalk/60 text-sm">$49 per hour</span>
+              </div>
             </div>
+            <div class="flex-1 mb-8">
+              <MasterclassIncluded dark={true} />
+            </div>
+            <p class="text-xs text-chalk/40 text-center mb-3">Purchase is fully refundable through {REFUND_DEADLINE}.</p>
+            <a
+              href={enrollHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            >
+              {enrollLabel}
+            </a>
           </div>
-          <div class="flex-1 mb-8">
-            <MasterclassIncluded dark={true} />
-          </div>
-          <p class="text-xs text-chalk/40 text-center mb-3">Purchase is fully refundable through {REFUND_DEADLINE}.</p>
-          <a
-            href={enrollHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk hover:opacity-90 transition-opacity"
-          >
-            {enrollLabel}
-          </a>
         </div>
 
       </div>
@@ -558,5 +561,21 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   .hero-section {
     padding-top: clamp(1.5rem, 8vh, 6rem);
     padding-bottom: clamp(1.5rem, 8vh, 6rem);
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  @keyframes spin-border {
+    to { --angle: 360deg; }
+  }
+
+  .animated-border-wrapper {
+    padding: 3px;
+    background: conic-gradient(from var(--angle), #141414 65%, #FF5533 72%, #FF5533 78%, #141414 85%);
+    animation: spin-border 3s linear infinite;
   }
 </style>

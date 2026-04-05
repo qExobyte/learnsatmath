@@ -16,7 +16,7 @@ const { dark = false } = Astro.props;
       : (isLast ? 'text-navy font-bold' : 'text-gray-700');
     if (isLast) {
       return (
-        <li class="flex items-center gap-2 text-base font-bold" style="color:#FFE135;">
+        <li class={`flex items-center gap-2 text-base font-bold ${dark ? '' : 'text-ink'}`} style={dark ? 'color:#FFE135;' : ''}>
           <span>✓</span>
           <span>Most students end with a 750+</span>
         </li>

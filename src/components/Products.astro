@@ -1,5 +1,7 @@
 ---
 import MasterclassIncluded from './MasterclassIncluded.astro';
+import CoachingFeatures from './CoachingFeatures.astro';
+import { MASTERCLASS_PRICE, COACHING_STARTING_PRICE } from '../data/pricing';
 
 const book = {
   name: 'SAT Math from the Ground Up',
@@ -18,7 +20,7 @@ const book = {
 
 const masterclass = {
   name: 'Masterclass',
-  price: '$895',
+  price: `$${MASTERCLASS_PRICE}`,
   priceNote: '$49 per hour',
   tagline: 'Live small group classes',
   badge: 'Best Results',
@@ -26,19 +28,11 @@ const masterclass = {
   href: '/masterclass',
 };
 
-const oneOnOne = {
-  name: '1-on-1 Sessions',
-  price: '$285',
-  priceNote: 'per hour',
-  tagline: 'Personalized instruction',
-  features: [
-    'Flexible on-demand scheduling',
-    'Personalized to your weaknesses',
-    'Master the Desmos calculator',
-    'SAT Math from the Ground Up book included',
-    'Setup a structured plan for your prep',
-  ],
-  cta: 'Book a Session',
+const coaching = {
+  name: 'Personalized Coaching',
+  price: `$${COACHING_STARTING_PRICE}+`,
+  tagline: 'Full-service prep',
+  cta: 'Learn More',
   href: '/tutoring',
 };
 ---
@@ -102,29 +96,23 @@ const oneOnOne = {
         </a>
       </div>
 
-      <!-- 1-on-1 -->
+      <!-- Coaching -->
       <div class="bg-white rounded-2xl border-2 border-ink shadow-offset-md p-8 flex flex-col hover:-translate-y-1 transition-transform duration-200">
         <div class="mb-6">
-          <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">{oneOnOne.tagline}</p>
-          <h3 class="font-sans text-xl text-ink font-bold mb-4">{oneOnOne.name}</h3>
+          <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">{coaching.tagline}</p>
+          <h3 class="font-sans text-xl text-ink font-bold mb-4">{coaching.name}</h3>
           <div class="flex items-baseline gap-2">
-            <span class="font-sans text-4xl font-black text-ink">{oneOnOne.price}</span>
-            <span class="text-ink/50 text-sm">{oneOnOne.priceNote}</span>
+            <span class="font-sans text-4xl font-black text-ink">{coaching.price}</span>
           </div>
         </div>
-        <ul class="flex-1 space-y-3 mb-8">
-          {oneOnOne.features.map(f => (
-            <li class="flex items-start gap-2 text-base text-ink/80">
-              <span class="text-coral font-black mt-0.5">✓</span>
-              {f}
-            </li>
-          ))}
-        </ul>
+        <div class="flex-1 mb-8">
+          <CoachingFeatures dark={false} />
+        </div>
         <a
-          href={oneOnOne.href}
+          href={coaching.href}
           class="block text-center border-2 border-ink text-ink font-bold py-3 rounded-xl hover:bg-ink hover:text-chalk transition-colors shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
-          {oneOnOne.cta}
+          {coaching.cta}
         </a>
       </div>
 

@@ -1,0 +1,21 @@
+---
+interface Props {
+  bg?: string;
+}
+const { bg = 'bg-chalk' } = Astro.props;
+---
+
+<section class={`${bg} border-b-2 border-ink py-8`}>
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <p class="font-sans font-extrabold text-lg text-ink">Not sure how much to prepare?</p>
+      <p class="text-ink/60 font-semibold text-sm">Use the score improvement calculator to estimate the hours needed to reach your goal.</p>
+    </div>
+    <a
+      href="/calculator"
+      class="flex-shrink-0 bg-electric text-ink font-bold py-3 px-7 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+    >
+      Score Calculator →
+    </a>
+  </div>
+</section>
