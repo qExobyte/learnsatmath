@@ -194,11 +194,11 @@ export const testimonials: Testimonial[] = [
     isMasterclass: true,
   },
   {
-    name: 'Sam',
-    context: 'December 2024 Cohort',
-    scoreBefore: 650,
-    scoreAfter: 770,
-    quote: "While I typically don't like studying math, I genuinely enjoyed each session. His materials were well-thought-out and personalized, and I encountered several concepts we covered together on the actual SAT.",
+    name: 'Sebastian',
+    context: 'March 2026 Cohort',
+    scoreBefore: 660,
+    scoreAfter: 780,
+    quote: "I never knew you could increase your score so much so quickly. Eric makes complicated material simple, and he makes sure that everyone understands each topic before moving on. Many of the masterclass problems were almost word for word on the exam!",
     isMasterclass: true,
   },
 ];

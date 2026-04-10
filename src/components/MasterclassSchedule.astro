@@ -14,6 +14,7 @@ interface Session {
 interface Week {
   number: number;
   name: string;
+  dates: string;
   sessions: Session[];
 }
 
@@ -21,6 +22,7 @@ const weeks: Week[] = [
   {
     number: 1,
     name: 'Algebra with Desmos',
+    dates: 'Sat 4/25 & Sun 4/26',
     sessions: [
       { type: 'class', topic: 'How to Prep & Functions' },
       { type: 'class', topic: 'Algebra w/ Desmos & Regressions' },
@@ -29,6 +31,7 @@ const weeks: Week[] = [
   {
     number: 2,
     name: 'Linear & Exponential Functions',
+    dates: 'Sat 5/2 & Sun 5/3',
     sessions: [
       { type: 'class', topic: 'Linear Functions' },
       { type: 'class', topic: 'Exponential Functions' },
@@ -38,6 +41,7 @@ const weeks: Week[] = [
   {
     number: 3,
     name: 'Quadratics & Polynomials',
+    dates: 'Sat 5/9 & Sun 5/10',
     sessions: [
       { type: 'class', topic: 'Quadratics' },
       { type: 'class', topic: 'Advanced Quadratics & Polynomials' },
@@ -46,6 +50,7 @@ const weeks: Week[] = [
   {
     number: 4,
     name: 'Geometry',
+    dates: 'TBD',
     sessions: [
       { type: 'class', topic: 'Triangles' },
       { type: 'class', topic: 'Circles, Surface Area & Volume' },
@@ -55,6 +60,7 @@ const weeks: Week[] = [
   {
     number: 5,
     name: 'Statistics & Review Game',
+    dates: 'Sat 5/23 & Sun 5/24',
     sessions: [
       { type: 'class', topic: 'Unit Conversion & Statistics' },
       { type: 'class', topic: 'Final Review' },
@@ -77,7 +83,7 @@ const weeks: Week[] = [
         const ohSessions = week.sessions.filter(s => s.type === 'office-hours');
         return (
           <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5">
-            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number}</p>
+            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number} &middot; {week.dates}</p>
             <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
             {ohSessions.length > 0 && (
               <p class="text-sm text-ink/50 font-semibold italic mt-1">+ Office Hours</p>
@@ -88,7 +94,7 @@ const weeks: Week[] = [
 
       <!-- SAT -->
       <div class="bg-electric border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm">
-        <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT</p>
+        <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT &middot; june 6</p>
         <p class="font-sans text-lg text-ink font-black">Good luck!</p>
       </div>
     </div>
