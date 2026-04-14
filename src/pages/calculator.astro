@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Prep Hours Calculator" description="Estimate how many hours per week you need to study to reach your SAT Math goal score by test day.">
+<Layout title="Study Time Calculator" description="Estimate how many hours per week you need to study to reach your SAT Math goal score by test day.">
 
   <style>
     input[type=range] {
@@ -11,7 +11,29 @@ import Layout from '../layouts/Layout.astro';
       cursor: pointer;
       height: 6px;
     }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23141414' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
   </style>
+
+  <!-- 1-on-1 coaching banner (shown when 1 week selected) -->
+  <div id="coaching-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
+    <div class="bg-coral border-b-2 border-ink px-6 py-4">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p id="coaching-text" class="font-sans font-extrabold text-white text-center sm:text-left"></p>
+        <a
+          href="/tutoring#pricing"
+          class="flex-shrink-0 bg-white text-ink font-bold py-2.5 px-6 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-sm"
+        >
+          Book a 1-on-1 Session →
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Masterclass banner (shown conditionally by JS) -->
   <div id="masterclass-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
@@ -28,10 +50,25 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </div>
 
+  <!-- Long-term plan banner (shown conditionally by JS) -->
+  <div id="longterm-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
+    <div class="bg-mint border-b-2 border-ink px-6 py-4">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p id="longterm-text" class="font-sans font-extrabold text-ink text-center sm:text-left"></p>
+        <a
+          href="/tutoring#pricing"
+          class="flex-shrink-0 bg-white text-ink font-bold py-2.5 px-6 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-sm"
+        >
+          Book a Strategy Call →
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Calculator -->
-  <section class="bg-peach py-8">
+  <section class="bg-lavender py-8">
     <div class="max-w-4xl mx-auto px-6 lg:px-8 mb-6">
-      <h1 class="font-sans text-3xl font-black text-ink tracking-tight text-center">Score Improvement Calculator</h1>
+      <h1 class="font-sans text-3xl font-black text-ink tracking-tight text-center"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">Study Time Calculator</span></h1>
     </div>
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
 
@@ -45,9 +82,9 @@ import Layout from '../layouts/Layout.astro';
             <div>
               <div class="flex items-baseline justify-between mb-2">
                 <label for="curr" class="font-sans text-xs font-bold text-ink/60 uppercase tracking-widest">Current score</label>
-                <span id="cv" class="font-sans font-black text-xl text-ink">600</span>
+                <span id="cv" class="font-sans font-black text-xl text-ink">620</span>
               </div>
-              <input type="range" min="400" max="790" step="10" value="600" id="curr">
+              <input type="range" min="400" max="790" step="10" value="620" id="curr">
               <div class="flex justify-between text-xs text-ink/25 mt-1 font-medium select-none">
                 <span>400</span><span>790</span>
               </div>
@@ -132,33 +169,8 @@ import Layout from '../layouts/Layout.astro';
 
       </div>
 
-      <!-- ── Chart ── -->
-      <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-offset-sm mb-6">
-
-        <!-- Legend -->
-        <div class="flex flex-wrap gap-4 mb-3 font-sans text-[11px] text-ink/50">
-          <div class="flex items-center gap-1.5">
-            <span class="inline-block w-5 h-0.5 rounded bg-[#378ADD]"></span>
-            <span>Cumulative gain</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="inline-block w-5" style="border-top: 1.5px dashed rgba(20,20,20,0.4); height:0;"></span>
-            <span>Goal &amp; hours needed</span>
-          </div>
-          <div class="flex items-center gap-1.5" id="kink-legend" style="display:none;">
-            <span class="inline-block w-5 h-0.5 rounded bg-[#d97706]"></span>
-            <span>Desmos bonus ends (50 pt mark)</span>
-          </div>
-        </div>
-
-        <div class="relative w-full" style="height: 195px;">
-          <canvas id="mainChart"></canvas>
-        </div>
-
-      </div>
-
       <!-- ── CTA ── -->
-      <div class="flex flex-col items-center gap-3 mb-6">
+      <div class="flex flex-col items-center gap-4 mt-8">
         <p class="font-sans text-base font-bold text-ink">Want to see this plan in action?</p>
         <a
           href="/tutoring#pricing"
@@ -173,7 +185,6 @@ import Layout from '../layouts/Layout.astro';
 
 </Layout>
 
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script is:inline>
 // higher TAU means more linear
 // specifically, tau is the number of hours of prep for progress rate to halve
@@ -233,76 +244,6 @@ function simulate(score, goal, M, priorDecay, D) {
   return { pts, H, H1, ceilScore, ceilGain: gain };
 }
 
-const ctx = document.getElementById('mainChart').getContext('2d');
-let chart = null;
-
-function buildChart(pts, G, H, H1, xMax, score, statusColor, D) {
-  if (chart) chart.destroy();
-
-  const displayPts = pts.filter(p => p.x <= xMax + 0.5);
-  const tc = 'rgba(0,0,0,0.32)';
-  const gc = 'rgba(0,0,0,0.05)';
-  const showKink = H1 !== null && D !== 1.0 && H1 <= xMax;
-
-  chart = new window.Chart(ctx, {
-    type: 'line',
-    data: { datasets: [{ data: displayPts, borderColor: '#378ADD', borderWidth: 2.5,
-        pointRadius: 0, tension: 0.2, fill: false }] },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: {
-          title: i => `Hour ${Math.round(i[0].raw.x)}`,
-          label: i => `Score: ~${Math.round(score + i[0].raw.y)} (gain +${Math.round(i[0].raw.y)})`,
-        }},
-      },
-      scales: {
-        x: { type: 'linear', min: 0, max: xMax, border: { display: false },
-          ticks: { color: tc, font: { size: 11 }, maxTicksLimit: 7, callback: v => `${Math.round(v)}h` },
-          grid: { color: gc } },
-        y: { border: { display: false },
-          ticks: { color: tc, font: { size: 11 }, maxTicksLimit: 5, callback: v => `+${Math.round(v)}` },
-          grid: { color: gc } },
-      },
-    },
-    plugins: [{
-      id: 'overlays',
-      afterDraw(c) {
-        const { ctx: cx, scales: { x, y } } = c;
-        cx.save();
-
-        cx.strokeStyle = statusColor + 'bb';
-        cx.lineWidth = 1.5;
-        cx.setLineDash([5, 4]);
-        const yGoalPx = y.getPixelForValue(G);
-        cx.beginPath(); cx.moveTo(x.left, yGoalPx); cx.lineTo(x.right, yGoalPx); cx.stroke();
-        if (H !== null && H <= xMax) {
-          const xHPx = x.getPixelForValue(H);
-          cx.beginPath(); cx.moveTo(xHPx, y.top); cx.lineTo(xHPx, y.bottom); cx.stroke();
-        }
-
-        if (showKink) {
-          cx.strokeStyle = '#d97706aa';
-          cx.lineWidth = 1;
-          cx.setLineDash([3, 3]);
-          const xK = x.getPixelForValue(H1);
-          const yK = y.getPixelForValue(50);
-          cx.beginPath(); cx.moveTo(xK, y.top); cx.lineTo(xK, yK); cx.stroke();
-          cx.beginPath(); cx.moveTo(x.left, yK); cx.lineTo(xK, yK); cx.stroke();
-        }
-
-        cx.setLineDash([]);
-        cx.font = '11px "DM Sans", system-ui, sans-serif';
-        cx.fillStyle = statusColor;
-        cx.fillText(`goal: +${Math.round(G)} pts`, x.left + 6, yGoalPx - 6);
-
-        cx.restore();
-      },
-    }],
-  });
-}
-
 function update() {
   const score     = +document.getElementById('curr').value;
   const goal      = +document.getElementById('goal').value;
@@ -314,10 +255,29 @@ function update() {
   document.getElementById('gv').textContent = goal;
 
   const banner = document.getElementById('masterclass-banner');
-  if (goal >= 750 && weeks >= 4) {
+  if (goal >= 730 && score >= 600 && weeks >= 6) {
     banner.style.maxHeight = banner.scrollHeight + 'px';
   } else {
     banner.style.maxHeight = '0px';
+  }
+
+  const coachingBanner = document.getElementById('coaching-banner');
+  const coachingText = document.getElementById('coaching-text');
+  if (weeks <= 2) {
+    const wkLabel = weeks === 1 ? '1 week' : '2 weeks';
+    coachingText.innerHTML = `Your test is just ${wkLabel} away! A <span class="underline decoration-2 underline-offset-2">1-on-1 session</span> can make sure you're fully prepared.`;
+    coachingBanner.style.maxHeight = coachingBanner.scrollHeight + 'px';
+  } else {
+    coachingBanner.style.maxHeight = '0px';
+  }
+
+  const longtermBanner = document.getElementById('longterm-banner');
+  const masterclassShown = goal >= 730 && score >= 600 && weeks >= 6;
+  if (!masterclassShown && weeks >= 4 && (goal - score) >= 100) {
+    document.getElementById('longterm-text').textContent = `Book a free strategy call and we'll set up a ${weeks}-week plan to get you to a ${goal}.`;
+    longtermBanner.style.maxHeight = longtermBanner.scrollHeight + 'px';
+  } else {
+    longtermBanner.style.maxHeight = '0px';
   }
 
   const G = goal - score;
@@ -332,7 +292,7 @@ function update() {
   const M          = multFor(weeks);
   const priorDecay = PRIOR[priorKey];
   const D          = DESMOS[dKey];
-  const { pts, H, H1 } = simulate(score, goal, M, priorDecay, D);
+  const { H } = simulate(score, goal, M, priorDecay, D);
 
   const hpw = H !== null ? H / weeks : null;
 
@@ -361,10 +321,6 @@ function update() {
   statEl.textContent  = status;
   statEl.style.color  = statusColor;
 
-  document.getElementById('kink-legend').style.display = D !== 1.0 ? 'flex' : 'none';
-
-  const xMax = H !== null ? Math.min(H * 1.8, 110) : 100;
-  buildChart(pts, G, H, H1, xMax, score, statusColor, D);
 }
 
 ['curr','goal','wks','prior','desmos'].forEach(id =>
