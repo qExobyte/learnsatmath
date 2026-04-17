@@ -9,17 +9,16 @@ import { MASTERCLASS_PRICE } from '../data/pricing';
 
 // --- ENROLLMENT CONFIG ---
 // Set IS_FULL to false when a new cohort opens enrollment.
-const IS_FULL = true;
-// Set SELF_PACED_AVAILABLE to true when the live cohort is full and self-paced should be offered.
-const SELF_PACED_AVAILABLE = true;
-const STRIPE_URL = 'https://buy.stripe.com/3cI8wI1eSaZ50ik2vw6wE17';
+const IS_FULL = false;
+// Self-paced is only offered when the live cohort is full.
+const SELF_PACED_AVAILABLE = IS_FULL;
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
 const SELF_PACED_PRICE = 395;
 const REFUND_DEADLINE = '4/3/26';
 const CONSULTATION_URL = 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-consultation';
 
-const enrollHref = IS_FULL ? WAITLIST_URL : STRIPE_URL;
+const enrollHref = WAITLIST_URL;
 const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 // -------------------------
 
