@@ -14,17 +14,14 @@ interface Session {
 interface Week {
   number: number;
   name: string;
-  dates: string;
   sessions: Session[];
   timeNote?: string;
-  officeHours?: string;
 }
 
 const weeks: Week[] = [
   {
     number: 1,
     name: 'Algebra with Desmos',
-    dates: 'Sat 4/25 & Sun 4/26',
     sessions: [
       { type: 'class', topic: 'How to Prep & Functions' },
       { type: 'class', topic: 'Algebra w/ Desmos & Regressions' },
@@ -33,8 +30,6 @@ const weeks: Week[] = [
   {
     number: 2,
     name: 'Linear & Exponential Functions',
-    dates: 'Sat 5/2 & Sun 5/3',
-    officeHours: 'Mon 5/4 · 8:00 – 9:00 pm ET',
     sessions: [
       { type: 'class', topic: 'Linear Functions' },
       { type: 'class', topic: 'Exponential Functions' },
@@ -44,7 +39,6 @@ const weeks: Week[] = [
   {
     number: 3,
     name: 'Quadratics & Polynomials',
-    dates: 'Sat 5/9 & Sun 5/10',
     sessions: [
       { type: 'class', topic: 'Quadratics' },
       { type: 'class', topic: 'Advanced Quadratics & Polynomials' },
@@ -53,9 +47,7 @@ const weeks: Week[] = [
   {
     number: 4,
     name: 'Geometry',
-    dates: 'Wed 5/13 & Thu 5/21',
     timeNote: '8:00 – 9:30 pm ET',
-    officeHours: 'Mon 5/18 · 8:00 – 9:00 pm ET',
     sessions: [
       { type: 'class', topic: 'Triangles' },
       { type: 'class', topic: 'Circles, Surface Area & Volume' },
@@ -65,8 +57,6 @@ const weeks: Week[] = [
   {
     number: 5,
     name: 'Statistics & Review Game',
-    dates: 'Sat 5/23 & Sun 5/24',
-    officeHours: 'TBD',
     sessions: [
       { type: 'class', topic: 'Unit Conversion & Statistics' },
       { type: 'class', topic: 'Final Review' },
@@ -89,14 +79,14 @@ const weeks: Week[] = [
         const ohSessions = week.sessions.filter(s => s.type === 'office-hours');
         return (
           <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5">
-            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number} &middot; {week.dates}</p>
+            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number}</p>
             <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
             {week.timeNote && (
               <p class="text-xs font-bold text-ink/70 mt-1">{week.timeNote}</p>
             )}
             {ohSessions.length > 0 && (
               <p class="text-sm text-ink/50 font-semibold italic mt-1">
-                + Office Hours{week.officeHours && <span class="not-italic font-medium text-ink/60"> &middot; {week.officeHours}</span>}
+                + Office Hours
               </p>
             )}
           </div>
