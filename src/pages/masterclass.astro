@@ -15,7 +15,8 @@ const SELF_PACED_AVAILABLE = IS_FULL;
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
 const SELF_PACED_PRICE = 395;
-const REFUND_DEADLINE = '4/3/26';
+// Next live cohort start date (shown alongside the waitlist CTA).
+const NEXT_COHORT = 'July 11';
 const CONSULTATION_URL = 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-consultation';
 
 const enrollHref = WAITLIST_URL;
@@ -80,6 +81,11 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
               Learn More
             </a>
           </div>
+          {IS_FULL && (
+            <p class="text-chalk/60 text-sm font-semibold mt-5">
+              Next cohort starts <span class="text-chalk font-bold">{NEXT_COHORT}</span> — join the waitlist to be first to know when enrollment opens.
+            </p>
+          )}
         </div>
 
         <!-- Right: video -->
@@ -114,7 +120,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
   <!-- Testimonials (Masterclass only) -->
-  <section class="hidden [@media(min-width:900px)]:block py-16 lg:py-24 bg-mint">
+  <section class="py-16 lg:py-24 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From Masterclass students</h2>
@@ -224,7 +230,9 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             <div class="flex-1 mb-8">
               <MasterclassIncluded dark={true} />
             </div>
-            <!-- <p class="text-xs text-chalk/40 text-center mb-3">Purchase is fully refundable through {REFUND_DEADLINE}.</p> -->
+            {IS_FULL && (
+              <p class="text-xs text-chalk/50 text-center mb-3">Next cohort starts {NEXT_COHORT}.</p>
+            )}
             <a
               href={enrollHref}
               target="_blank"
@@ -233,6 +241,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             >
               {enrollLabel}
             </a>
+            <p class="text-xs text-chalk/40 text-center mt-3">✓ Full refund within 7 days of your first session.</p>
           </div>
         </div>
 

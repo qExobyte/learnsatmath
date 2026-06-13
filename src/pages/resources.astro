@@ -109,27 +109,48 @@ import { resources } from '../data/resources';
   <div id="modal" class="hidden fixed inset-0 bg-ink/60 flex items-center justify-center z-50 px-4">
     <div class="bg-white border-2 border-ink rounded-2xl shadow-offset-md p-8 max-w-md w-full relative">
       <button id="close-modal" class="absolute top-4 right-5 text-ink/40 hover:text-ink text-2xl font-black leading-none">&times;</button>
-      <h2 class="font-sans font-extrabold text-xl text-ink mb-5">Enter your email to download</h2>
-      <div class="flex flex-col gap-4">
-        <input
-          id="email-input"
-          type="email"
-          placeholder="your@email.com"
-          class="border-2 border-ink rounded-xl px-4 py-3 text-base text-ink placeholder-ink/40 focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral w-full"
-        />
-        <div class="flex items-start gap-3">
-          <input id="consent-checkbox" type="checkbox" class="mt-1 w-4 h-4 accent-coral flex-shrink-0" />
-          <label for="consent-checkbox" class="text-sm text-ink/70 font-semibold leading-snug">
-            I agree to receive promotional and instructional emails from LearnSATMath.
-          </label>
+
+      <!-- Email capture form -->
+      <div id="modal-form">
+        <h2 class="font-sans font-extrabold text-xl text-ink mb-5">Enter your email to download</h2>
+        <div class="flex flex-col gap-4">
+          <input
+            id="email-input"
+            type="email"
+            placeholder="your@email.com"
+            class="border-2 border-ink rounded-xl px-4 py-3 text-base text-ink placeholder-ink/40 focus:outline-none focus:ring-2 focus:ring-coral focus:border-coral w-full"
+          />
+          <div class="flex items-start gap-3">
+            <input id="consent-checkbox" type="checkbox" class="mt-1 w-4 h-4 accent-coral flex-shrink-0" />
+            <label for="consent-checkbox" class="text-sm text-ink/70 font-semibold leading-snug">
+              I agree to receive promotional and instructional emails from LearnSATMath.
+            </label>
+          </div>
+          <p id="modal-error" class="hidden text-red-600 text-sm font-semibold">Please enter a valid email and check the box above.</p>
+          <button
+            id="submit-download"
+            class="bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+          >
+            Download PDF
+          </button>
         </div>
-        <p id="modal-error" class="hidden text-red-600 text-sm font-semibold">Please enter a valid email and check the box above.</p>
-        <button
-          id="submit-download"
-          class="bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+      </div>
+
+      <!-- Success state: cross-sell -->
+      <div id="modal-success" class="hidden text-center">
+        <h2 class="font-sans font-extrabold text-xl text-ink mb-2">Your download is starting! 🎉</h2>
+        <p class="text-ink/60 font-semibold text-sm leading-relaxed mb-5">
+          Want every SAT math concept explained from the ground up? My book covers it all — for the price of one tutoring hour.
+        </p>
+        <a
+          href="/book"
+          class="block bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
-          Download PDF
-        </button>
+          See the Book — $49 →
+        </a>
+        <a href="/masterclass" class="inline-block mt-3 text-sm font-bold text-ink/50 underline hover:text-ink transition-colors">
+          or explore the Masterclass
+        </a>
       </div>
     </div>
   </div>
@@ -166,6 +187,8 @@ import { resources } from '../data/resources';
   const checkbox = document.getElementById('consent-checkbox') as HTMLInputElement;
   const errorMsg = document.getElementById('modal-error')!;
   const submitBtn = document.getElementById('submit-download')!;
+  const modalForm = document.getElementById('modal-form')!;
+  const modalSuccess = document.getElementById('modal-success')!;
   let activeFile = '';
 
   document.querySelectorAll<HTMLButtonElement>('.download-trigger').forEach(btn => {
@@ -174,6 +197,8 @@ import { resources } from '../data/resources';
       emailInput.value = '';
       checkbox.checked = false;
       errorMsg.classList.add('hidden');
+      modalForm.classList.remove('hidden');
+      modalSuccess.classList.add('hidden');
       modal.classList.remove('hidden');
     });
   });
@@ -206,6 +231,8 @@ import { resources } from '../data/resources';
     a.click();
     document.body.removeChild(a);
 
-    modal.classList.add('hidden');
+    // Swap to the cross-sell success state instead of closing
+    modalForm.classList.add('hidden');
+    modalSuccess.classList.remove('hidden');
   });
 </script>
