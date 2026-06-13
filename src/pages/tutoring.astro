@@ -8,10 +8,9 @@ import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring';
 const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call';
 
-// TODO: replace these with the real Stripe Checkout links once set up
-const JUMPSTART_STRIPE_URL = '#';
-const STANDARD_STRIPE_URL = '#';
-const INTENSIVE_STRIPE_URL = '#';
+const JUMPSTART_STRIPE_URL = 'https://buy.stripe.com/aFa3co5v8d7daWY5HI6wE1r';
+const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x25kw8Hk0kr5CE4DE6wE1p';
+const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 
 ---
 
@@ -22,8 +21,8 @@ const INTENSIVE_STRIPE_URL = '#';
 
   <!-- Hero -->
   <section class="bg-ink-mid text-white py-16 lg:py-24 hero-section">
-    <div class="max-w-5xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[11fr_9fr] gap-12 items-center">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[10fr_11fr] gap-12 items-center">
 
         <!-- Left: text -->
         <div>
@@ -140,15 +139,11 @@ const INTENSIVE_STRIPE_URL = '#';
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Self-paced Masterclass included</span>
+              <span>Self-paced Masterclass included ($395 value)</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>SAT Math from the Ground Up book</span>
-            </li>
-            <li class="flex items-start gap-2 text-base text-ink/80">
-              <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Practice tests, Desmos drills, and 500+ hard problems</span>
+              <span>SAT Math from the Ground Up book ($49 value)</span>
             </li>
           </ul>
           <a
@@ -208,7 +203,7 @@ const INTENSIVE_STRIPE_URL = '#';
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
-                <span>Add hours anytime at your package rate</span>
+                <span>Add hours anytime at $250/hr</span>
               </li>
             </ul>
             <a
@@ -264,6 +259,10 @@ const INTENSIVE_STRIPE_URL = '#';
               <span class="text-coral font-black mt-0.5">✓</span>
               <span>Priority scheduling around your test date</span>
             </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span>Add hours anytime at $225/hr</span>
+              </li>
           </ul>
           <a
             href={COACHING_URL}

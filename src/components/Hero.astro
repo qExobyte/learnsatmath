@@ -1,8 +1,71 @@
 ---
 ---
 
-<section class="bg-ink-mid text-chalk py-24 lg:py-32 hero-section">
-  <div class="max-w-5xl mx-auto px-6 lg:px-8">
+<section class="bg-ink-mid text-chalk py-24 lg:py-32 hero-section relative overflow-hidden">
+
+  <!-- Decorative math sticker shapes (drift + scroll parallax). Purely decorative;
+       placed on the empty right side / bands so they never sit under the text. -->
+  <div data-hero-shapes aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+    <!-- parabola graph tile (mid-right) -->
+    <div class="hero-shape absolute top-[34%] right-[24%] hidden lg:block" data-parallax="0.4">
+      <div data-drift>
+        <span class="flex items-center justify-center w-14 h-14 rounded-xl bg-chalk border-2 border-ink shadow-[3px_3px_0_0_#141414] -rotate-3">
+          <svg viewBox="0 0 40 40" class="w-9 h-9" fill="none" stroke-linecap="round">
+            <path d="M7 5 V35 M5 33 H35" stroke="#141414" stroke-width="1.5" />
+            <path d="M9 9 Q20 41 33 9" stroke="#FF5533" stroke-width="2.5" />
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- f(x) tile (mid-right) -->
+    <div class="hero-shape absolute top-[52%] right-[6%] hidden lg:block" data-parallax="0.6">
+      <div data-drift>
+        <span class="flex items-center justify-center w-14 h-14 rounded-xl bg-electric border-2 border-ink shadow-[3px_3px_0_0_#141414] rotate-3">
+          <span class="font-serif italic font-bold text-2xl text-ink">f(x)</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- right triangle with 90° mark (bottom-left) -->
+    <div class="hero-shape absolute bottom-[16%] left-[5%] hidden lg:block" data-parallax="0.3">
+      <div data-drift>
+        <span class="flex items-center justify-center w-14 h-14 rounded-xl bg-sky border-2 border-ink shadow-[3px_3px_0_0_#141414] rotate-2">
+          <svg viewBox="0 0 40 40" class="w-9 h-9" fill="none" stroke="#141414" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M8 32 H32 L8 8 Z" />
+            <path d="M14 32 V26 H8" />
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- plus sign (top-left) -->
+    <div class="hero-shape absolute top-[15%] left-[4%] hidden lg:block" data-parallax="0.5">
+      <div data-drift>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-coral -rotate-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" d="M12 5v14M5 12h14" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- coral squiggle (lower-right) -->
+    <div class="hero-shape absolute bottom-[26%] right-[28%] hidden lg:block" data-parallax="0.25">
+      <div data-drift>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-6 text-coral rotate-3" fill="none" viewBox="0 0 64 24" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" d="M2 12c6-12 12 12 18 0s12 12 18 0 12-12 18 0" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- mint circle (upper-right) -->
+    <div class="hero-shape absolute top-[20%] right-[22%] hidden lg:block" data-parallax="0.45">
+      <div data-drift>
+        <span class="block w-7 h-7 rounded-full bg-mint border-2 border-ink shadow-[2px_2px_0_0_#141414] rotate-6"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
     <h1 class="font-sans text-4xl lg:text-6xl font-black leading-tight tracking-tight mb-6 max-w-3xl" data-hero-item>
       I've helped over 400 students achieve their <span class="relative inline-block text-ink px-2 -rotate-1"><span class="absolute inset-0 bg-electric" data-hero-marker aria-hidden="true"></span><span class="relative">top SAT math score.</span></span>
     </h1>
@@ -57,5 +120,34 @@
       clearProps: 'transform,opacity',
     });
     if (marker) tl.to(marker, { scaleX: 1, duration: 0.5, ease: 'power2.inOut' }, '-=0.3');
+
+    // Decorative sticker shapes: gentle idle drift + scroll parallax.
+    const drifters = gsap.utils.toArray<HTMLElement>('[data-hero-shapes] [data-drift]');
+    drifters.forEach((el, i) => {
+      gsap.to(el, {
+        y: '+=12',
+        rotation: '+=5',
+        duration: 3 + (i % 3) * 0.8, // 3.0–4.6s, varied so they don't move in lockstep
+        delay: i * 0.3,
+        yoyo: true,
+        repeat: -1,
+        ease: 'sine.inOut',
+      });
+    });
+
+    const shapes = gsap.utils.toArray<HTMLElement>('[data-hero-shapes] .hero-shape');
+    shapes.forEach((shape) => {
+      const speed = parseFloat(shape.dataset.parallax || '0.3');
+      gsap.to(shape, {
+        yPercent: () => -100 * speed,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    });
   }
 </script>
