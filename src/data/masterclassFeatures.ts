@@ -4,6 +4,6 @@ export const masterclassFeatures = [
   'Recordings of every class included',
   'SAT Math from the Ground Up book',
   'Practice tests, desmos drills, and 500+ hard problems included',
-  '$100 - $500 in cash prizes per cohort',
+  'Cash prizes for student performance',
   'Most students end with a 750+',
 ];

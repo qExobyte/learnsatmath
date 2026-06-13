@@ -4,6 +4,7 @@ import Testimonials from '../components/Testimonials.astro';
 import MasterclassSchedule from '../components/MasterclassSchedule.astro';
 import MasterclassIncluded from '../components/MasterclassIncluded.astro';
 import MasterclassVsRest from '../components/MasterclassVsRest.astro';
+import Highlight from '../components/Highlight.astro';
 import { MASTERCLASS_PRICE } from '../data/pricing';
 
 // --- ENROLLMENT CONFIG ---
@@ -47,7 +48,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           )}
           <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">The Masterclass</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
-            Score a 750+ in just <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">5 weeks</span>
+            Score a 750+ in just <Highlight>5 weeks</Highlight>
           </p>
           <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-8">
             An intensive 5-week program of <em>live</em> small-group classes, covering only the <em>hardest</em> topics, to get you to a 750 or higher.
@@ -135,10 +136,20 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 
         <!-- Self-Paced Card -->
         {SELF_PACED_AVAILABLE && (
-        <div class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
+        <div data-price-card class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
           <div class="mb-6">
-            <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Just the recordings</p>
-            <h3 class="font-sans text-2xl text-ink font-bold mb-4">Self-Paced Masterclass</h3>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-sky">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-1">Just the recordings</p>
+                <h3 class="font-sans text-2xl text-ink font-bold">Self-Paced Masterclass</h3>
+              </div>
+            </div>
             <div class="flex items-baseline gap-2">
               <span class="font-sans text-4xl font-black text-ink">${SELF_PACED_PRICE}</span>
             </div>
@@ -186,7 +197,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
         )}
 
         <!-- Live Masterclass Card -->
-        <div class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
+        <div data-price-card class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
               Best Results
@@ -194,8 +205,17 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           </div>
           <div class="bg-ink-mid rounded-[14px] p-8 flex flex-col">
             <div class="mb-6 mt-4">
-              <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Live small group classes</p>
-              <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Masterclass</h3>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-electric">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-1">Live small group classes</p>
+                  <h3 class="font-sans text-2xl text-chalk font-bold">Masterclass</h3>
+                </div>
+              </div>
               <div class="flex items-baseline gap-2">
                 <span class="font-sans text-4xl font-black text-chalk">${MASTERCLASS_PRICE}</span>
                 <span class="text-chalk/60 text-sm">$49 per hour</span>
@@ -484,6 +504,34 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
 </Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Final states live in the markup; GSAP only hides things when it will
+  // animate them, so no-JS and reduced-motion users see the complete section.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cards = gsap.utils.toArray<HTMLElement>('[data-price-card]');
+
+    gsap.set(cards, { y: 40, opacity: 0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: '#pricing', start: 'top 70%', once: true },
+    });
+
+    tl.to(cards, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'back.out(1.4)',
+      stagger: 0.15,
+      clearProps: 'transform,opacity', // restore CSS hover lift after landing
+    });
+  }
+</script>
 
 <script>
   const tabLive = document.getElementById('faq-tab-live') as HTMLElement | null;

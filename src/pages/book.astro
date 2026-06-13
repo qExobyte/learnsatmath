@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Highlight from '../components/Highlight.astro';
 import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
 const chapters = [
@@ -58,13 +59,10 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
     <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
       <h1 class="font-sans text-4xl lg:text-6xl font-black tracking-tight mb-4 leading-tight">SAT Math from the Ground Up</h1>
       <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
-        Learn the <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">concepts</span> behind the test
+        Learn the <Highlight>concepts</Highlight> behind the test
       </p>
       <a
-        href={gumroadUrl}
-        data-gumroad-overlay-checkout="true"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#pricing"
         class="inline-block bg-coral text-chalk font-bold px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-lg"
       >
         BUY NOW
@@ -170,7 +168,7 @@ const gumroadUrl = 'https://learnsatmath.gumroad.com/l/groundup?wanted=true';
   </section>
 
   <!-- What's included -->
-  <section class="py-16 lg:py-24 bg-chalk">
+  <section id="pricing" class="py-16 lg:py-24 bg-chalk scroll-mt-20">
     <div class="max-w-md mx-auto px-6 lg:px-8">
       <div class="bg-white rounded-2xl border-2 border-ink shadow-offset-md p-8 flex flex-col">
         <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Instant PDF download</p>

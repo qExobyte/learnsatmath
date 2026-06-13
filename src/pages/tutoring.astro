@@ -1,12 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
-import CoachingFeatures from '../components/CoachingFeatures.astro';
 import CalculatorCTA from '../components/CalculatorCTA.astro';
+import Highlight from '../components/Highlight.astro';
 import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
 const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring';
 const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call';
+
+// TODO: replace these with the real Stripe Checkout links once set up
+const JUMPSTART_STRIPE_URL = '#';
+const STANDARD_STRIPE_URL = '#';
+const INTENSIVE_STRIPE_URL = '#';
 
 ---
 
@@ -24,7 +29,7 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
         <div>
           <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Tutoring & Coaching</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
-            Focused entirely on <span class="inline-block bg-electric text-ink px-1.5 -rotate-1">you</span>
+            Focused entirely on <Highlight>you</Highlight>
           </p>
           <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-6">
             Personalized instruction with the sole focus of getting you to your goal score.
@@ -96,85 +101,196 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
 
   <!-- Pricing -->
   <section id="pricing" class="py-16 lg:py-24 bg-peach">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Choose your path</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Choose your plan</h2>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
-        <!-- On-Demand Sessions Card -->
-        <div class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md hover:-translate-y-1 transition-transform duration-200">
+        <!-- Jumpstart Card -->
+        <div data-price-card class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md hover:-translate-y-1 transition-transform duration-200">
           <div class="mb-6">
-            <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-2">Pay as you go</p>
-            <h3 class="font-sans text-2xl text-ink font-bold mb-4">On-Demand Sessions</h3>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-sky">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-1">For the self-driven student</p>
+                <h3 class="font-sans text-2xl text-ink font-bold">Jumpstart</h3>
+              </div>
+            </div>
             <div class="flex items-baseline gap-2">
-              <span class="font-sans text-4xl font-black text-ink">${TUTORING_HOURLY_PRICE}</span>
-              <span class="text-ink/50 text-sm">per hour</span>
+              <span class="font-sans text-4xl font-black text-ink">$695</span>
+              <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
+                $1,014
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
+              </span>
             </div>
           </div>
           <ul class="space-y-3 flex-1 mb-8">
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Book only what you need</span>
+              <span class="font-bold text-ink">2 hours of 1-on-1 sessions</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Deep dive on your weaknesses</span>
+              <span>A clear study plan from your first session</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Learn Desmos tricks that CollegeBoard won't tell you</span>
+              <span>Self-paced Masterclass included</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Cover specific problems that you're struggling with</span>
+              <span>SAT Math from the Ground Up book</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Get a structured plan to help you reach your goal score</span>
+              <span>Practice tests, Desmos drills, and 500+ hard problems</span>
             </li>
           </ul>
-          <p class="text-xs text-ink/50 text-center mb-3">Able to cancel or reschedule up to 6 hours in advance.</p>
           <a
-            href={CALENDLY_URL}
+            href={JUMPSTART_STRIPE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="block text-center bg-white text-ink font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
-            Book a Session
+            Get Started
           </a>
         </div>
 
-        <!-- Personalized Coaching Card -->
-        <div class="animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]">
+        <!-- Standard Card (highlighted) -->
+        <div data-price-card class="animated-border-wrapper-electric rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FFE135]">
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
-              Best results
+              Most popular
             </span>
           </div>
-          <div class="bg-ink-mid rounded-[14px] p-8 flex flex-col">
+          <div class="bg-white rounded-[14px] p-8 flex flex-col h-full">
             <div class="mb-6 mt-4">
-              <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-2">Full-service prep</p>
-              <h3 class="font-sans text-2xl text-chalk font-bold mb-4">Personalized Coaching</h3>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-electric">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-1">For most students</p>
+                  <h3 class="font-sans text-2xl text-ink font-bold">Standard</h3>
+                </div>
+              </div>
               <div class="flex items-baseline gap-2">
-                <span class="font-sans text-4xl font-black text-chalk">$495+</span>
-                <span class="text-chalk/50 text-sm">Custom pricing</span>
+                <span class="font-sans text-4xl font-black text-ink">$1,695</span>
+                <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
+                  $2,154
+                  <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
+                </span>
               </div>
             </div>
-            <div class="flex-1 mb-8">
-              <CoachingFeatures dark={true} />
-            </div>
+            <ul class="space-y-3 flex-1 mb-8">
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span class="font-bold text-ink">6 hours of 1-on-1 sessions</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span>Custom week-by-week roadmap with assignments and score targets</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Self-paced Masterclass included</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span>SAT Math from the Ground Up book</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span>Add hours anytime at your package rate</span>
+              </li>
+            </ul>
             <a
               href={COACHING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
             >
-              Book a Free Strategy Call
+              Book a free call
             </a>
+            <p class="text-xs text-ink/60 text-center mt-3">
+              or <a href={STANDARD_STRIPE_URL} target="_blank" rel="noopener noreferrer" class="font-bold text-coral underline hover:no-underline">skip the call and enroll now</a>
+            </p>
           </div>
         </div>
 
+        <!-- Intensive Card -->
+        <div data-price-card class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md hover:-translate-y-1 transition-transform duration-200">
+          <div class="mb-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-coral">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-widest text-ink/50 mb-1">For big score jumps</p>
+                <h3 class="font-sans text-2xl text-ink font-bold">Intensive</h3>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-sans text-4xl font-black text-ink">$2,895</span>
+              <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
+                $3,864
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
+              </span>
+            </div>
+          </div>
+          <ul class="space-y-3 flex-1 mb-8">
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span class="font-bold text-ink">12 hours of 1-on-1 sessions</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Everything in the Standard Plan: roadmap, focus areas, Masterclass, Ground Up</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Built for 150+ point jumps or rebuilding fundamentals</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Priority scheduling around your test date</span>
+            </li>
+          </ul>
+          <a
+            href={COACHING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+          >
+            Book a free call
+          </a>
+          <p class="text-xs text-ink/60 text-center mt-3">
+            or <a href={INTENSIVE_STRIPE_URL} target="_blank" rel="noopener noreferrer" class="font-bold text-coral underline hover:no-underline">skip the call and enroll now</a>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- On-Demand banner -->
+      <div class="mt-10 bg-white rounded-2xl border-2 border-ink shadow-offset-md p-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        <p class="text-ink font-bold text-lg text-center">Just need an hour? Book an on-demand session for ${TUTORING_HOURLY_PRICE}/hr</p>
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-center bg-white text-ink font-bold py-3 px-8 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 whitespace-nowrap"
+        >
+          Book a Session
+        </a>
       </div>
     </div>
   </section>
@@ -200,7 +316,7 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
             <p>If your SAT is less than 2 weeks away → Book a session on-demand or buy the self-paced masterclass and grind through the recordings.</p>
             <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 630 → Join the live Masterclass.</p>
-            <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then book a strategy call and we'll come up with a coaching plan.</p>
+            <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then pick the coaching package that fits your goal — or book a free call and we'll figure out the right one together.</p>
           </div>
         </div>
       </div>
@@ -237,13 +353,13 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
         </button>
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>Coaching plans start at $495, but can go much higher if you're trying to see substantial improvement. The biggest differentiator is the number of 1-on-1 sessions. Note that the total prices will be lower than the sum of their parts.</p>
-            <p>Here are some examples of what plans might look like:</p>
+            <p>There are three coaching packages, and the biggest differentiator is the number of 1-on-1 hours included:</p>
             <ul class="list-disc list-inside space-y-1">
-              <li>470 → 650 with 4x sessions + self-paced masterclass + resources: ~$1295</li>
-              <li>720 → 780 with 2x sessions + self-paced masterclass + resources: ~$795</li>
-              <li>590 → 760 with 8x sessions + live masterclass + resources: ~$2795</li>
+              <li>Jumpstart — $695 for 2 hours of 1-on-1 sessions</li>
+              <li>Coaching Plan — $1,695 for 6 hours of 1-on-1 sessions</li>
+              <li>Intensive — $2,895 for 12 hours of 1-on-1 sessions</li>
             </ul>
+            <p>Every package includes the self-paced Masterclass, SAT Math from the Ground Up, and all other resources you need. You can also add hours anytime at your package rate, so each package costs less than the sum of its parts.</p>
           </div>
         </div>
       </div>
@@ -289,7 +405,7 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
             <p>On-demand sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. We can also reschedule to another time! Otherwise, the full session price is charged.</p>
-            <p>Sessions in personalized coaching plans may also be rescheduled at least 6 hours before the scheduled start time. However, each custom plan has custom pricing, so there is no one standard refund policy for all plans. Please reach out with questions specific to your plan.</p>
+            <p>Sessions in coaching packages may also be rescheduled at least 6 hours before the scheduled start time. Please reach out with any questions specific to your package.</p>
           </div>
         </div>
       </div>
@@ -349,6 +465,43 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
   });
 </script>
 
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Final states live in the markup; GSAP only hides things when it will
+  // animate them, so no-JS and reduced-motion users see the complete section.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cards = gsap.utils.toArray<HTMLElement>('[data-price-card]');
+    const slashPrices = gsap.utils.toArray<HTMLElement>('[data-slash-price]');
+    const slashes = gsap.utils.toArray<HTMLElement>('[data-slash]');
+
+    gsap.set(cards, { y: 40, opacity: 0 });
+    gsap.set(slashPrices, { opacity: 0 });
+    gsap.set(slashes, { scaleX: 0, transformOrigin: 'left center' });
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: '#pricing', start: 'top 70%', once: true },
+    });
+
+    // Side cards land first, the featured middle card last
+    const ordered = [cards[0], cards[2], cards[1]].filter(Boolean);
+    tl.to(ordered, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'back.out(1.4)',
+      stagger: 0.15,
+      clearProps: 'transform,opacity', // restore CSS hover lift after landing
+    });
+
+    tl.to(slashPrices, { opacity: 1, duration: 0.3 }, '>');
+    tl.to(slashes, { scaleX: 1, duration: 0.3, ease: 'power2.inOut', stagger: 0.1 }, '<');
+  }
+</script>
+
 <style>
   .hero-section {
     padding-top: clamp(1.5rem, 8vh, 6rem);
@@ -368,6 +521,12 @@ const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-ca
   .animated-border-wrapper {
     padding: 3px;
     background: conic-gradient(from var(--angle), #141414 65%, #FF5533 72%, #FF5533 78%, #141414 85%);
+    animation: spin-border 3s linear infinite;
+  }
+
+  .animated-border-wrapper-electric {
+    padding: 3px;
+    background: conic-gradient(from var(--angle), #141414 65%, #FFE135 72%, #FFE135 78%, #141414 85%);
     animation: spin-border 3s linear infinite;
   }
 </style>

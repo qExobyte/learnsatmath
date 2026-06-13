@@ -1,7 +1,7 @@
 export const coachingFeatures = [
-  'Custom roadmap built around your strengths, weaknesses, and timeline',
-  '1-on-1 sessions & Masterclass recordings as needed',
-  'Week-by-week plan with score targets for each practice test',
-  '"Focus areas" assigned after each session to target weaknesses',
-  'SAT Math from the Ground Up + every other resource you need, included',
+  'Packages with 2, 6, or 12 hours of 1-on-1 sessions',
+  'Custom week-by-week roadmap with assignments and score targets',
+  'Self-paced Masterclass included ($395)',
+  'SAT Math from the Ground Up book ($49)',
+  'Add hours anytime at your package rate'
 ];

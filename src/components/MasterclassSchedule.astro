@@ -78,7 +78,7 @@ const weeks: Week[] = [
       {weeks.map((week) => {
         const ohSessions = week.sessions.filter(s => s.type === 'office-hours');
         return (
-          <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5">
+          <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5" data-schedule-item>
             <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number}</p>
             <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
             {week.timeNote && (
@@ -94,7 +94,7 @@ const weeks: Week[] = [
       })}
 
       <!-- SAT -->
-      <div class="bg-electric border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm">
+      <div class="bg-electric border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm" data-schedule-item>
         <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT &middot; june 6</p>
         <p class="font-sans text-lg text-ink font-black">Good luck!</p>
       </div>
@@ -112,3 +112,21 @@ const weeks: Week[] = [
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap, prefersReducedMotion } from '../scripts/motion';
+
+  if (!prefersReducedMotion()) {
+    const items = gsap.utils.toArray<HTMLElement>('[data-schedule-item]');
+    gsap.set(items, { y: 40, opacity: 0 });
+    gsap.to(items, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'back.out(1.4)',
+      stagger: 0.12,
+      clearProps: 'transform,opacity',
+      scrollTrigger: { trigger: '#schedule', start: 'top 70%', once: true },
+    });
+  }
+</script>
