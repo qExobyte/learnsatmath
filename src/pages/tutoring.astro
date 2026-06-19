@@ -12,6 +12,9 @@ const JUMPSTART_STRIPE_URL = 'https://buy.stripe.com/aFa3co5v8d7daWY5HI6wE1r';
 const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x25kw8Hk0kr5CE4DE6wE1p';
 const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 
+// Deadline by which all sessions in a purchased plan must be used.
+const SESSION_DEADLINE = 'September 30, 2026';
+
 ---
 
 <Layout
@@ -20,13 +23,13 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 >
 
   <!-- Hero -->
-  <section class="bg-ink-mid text-white py-16 lg:py-24 hero-section">
+  <section class="bg-ink-mid text-white py-12 lg:py-16 hero-section">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[10fr_11fr] gap-12 items-center">
 
         <!-- Left: text -->
         <div>
-          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Tutoring & Coaching</h1>
+          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">1-on-1 Coaching</h1>
           <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
             Focused entirely on <Highlight>you</Highlight>
           </p>
@@ -58,18 +61,18 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
   </section>
 
   <!-- Testimonials -->
-  <section class="py-16 lg:py-24 bg-mint">
+  <section class="py-12 lg:py-16 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From tutoring students</h2>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From students</h2>
       </div>
       <Testimonials filter="other" />
     </div>
   </section>
 
   <!-- Coaching selling point -->
-  <section class="py-16 lg:py-24 bg-sky">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+  <section class="py-12 lg:py-16 bg-sky">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8 2xl:px-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The plan</span></p>
@@ -99,7 +102,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
   </section>
 
   <!-- Pricing -->
-  <section id="pricing" class="py-16 lg:py-24 bg-peach">
+  <section id="pricing" class="py-12 lg:py-16 bg-peach">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Choose your plan</h2>
@@ -150,7 +153,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
             href={JUMPSTART_STRIPE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
             Get Started
           </a>
@@ -210,7 +213,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
               href={COACHING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+              class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
             >
               Book a free call
             </a>
@@ -268,7 +271,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
             href={COACHING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
             Book a free call
           </a>
@@ -286,7 +289,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="block text-center bg-white text-ink font-bold py-3 px-8 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 whitespace-nowrap"
+          class="block text-center bg-white text-ink font-bold py-3 px-8 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 whitespace-nowrap"
         >
           Book a Session
         </a>
@@ -297,7 +300,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
   <CalculatorCTA />
 
   <!-- FAQ -->
-<section class="py-16 lg:py-24 bg-chalk">
+<section class="py-12 lg:py-16 bg-chalk">
   <div class="max-w-3xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-10">
       <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Common questions</h2>
@@ -306,14 +309,14 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 
       <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
         <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-          <span class="font-sans font-bold text-lg text-ink">Should I book an on-demand session, join the masterclass, or personalized coaching?</span>
+          <span class="font-sans font-bold text-lg text-ink">Should I join the masterclass or do 1-on-1 tutoring?</span>
           <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
         </button>
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>If your SAT is less than 2 weeks away → Book a session on-demand or buy the self-paced masterclass and grind through the recordings.</p>
+            <p>If your SAT is less than 2 weeks away → Buy the Jumpstart Plan to prep intensively.</p>
             <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 630 → Join the live Masterclass.</p>
             <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then pick the coaching package that fits your goal — or book a free call and we'll figure out the right one together.</p>
           </div>
@@ -334,9 +337,8 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
             <ul class="list-disc list-inside space-y-1">
               <li>SAT Math Masterclass recordings, covering the concepts and problems in-depth</li>
               <li>Bluebook tests with specific score range targets for each test</li>
-              <li>Focus areas – Tasks assigned based on your weaknesses from the last session. These may be chapters from SAT Math from the Ground Up, sets of practice questions, regression drills, or videos to watch.</li>
-              <li>OnePrep problems or select problems from your resource of choice.</li>
-              <li>My own resources like "25 challenging problems"</li>
+              <li>Focus areas – Tasks assigned based on your weaknesses from the last session.</li>
+              <li>130+ of my own proprietary practice problems</li>
             </ul>
             <p>The custom plan schedules tasks based on their expected duration to complete, keeping you on track with your expected weekly prep hours for your goal score.</p>
           </div>
@@ -345,20 +347,15 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 
       <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
         <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-          <span class="font-sans font-bold text-lg text-ink">How much will my coaching plan cost?</span>
+          <span class="font-sans font-bold text-lg text-ink">How do I schedule these sessions?</span>
           <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
         </button>
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>There are three coaching packages, and the biggest differentiator is the number of 1-on-1 hours included:</p>
-            <ul class="list-disc list-inside space-y-1">
-              <li>Jumpstart — $695 for 2 hours of 1-on-1 sessions</li>
-              <li>Coaching Plan — $1,695 for 6 hours of 1-on-1 sessions</li>
-              <li>Intensive — $2,895 for 12 hours of 1-on-1 sessions</li>
-            </ul>
-            <p>Every package includes the self-paced Masterclass, SAT Math from the Ground Up, and all other resources you need. You can also add hours anytime at your package rate, so each package costs less than the sum of its parts.</p>
+            <p>As soon as you purchase a plan, you'll get a Calendly link to book your sessions in any open time slot.</p>
+            <p>There's no need to lock in all your session times up front — each session is yours to book whenever it works for you. Just note that all sessions in your plan must be used by <strong class="text-ink">{SESSION_DEADLINE}</strong>.</p>
           </div>
         </div>
       </div>
@@ -403,7 +400,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
         </button>
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>On-demand sessions are fully refundable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. We can also reschedule to another time! Otherwise, the full session price is charged.</p>
+            <p>Sessions are fully reschedulable as long as you cancel at least 6 hours before the scheduled start time. This can be done automatically through Calendly or by sending an email. Otherwise, the session will be counted towards the plan's total.</p>
             <p>Sessions in coaching packages may also be rescheduled at least 6 hours before the scheduled start time. Please reach out with any questions specific to your package.</p>
           </div>
         </div>
@@ -519,7 +516,7 @@ const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
 
   .animated-border-wrapper {
     padding: 3px;
-    background: conic-gradient(from var(--angle), #141414 65%, #FF5533 72%, #FF5533 78%, #141414 85%);
+    background: conic-gradient(from var(--angle), #141414 65%, #EE4E29 72%, #EE4E29 78%, #141414 85%);
     animation: spin-border 3s linear infinite;
   }
 

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import StatBar from '../components/StatBar.astro';
-import Products from '../components/Products.astro';
+import ProductSpotlight from '../components/ProductSpotlight.astro';
 import CalculatorCTA from '../components/CalculatorCTA.astro';
 import Testimonials from '../components/Testimonials.astro';
 import About from '../components/About.astro';
@@ -11,11 +11,48 @@ import About from '../components/About.astro';
 <Layout title="Home">
   <Hero />
   <StatBar />
-  <Products />
-  <CalculatorCTA />
+
+  <ProductSpotlight
+    id="masterclass"
+    eyebrow="For high-scoring students"
+    title="The Masterclass"
+    description="An intensive 5-week program with a small cohort of students all aiming for a 750+."
+    video="/masterclass_clips.mp4"
+    ctaLabel="Explore the Masterclass"
+    ctaHref="/masterclass"
+    features={[
+      '15 hours of LIVE small group classes',
+      '3+ office hours for 1-on-1 support',
+      'Practice tests, desmos drills, and 500+ problems',
+      '<span class="font-bold">Most students end with a 750+</span>',
+    ]}
+    iconPath="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+    iconBg="bg-electric"
+    bg="bg-peach"
+    featuresCard={true}
+  />
+
+  <ProductSpotlight
+    eyebrow="Full-service prep"
+    title="1-on-1 Coaching"
+    description="Personalized sessions with a custom roadmap to help you reach any goal score."
+    video="/tutoring_sizzle.mp4"
+    ctaLabel="Book a Session"
+    ctaHref="/tutoring"
+    features={[
+      '1-on-1 sessions on your schedule',
+      'A custom roadmap, revised each session, focused on your weaknesses',
+      'Includes the Self-Paced Masterclass, my book SAT Math from the Ground Up, and more than enough practice problems',
+    ]}
+    iconPath="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+    iconBg="bg-electric"
+    reverse={true}
+    bg="bg-sky"
+    featuresCard={true}
+  />
 
   <!-- Testimonials -->
-  <section class="py-20 lg:py-28 bg-sky reveal">
+  <section class="py-14 lg:py-20 bg-mint reveal">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-14">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-3">From students</h2>
@@ -23,6 +60,8 @@ import About from '../components/About.astro';
       <Testimonials filter="all" />
     </div>
   </section>
+
+  <CalculatorCTA />
 
   <About />
 </Layout>

@@ -31,7 +31,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 >
 
   <!-- Hero -->
-  <section class="bg-ink-mid text-white py-14 lg:py-24 hero-section">
+  <section class="bg-ink-mid text-white py-10 lg:py-16 hero-section">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[10fr_11fr] gap-12 items-center">
 
@@ -60,9 +60,13 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
                 href={WAITLIST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base uppercase tracking-wide"
+                class="inline-flex items-center gap-2 bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
               >
                 {enrollLabel}
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </a>
             ) : (
               <a
@@ -76,9 +80,12 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             <a
               href="#masterclass-video"
               id="learn-more-btn"
-              class="inline-block bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
+              class="inline-flex items-center gap-2 bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
             >
               Learn More
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
             </a>
           </div>
           {IS_FULL && (
@@ -105,7 +112,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
   <!-- Video -->
-  <section id="masterclass-video" class="py-16 lg:py-20 bg-chalk">
+  <section id="masterclass-video" class="py-12 lg:py-14 bg-chalk">
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
       <div class="aspect-video w-full rounded-2xl overflow-hidden border-2 border-ink shadow-offset-md">
         <iframe
@@ -120,7 +127,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
   <!-- Testimonials (Masterclass only) -->
-  <section class="py-16 lg:py-24 bg-mint">
+  <section class="py-12 lg:py-16 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From Masterclass students</h2>
@@ -136,7 +143,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <MasterclassSchedule enrollHref={enrollHref} enrollLabel={enrollLabel} />
 
   <!-- Pricing cards -->
-  <section id="pricing" class="py-16 lg:py-24 bg-peach">
+  <section id="pricing" class="py-12 lg:py-16 bg-peach">
     <div class="max-w-4xl mx-auto px-6 lg:px-8">
       <div class={`grid grid-cols-1 gap-8 items-start ${SELF_PACED_AVAILABLE ? 'lg:grid-cols-2' : ''}`}>
 
@@ -195,7 +202,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             href={SELF_PACED_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="block text-center bg-white text-ink font-bold py-3 rounded-xl border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+            class="block text-center bg-white text-ink font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
             Enroll Now
           </a>
@@ -203,7 +210,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
         )}
 
         <!-- Live Masterclass Card -->
-        <div data-price-card class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#FF5533]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
+        <div data-price-card class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#EE4E29]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
           <div class="absolute -top-4 left-1/2 -translate-x-1/2">
             <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
               Best Results
@@ -237,7 +244,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
               href={enrollHref}
               target="_blank"
               rel="noopener noreferrer"
-              class="block text-center bg-coral text-white font-bold py-3 rounded-xl border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+              class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
             >
               {enrollLabel}
             </a>
@@ -253,7 +260,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-16 lg:py-24 bg-chalk">
+  <section id="faq" class="py-12 lg:py-16 bg-chalk">
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Frequently Asked Questions</h2>
@@ -627,7 +634,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 
   .animated-border-wrapper {
     padding: 3px;
-    background: conic-gradient(from var(--angle), #141414 65%, #FF5533 72%, #FF5533 78%, #141414 85%);
+    background: conic-gradient(from var(--angle), #141414 65%, #EE4E29 72%, #EE4E29 78%, #141414 85%);
     animation: spin-border 3s linear infinite;
   }
 </style>

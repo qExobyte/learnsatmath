@@ -9,7 +9,7 @@ export default {
           DEFAULT: '#141414',
           mid: '#1b2a4a',
         },
-        coral: '#FF5533',
+        coral: '#EE4E29',
         electric: '#FFE135',
         sky: '#C9E8FF',
         mint: '#C8F0D0',
