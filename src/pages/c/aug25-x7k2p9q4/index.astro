@@ -505,7 +505,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
       }
 
       .hw-task {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--ink);
         padding-right: 1rem;
       }
@@ -523,7 +523,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         font-size: 0.8rem;
         font-weight: 500;
         line-height: 1.4;
-        color: rgba(20, 20, 20, 0.45);
+        color: rgba(20, 20, 20, 0.7);
       }
 
       .hw-time {
@@ -531,7 +531,32 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         font-weight: 800;
         white-space: nowrap;
         font-variant-numeric: tabular-nums;
-        color: rgba(20, 20, 20, 0.7);
+        color: var(--ink);
+      }
+
+      /* Sub-headings inside each week panel (Sessions / Homework) */
+      .hw-subhead {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.4);
+        margin: 0 0 0.7rem;
+      }
+
+      .hw-subhead--hw {
+        margin-top: 1.4rem;
+      }
+
+      /* Tinted container that sets the Sessions list apart from Homework */
+      .sessions {
+        background: rgba(201, 232, 255, 0.45);
+        border-radius: 0.75rem;
+        padding: 0.9rem 1.1rem;
+      }
+
+      .sessions .hw-subhead {
+        margin-bottom: 0.6rem;
       }
 
       /* Mid-class check-in (sits between weeks 3 and 4) */
@@ -905,7 +930,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
       <!-- ===== Homework ===== -->
       <section id="homework" class="block" data-plan="standard">
         <div class="wrap">
-          <h2>Homework</h2>
+          <h2>Schedule</h2>
 
           <div class="toggle-bar">
             <div class="toggle-wrap">
@@ -931,7 +956,15 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Week 1</span> &nbsp; Algebra with Desmos<span class="wk-date">July 11 &ndash; 17</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="hw" data-plan="standard">
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 1<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, July 11</td></tr>
+                    <tr><td class="hw-task">Session 2<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, July 12</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
@@ -956,7 +989,15 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Week 2</span> &nbsp; Linear &amp; Exponential Functions<span class="wk-date">July 18 &ndash; 24</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="hw" data-plan="standard">
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 3<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, July 18</td></tr>
+                    <tr><td class="hw-task">Session 4<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, July 19</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q21&ndash;Q39</td><td class="hw-time">75m</td></tr>
                     <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Linear Properties from Two Points &middot; Two Points Non-Linear &middot; Equivalent Expression Constants &middot; Simple Percentage Change &middot; Exponential Coefficients &middot; Complex Percentage Relationships</span></td><td class="hw-time">45m</td></tr>
@@ -981,7 +1022,15 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Week 3</span> &nbsp; Quadratics &amp; Polynomials<span class="wk-date">July 25 &ndash; 31</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="hw" data-plan="standard">
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 5<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, July 25</td></tr>
+                    <tr><td class="hw-task">Session 6<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, July 26</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q40&ndash;Q56</td><td class="hw-time">75m</td></tr>
                     <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Remaining topics</span></td><td class="hw-time">30m</td></tr>
@@ -1016,7 +1065,15 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Week 4</span> &nbsp; Geometry<span class="wk-date">August 1 &ndash; 7</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="hw" data-plan="standard">
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 7<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, August 1</td></tr>
+                    <tr><td class="hw-task">Session 8<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, August 2</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q57&ndash;Q84</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Review hardest problems from weeks 1&ndash;2</td><td class="hw-time">1h</td></tr>
@@ -1042,7 +1099,15 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Weeks 5 &amp; 6</span> &nbsp; Statistics &amp; Review<span class="wk-date">August 8 &ndash; 21</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="hw" data-plan="standard">
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 9<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, August 8</td></tr>
+                    <tr><td class="hw-task">Session 10<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, August 9</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q85&ndash;Q100</td><td class="hw-time">1h</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Problem Solving &amp; Data Analysis</td><td class="hw-time">1h</td></tr>
