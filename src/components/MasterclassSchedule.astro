@@ -9,11 +9,13 @@ const { enrollHref, enrollLabel } = Astro.props;
 interface Session {
   type: 'class' | 'office-hours';
   topic: string;
+  detail?: string;
 }
 
 interface Week {
   number: number;
   name: string;
+  date: string;
   sessions: Session[];
   timeNote?: string;
 }
@@ -22,6 +24,7 @@ const weeks: Week[] = [
   {
     number: 1,
     name: 'Algebra with Desmos',
+    date: 'Jul 11 – 17',
     sessions: [
       { type: 'class', topic: 'How to Prep & Functions' },
       { type: 'class', topic: 'Algebra w/ Desmos & Regressions' },
@@ -30,36 +33,40 @@ const weeks: Week[] = [
   {
     number: 2,
     name: 'Linear & Exponential Functions',
+    date: 'Jul 18 – 24',
     sessions: [
       { type: 'class', topic: 'Linear Functions' },
       { type: 'class', topic: 'Exponential Functions' },
-      { type: 'office-hours', topic: 'Office Hours' },
+      { type: 'office-hours', topic: 'Office Hours', detail: 'Mon, Jul 20 · 8:00 – 9:00 pm ET' },
     ],
   },
   {
     number: 3,
     name: 'Quadratics & Polynomials',
+    date: 'Jul 25 – 31',
     sessions: [
       { type: 'class', topic: 'Quadratics' },
       { type: 'class', topic: 'Advanced Quadratics & Polynomials' },
+      { type: 'office-hours', topic: 'Office Hours', detail: 'Tue, Jul 28 · 8:00 – 9:00 pm ET' },
     ],
   },
   {
     number: 4,
     name: 'Geometry',
+    date: 'Aug 1 – 7',
     sessions: [
       { type: 'class', topic: 'Triangles' },
       { type: 'class', topic: 'Circles, Surface Area & Volume' },
-      { type: 'office-hours', topic: 'Office Hours' },
     ],
   },
   {
     number: 5,
-    name: 'Statistics & Review Game',
+    name: 'Statistics & Review',
+    date: 'Aug 8 – 21',
     sessions: [
       { type: 'class', topic: 'Unit Conversion & Statistics' },
       { type: 'class', topic: 'Final Review' },
-      { type: 'office-hours', topic: 'Office Hours' },
+      { type: 'office-hours', topic: 'Office Hours', detail: 'Sun, Aug 16 · 12:00 – 1:30 pm ET' },
     ],
   },
 ];
@@ -78,16 +85,16 @@ const weeks: Week[] = [
         const ohSessions = week.sessions.filter(s => s.type === 'office-hours');
         return (
           <div class="bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5" data-schedule-item>
-            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number}</p>
+            <p class="text-xs font-black uppercase tracking-widest text-ink/40 mb-1">Week {week.number} &middot; {week.date}</p>
             <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
             {week.timeNote && (
               <p class="text-xs font-bold text-ink/70 mt-1">{week.timeNote}</p>
             )}
-            {ohSessions.length > 0 && (
+            {ohSessions.map((s) => (
               <p class="text-sm text-ink/50 font-semibold italic mt-1">
-                + Office Hours
+                + Office Hours{s.detail ? ` · ${s.detail}` : ''}
               </p>
-            )}
+            ))}
           </div>
         );
       })}
