@@ -1,0 +1,1413 @@
+---
+// Private cohort page — standalone (no shared Layout/Nav/Footer/analytics).
+// Lives in src/pages for live reload; URL is /c/4rdqar5zna2a/.
+
+// ===== Student progress =====
+// Edit this list to update the leaderboard. Each student is one row.
+// `points` is the running total of participation points awarded in class.
+// Names can be first names, initials, or nicknames — whatever students prefer.
+// Rows are sorted by points automatically; bar lengths scale to the leader.
+const students = [
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+  { name: '-', points: 0 },
+];
+
+// Cash prizes for the top finishers, in rank order (1st, 2nd, …). Top 5 win.
+const prizes = [50, 40, 30, 20, 10];
+
+// Palette cycled across the bars (matches the page's design tokens).
+const barColors = ['--coral', '--electric', '--sky', '--mint', '--peach', '--lavender', '--rose'];
+
+const sorted = [...students].sort((a, b) => b.points - a.points);
+const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/png" href="/favicon-imprecise.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <title>SAT Math Masterclass | August 2026 Cohort 2</title>
+    <style is:global>
+      /* Design tokens mirrored from the site's Tailwind config */
+      :root {
+        --chalk: #F7F6F2;
+        --ink: #141414;
+        --ink-mid: #1b2a4a;
+        --coral: #EE4E29;
+        --electric: #FFE135;
+        --sky: #C9E8FF;
+        --mint: #C8F0D0;
+        --peach: #FFE0CB;
+        --rose: #FFD6D1;
+        --lavender: #EDE9FF;
+        --offset-sm: 3px 3px 0 0 var(--ink);
+        --offset-hover: 1px 1px 0 0 var(--ink);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 18px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--chalk);
+        color: var(--ink);
+        font-family: 'DM Sans', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* ---- Header ---- */
+      .masthead {
+        background: var(--ink-mid);
+        color: var(--chalk);
+        padding: 4rem 0 3.5rem;
+        border-bottom: 3px solid var(--ink);
+        text-align: center;
+      }
+
+      .masthead h1 {
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin: 0 0 0.5rem;
+      }
+
+      .masthead .sub {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin: 0.25rem 0 0;
+      }
+
+      .masthead .sub .hl {
+        background: var(--electric);
+        color: var(--ink);
+        padding: 0.1em 0.45em;
+        display: inline-block;
+        letter-spacing: -0.01em;
+      }
+
+      /* ---- Countdown ---- */
+      .countdown {
+        margin: 2rem auto 0;
+        max-width: 30rem;
+      }
+
+      .cd-label {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.65);
+        margin: 0 0 0.85rem;
+      }
+
+      .cd-units {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.6rem;
+      }
+
+      .cd-unit {
+        background: var(--chalk);
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        border-radius: 0.75rem;
+        box-shadow: var(--offset-sm);
+        padding: 0.7rem 0.25rem 0.55rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+      }
+
+      .cd-num {
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .cd-tag {
+        font-size: 0.6rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.55);
+      }
+
+      .cd-done {
+        font-size: 1.1rem;
+        font-weight: 800;
+        margin: 0;
+      }
+
+      @media (max-width: 380px) {
+        .cd-num {
+          font-size: 1.6rem;
+        }
+      }
+
+      /* ---- Sections ---- */
+      section.block {
+        padding: 3rem 0;
+      }
+
+      section.block + section.block {
+        border-top: 2px dashed rgba(20, 20, 20, 0.15);
+      }
+
+      h2 {
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.5rem;
+      }
+
+      .lede {
+        color: rgba(20, 20, 20, 0.6);
+        font-weight: 600;
+        margin: 0 0 1.5rem;
+      }
+
+      /* ---- Buttons (neobrutalist offset style) ---- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0.85rem 2rem;
+        border-radius: 9999px;
+        border: 2px solid var(--ink);
+        box-shadow: var(--offset-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translate(3px, 3px);
+        box-shadow: none;
+      }
+
+      .btn-coral {
+        background: var(--coral);
+        color: #fff;
+      }
+
+      .btn-ink {
+        background: var(--ink);
+        color: var(--chalk);
+      }
+
+      .btn-electric {
+        background: var(--electric);
+        color: var(--ink);
+      }
+
+      .btn-mint {
+        background: var(--mint);
+        color: var(--ink);
+      }
+
+      .btn-sky {
+        background: var(--sky);
+        color: var(--ink);
+      }
+
+      .btn-peach {
+        background: var(--peach);
+        color: var(--ink);
+      }
+
+      /* Resource action buttons: a touch smaller & lighter than the hero buttons */
+      .res-body .btn {
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 0.65rem 1.5rem;
+      }
+
+      .btn .ico {
+        width: 1.15em;
+        height: 1.15em;
+        flex-shrink: 0;
+      }
+
+      /* ---- Button group ---- */
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      /* ---- Toggles (pill switches) ---- */
+      #homework h2 {
+        text-align: center;
+      }
+
+      .toggle-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.75rem;
+      }
+
+      .toggle-wrap {
+        position: relative;
+        display: inline-flex;
+      }
+
+      .toggle {
+        display: inline-flex;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        padding: 0.25rem;
+        background: #fff;
+        box-shadow: var(--offset-sm);
+      }
+
+      .toggle button {
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: var(--ink);
+        padding: 0.5rem 1.1rem;
+        border-radius: 9999px;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      /* Plan toggle: standard active -> mint, advanced active -> rose */
+      .toggle[data-toggle='plan'] button[data-plan='standard'].is-active {
+        background: var(--mint);
+        color: var(--ink);
+      }
+
+      .toggle[data-toggle='plan'] button[data-plan='advanced'].is-active {
+        background: var(--rose);
+        color: var(--ink);
+      }
+
+      /* ---- Tooltip ---- */
+      .tip {
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.4rem;
+        height: 1.4rem;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        background: #fff;
+        font-size: 0.75rem;
+        font-weight: 900;
+        color: var(--ink);
+        cursor: help;
+      }
+
+      .tip .tip-bubble {
+        position: absolute;
+        bottom: calc(100% + 0.6rem);
+        left: 50%;
+        transform: translateX(-50%) translateY(4px);
+        width: 17rem;
+        max-width: 70vw;
+        background: var(--ink);
+        color: var(--chalk);
+        text-align: left;
+        text-transform: none;
+        letter-spacing: normal;
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.45;
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.6rem;
+        box-shadow: var(--offset-sm);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 10;
+      }
+
+      .tip .tip-bubble::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 7px solid transparent;
+        border-top-color: var(--ink);
+      }
+
+      .tip:hover .tip-bubble,
+      .tip:focus-visible .tip-bubble {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .tip .tip-bubble strong {
+        color: var(--electric);
+      }
+
+      /* ---- Weekly assignments (details/summary) ---- */
+      .weeks {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      details.week {
+        background: #fff;
+        border: 2px solid var(--ink);
+        border-radius: 1rem;
+        box-shadow: var(--offset-sm);
+        overflow: hidden;
+      }
+
+      details.week > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1rem 1.25rem;
+        font-weight: 800;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      details.week > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details.week > summary .wk-tag {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.4);
+      }
+
+      details.week > summary .wk-date {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: rgba(20, 20, 20, 0.5);
+        margin-top: 0.2rem;
+      }
+
+      details.week > summary .chevron {
+        margin-left: auto;
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      details.week.is-open > summary .chevron {
+        transform: rotate(180deg);
+      }
+
+      .chevron svg {
+        display: block;
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      details.week .week-body {
+        max-height: 0;
+        overflow: hidden;
+        color: rgba(20, 20, 20, 0.75);
+        font-weight: 500;
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      details.week .week-body .dd-inner {
+        padding: 1rem 1.25rem 1.25rem;
+        border-top: 2px dashed rgba(20, 20, 20, 0.12);
+      }
+
+      .week-body .hw {
+        display: none;
+        margin: 0;
+      }
+
+      #homework[data-plan='standard'] .hw[data-plan='standard'],
+      #homework[data-plan='advanced'] .hw[data-plan='advanced'] {
+        display: block;
+      }
+
+      /* Homework assignment tables */
+      .hw-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .hw-table td {
+        padding: 0.7rem 0;
+        vertical-align: top;
+        border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+      }
+
+      .hw-table tr:first-child td {
+        padding-top: 0;
+      }
+
+      .hw-table tr:last-child td {
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .hw-task {
+        font-weight: 700;
+        color: var(--ink);
+        padding-right: 1rem;
+      }
+
+      .hw-task a {
+        color: var(--coral);
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .hw-topics {
+        display: block;
+        margin-top: 0.3rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: rgba(20, 20, 20, 0.7);
+      }
+
+      .hw-time {
+        text-align: right;
+        font-weight: 800;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+        color: var(--ink);
+      }
+
+      /* Sub-headings inside each week panel (Sessions / Homework) */
+      .hw-subhead {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.4);
+        margin: 0 0 0.7rem;
+      }
+
+      .hw-subhead--hw {
+        margin-top: 1.4rem;
+      }
+
+      /* Tinted container that sets the Sessions list apart from Homework */
+      .sessions {
+        background: rgba(201, 232, 255, 0.45);
+        border-radius: 0.75rem;
+        padding: 0.9rem 1.1rem;
+      }
+
+      .sessions .hw-subhead {
+        margin-bottom: 0.6rem;
+      }
+
+      /* Mid-class check-in (sits between weeks 3 and 4) */
+      .checkin {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem 1.25rem;
+        padding: 0.5rem 0;
+      }
+
+      .checkin-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+
+      .checkin-date {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: rgba(20, 20, 20, 0.5);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-top: 0.15rem;
+      }
+
+      .checkin .btn {
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 0.65rem 1.5rem;
+      }
+
+      /* ---- Resources ---- */
+      #resources h2 {
+        text-align: center;
+      }
+
+      #resources .lede {
+        text-align: center;
+      }
+
+      .resources {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+
+      details.res {
+        border: 2px solid var(--ink);
+        border-radius: 1rem;
+        box-shadow: var(--offset-sm);
+        overflow: hidden;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      details.res > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1.1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+      }
+
+      details.res > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .res-name {
+        font-weight: 800;
+        font-size: 1.15rem;
+        letter-spacing: -0.01em;
+      }
+
+      .res-meta {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.6rem;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.55);
+        white-space: nowrap;
+      }
+
+      details.res > summary .chevron {
+        margin-left: auto;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+
+      details.res.is-open > summary .chevron {
+        transform: rotate(180deg);
+      }
+
+      .res-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      .res-body .dd-inner {
+        padding: 1rem 1.25rem 1.25rem;
+        border-top: 2px dashed rgba(20, 20, 20, 0.18);
+      }
+
+      .res-body p {
+        margin: 0 0 1.1rem;
+        font-weight: 500;
+        color: rgba(20, 20, 20, 0.78);
+      }
+
+      .res-price {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink) !important;
+        padding: 0.45rem 0.9rem;
+        margin: 0 0 1.1rem !important;
+        border-radius: 9999px;
+        border: 2px solid var(--ink);
+        background: var(--electric);
+      }
+
+      .res-emailed {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0.7rem 1.2rem;
+        border-radius: 9999px;
+        border: 2px dashed var(--ink);
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .res-emailed .ico {
+        width: 1.15em;
+        height: 1.15em;
+        flex-shrink: 0;
+      }
+
+      .res-sky > summary { background: var(--sky); }
+      .res-mint > summary { background: var(--mint); }
+      .res-peach > summary { background: var(--peach); }
+      .res-lavender > summary { background: var(--lavender); }
+      .res-rose > summary { background: var(--rose); }
+
+      /* ---- Student progress ---- */
+      #progress h2 {
+        text-align: center;
+      }
+
+      #progress .lede {
+        text-align: center;
+      }
+
+      .leaderboard {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .lb-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+      }
+
+      .lb-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+
+      .lb-name {
+        font-weight: 800;
+        font-size: 1.05rem;
+        letter-spacing: -0.01em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .lb-rank {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        flex-shrink: 0;
+        font-size: 0.8rem;
+        font-weight: 900;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        background: #fff;
+      }
+
+      /* Prize money pill, shown only on the top-five rows. */
+      .lb-prize {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        font-size: 0.75rem;
+        font-weight: 900;
+        padding: 0.1rem 0.5rem;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        background: var(--chalk);
+        white-space: nowrap;
+      }
+
+      .lb-points {
+        font-weight: 800;
+        font-size: 0.95rem;
+        white-space: nowrap;
+      }
+
+      .lb-points span {
+        font-weight: 600;
+        color: rgba(20, 20, 20, 0.5);
+        font-size: 0.8rem;
+      }
+
+      .lb-track {
+        height: 1.6rem;
+        border: 2px solid var(--ink);
+        border-radius: 9999px;
+        background: #fff;
+        box-shadow: var(--offset-sm);
+        overflow: hidden;
+      }
+
+      .lb-bar {
+        height: 100%;
+        border-radius: 9999px;
+        /* width is set inline per-student; animate from 0 on load */
+        width: 0;
+        transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Rows outside the prize zone are present but quieter. */
+      .lb-row.is-out {
+        opacity: 0.78;
+      }
+
+      .lb-row.is-out .lb-track {
+        height: 1.25rem;
+        box-shadow: var(--offset-hover);
+      }
+
+      .lb-row.is-out .lb-name {
+        font-size: 0.95rem;
+      }
+
+      .lb-row.is-out .lb-bar {
+        opacity: 0.7;
+      }
+
+      /* The cash-prize cutoff: a dashed divider after rank 5. */
+      .prize-line {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0.4rem 0;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.55);
+      }
+
+      .prize-line::before,
+      .prize-line::after {
+        content: '';
+        flex: 1;
+        border-top: 2px dashed var(--ink);
+        opacity: 0.5;
+      }
+
+      footer {
+        padding: 2.5rem 0 3rem;
+        text-align: center;
+        color: rgba(20, 20, 20, 0.4);
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      @media (min-width: 1024px) {
+        .masthead h1 {
+          font-size: 3.25rem;
+        }
+        h2 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <h1>SAT Math Masterclass</h1>
+        <p class="sub"><span class="hl">August 2026, Cohort 2</span></p>
+
+        <div class="countdown" id="countdown" aria-label="Time until the August SAT">
+          <p class="cd-label">Countdown to the August&nbsp;SAT</p>
+          <div class="cd-units">
+            <div class="cd-unit">
+              <span class="cd-num" data-cd="days">--</span>
+              <span class="cd-tag">Days</span>
+            </div>
+            <div class="cd-unit">
+              <span class="cd-num" data-cd="hours">--</span>
+              <span class="cd-tag">Hours</span>
+            </div>
+            <div class="cd-unit">
+              <span class="cd-num" data-cd="minutes">--</span>
+              <span class="cd-tag">Minutes</span>
+            </div>
+            <div class="cd-unit">
+              <span class="cd-num" data-cd="seconds">--</span>
+              <span class="cd-tag">Seconds</span>
+            </div>
+          </div>
+          <p class="cd-done" hidden>It's SAT day &mdash; you've got this! 🎉</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===== Join Class / Recordings ===== -->
+      <section class="block">
+        <div class="wrap">
+          <div class="btn-row">
+            <a
+              class="btn btn-mint"
+              href="https://meet.google.com/skd-uvns-sri"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m22 8-6 4 6 4V8Z" />
+                <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
+              </svg>
+              Join on Google Meet
+            </a>
+
+            <a
+              class="btn btn-coral"
+              href="https://drive.google.com/drive/folders/PLACEHOLDER_FOLDER_ID"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              Open Recordings Folder
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Homework ===== -->
+      <section id="homework" class="block" data-plan="standard">
+        <div class="wrap">
+          <h2>Schedule</h2>
+
+          <div class="toggle-bar">
+            <div class="toggle-wrap">
+              <div class="toggle" data-toggle="plan" role="group" aria-label="Plan">
+                <button type="button" data-plan="standard" class="is-active">Standard</button>
+                <button type="button" data-plan="advanced">Advanced</button>
+              </div>
+
+              <span class="tip" tabindex="0" aria-label="What are the Standard and Advanced plans?">
+                ?
+                <span class="tip-bubble" role="tooltip">
+                  <strong>Standard</strong> &mdash; For students who want an 80&ndash;100 point jump / 700&ndash;760. 4&ndash;5 hours per week outside of classes.
+                  <br /><br />
+                  <strong>Advanced</strong> &mdash; For students who want a 770+. 6&ndash;8 hours per week outside of classes.
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="weeks">
+            <details class="week">
+              <summary>
+                <span><span class="wk-tag">Week 1</span> &nbsp; Algebra with Desmos<span class="wk-date">July 20 &ndash; 26</span></span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 1<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, July 20</td></tr>
+                    <tr><td class="hw-task">Session 2<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Wed, July 22</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
+                    <tr><td class="hw-task"><a href="https://www.youtube.com/watch?v=1bTkbmHx944" target="_blank" rel="noopener">Overview of the SAT Math</a></td><td class="hw-time">30m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">1h</td></tr>
+                  </table>
+                </div>
+                <div class="hw" data-plan="advanced">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
+                    <tr><td class="hw-task"><a href="https://www.youtube.com/watch?v=1bTkbmHx944" target="_blank" rel="noopener">Overview of the SAT Math</a></td><td class="hw-time">30m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">3h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 1&ndash;25</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Practice Test &middot; Mod 2</td><td class="hw-time">1h</td></tr>
+                  </table>
+                </div>
+              </div></div>
+            </details>
+
+            <details class="week">
+              <summary>
+                <span><span class="wk-tag">Week 2</span> &nbsp; Linear &amp; Exponential Functions<span class="wk-date">July 27 &ndash; August 2</span></span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 3<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, July 27</td></tr>
+                    <tr><td class="hw-task">Session 4<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Wed, July 29</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q21&ndash;Q39</td><td class="hw-time">75m</td></tr>
+                    <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Linear Properties from Two Points &middot; Two Points Non-Linear &middot; Equivalent Expression Constants &middot; Simple Percentage Change &middot; Exponential Coefficients &middot; Complex Percentage Relationships</span></td><td class="hw-time">45m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Math Questions</td><td class="hw-time">1h</td></tr>
+                  </table>
+                </div>
+                <div class="hw" data-plan="advanced">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q21&ndash;Q39</td><td class="hw-time">75m</td></tr>
+                    <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Linear Properties from Two Points &middot; Two Points Non-Linear &middot; Equivalent Expression Constants &middot; Simple Percentage Change &middot; Exponential Coefficients &middot; Complex Percentage Relationships</span></td><td class="hw-time">45m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 26&ndash;50</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
+                  </table>
+                </div>
+              </div></div>
+            </details>
+
+            <details class="week">
+              <summary>
+                <span><span class="wk-tag">Week 3</span> &nbsp; Quadratics &amp; Polynomials<span class="wk-date">August 3 &ndash; 9</span></span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 5<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, August 3</td></tr>
+                    <tr><td class="hw-task">Session 6<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Wed, August 5</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q40&ndash;Q56</td><td class="hw-time">75m</td></tr>
+                    <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Remaining topics</span></td><td class="hw-time">30m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Math Questions</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
+                  </table>
+                </div>
+                <div class="hw" data-plan="advanced">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q40&ndash;Q56</td><td class="hw-time">75m</td></tr>
+                    <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Remaining topics</span></td><td class="hw-time">30m</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 51&ndash;75</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Practice Test &middot; Mod 2</td><td class="hw-time">1h</td></tr>
+                  </table>
+                </div>
+              </div></div>
+            </details>
+
+            <div class="checkin">
+              <p class="checkin-title">Mid-class check-in<span class="checkin-date">August 9</span></p>
+              <a class="btn btn-sky" href="#" target="_blank" rel="noopener">
+                Complete form
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                </svg>
+              </a>
+            </div>
+
+            <details class="week">
+              <summary>
+                <span><span class="wk-tag">Week 4</span> &nbsp; Geometry<span class="wk-date">August 10 &ndash; 16</span></span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 7<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, August 10</td></tr>
+                    <tr><td class="hw-task">Session 8<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Wed, August 12</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q57&ndash;Q84</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Review hardest problems from weeks 1&ndash;2</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Geometry &amp; Trig</td><td class="hw-time">1.5h</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Problem Solving &amp; Data Analysis</td><td class="hw-time">1.5h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Math Questions</td><td class="hw-time">1h</td></tr>
+                  </table>
+                </div>
+                <div class="hw" data-plan="advanced">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q57&ndash;Q84</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Geometry &amp; Trig</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Hard Problems &middot; Problem Solving &amp; Data Analysis</td><td class="hw-time">1.5h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 76&ndash;100</td><td class="hw-time">2h</td></tr>
+                  </table>
+                </div>
+              </div></div>
+            </details>
+
+            <details class="week">
+              <summary>
+                <span><span class="wk-tag">Week 5</span> &nbsp; Statistics &amp; Review<span class="wk-date">August 17 &ndash; 21</span></span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Session 9<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, August 17</td></tr>
+                    <tr><td class="hw-task">Session 10<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Wed, August 19</td></tr>
+                  </table>
+                </div>
+
+                <p class="hw-subhead hw-subhead--hw">Homework</p>
+                <div class="hw" data-plan="standard">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q85&ndash;Q100</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">90m</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Math Questions</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test (or two)</td><td class="hw-time">2&ndash;4h</td></tr>
+                    <tr><td class="hw-task">Prepare the night before<span class="hw-topics">Aim for 9 hours of sleep, eat a full healthy breakfast, bring water and a snack. Good luck!!</span></td><td class="hw-time"></td></tr>
+                  </table>
+                </div>
+                <div class="hw" data-plan="advanced">
+                  <table class="hw-table">
+                    <tr><td class="hw-task">Bedrock 100 &middot; Q85&ndash;Q100</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bluebook Practice Test (or two)</td><td class="hw-time">2&ndash;4h</td></tr>
+                    <tr><td class="hw-task">Bedrock 100 Expert Problems</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Prepare the night before<span class="hw-topics">Aim for 9 hours of sleep, eat a full healthy breakfast, bring water and a snack. Good luck!!</span></td><td class="hw-time"></td></tr>
+                  </table>
+                </div>
+              </div></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Resources ===== -->
+      <section id="resources" class="block">
+        <div class="wrap">
+          <h2>Resources</h2>
+          <p class="lede">We'll discuss each of these during the first session.</p>
+
+          <div class="resources">
+            <!-- Public resource 1 -->
+            <details class="res res-sky">
+              <summary>
+                <span class="res-name">Bluebook</span>
+                <span class="res-meta">Official ↗</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>College Board's official practice tests. These are <i>slightly</i> easier than the actual SAT &mdash; subtract ~30 points from your score to get an estimated SAT score.</p>
+                <a class="btn btn-sky" href="https://bluebook.collegeboard.org/students" target="_blank" rel="noopener">
+                  Open Bluebook
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </div></div>
+            </details>
+
+            <!-- Proprietary resource 1 -->
+            <details class="res res-rose">
+              <summary>
+                <span class="res-name">Bedrock 100</span>
+                <span class="res-meta">In your inbox &#9993;</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>100 problems written by me (Eric). These 100 problems cover <i>everything</i> on the SAT math but <b>no topic repeats itself</b>, so this is the densest question bank you'll get.</p>
+                <span class="res-emailed">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />
+                  </svg>
+                  Sent to your email automatically
+                </span>
+              </div></div>
+            </details>
+
+            <!-- Public resource 2 -->
+            <details class="res res-peach">
+              <summary>
+                <span class="res-name">CookSAT</span>
+                <span class="res-meta">$24/mo ↗</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>The best third-party question bank at the moment. The platform has a lot, but the best features are the <b>100 "extreme" difficulty questions</b> and <b>Desmos solutions</b> for every problem.</p>
+                <a class="btn btn-peach" href="https://cooksat.com/" target="_blank" rel="noopener">
+                  Visit CookSAT &middot; $24/mo
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                  </svg>
+                </a>
+                <a class="btn btn-peach" href="https://www.oneprep.co/" target="_blank" rel="noopener">
+                  Alt: OnePrep
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </div></div>
+            </details>
+
+            <!-- Public resource 3 -->
+            <details class="res res-mint">
+              <summary>
+                <span class="res-name">Desmos Regression Trainer</span>
+                <span class="res-meta">Practice ↗</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>A resource for practicing the more obscure regression tricks on the SAT.</p>
+                <a class="btn btn-mint" href="https://sceptrell.github.io/DesmosRegressionTrainer/" target="_blank" rel="noopener">
+                  Open Trainer
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </div></div>
+            </details>
+
+            <!-- Proprietary resource 2 -->
+            <details class="res res-lavender">
+              <summary>
+                <span class="res-name">SAT Math from the Ground Up</span>
+                <span class="res-meta">In your inbox &#9993;</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>Teaches the concepts <i>behind</i> the SAT math from fundamentals. It explains how formulas are derived and how to <i>think</i> about the math, rather than just how to solve problems.</p>
+                <span class="res-emailed">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />
+                  </svg>
+                  Sent to your email automatically
+                </span>
+              </div></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Student progress ===== -->
+      <section id="progress" class="block">
+        <div class="wrap">
+          <h2>Student Progress</h2>
+          <p class="lede">Participation points are earned in class with cash prizes for the top 5!</p>
+
+          <div class="leaderboard">
+            {sorted.map((s, i) => {
+              const isPrize = i < prizes.length;
+              const pct = Math.max(4, Math.round((s.points / maxPoints) * 100));
+              return (
+                <>
+                  {i === prizes.length && <div class="prize-line">Prize line</div>}
+                  <div class={isPrize ? 'lb-row' : 'lb-row is-out'}>
+                    <div class="lb-head">
+                      <span class="lb-name">
+                        <span class="lb-rank">{i + 1}</span>
+                        {s.name}
+                        {isPrize && <span class="lb-prize">💰 ${prizes[i]}</span>}
+                      </span>
+                      <span class="lb-points">{s.points} <span>pts</span></span>
+                    </div>
+                    <div class="lb-track">
+                      <div
+                        class="lb-bar"
+                        data-width={`${pct}%`}
+                        style={`background: var(${barColors[i % barColors.length]});`}
+                      ></div>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">Private cohort page &middot; please don't share outside the class.</div>
+    </footer>
+
+    <script is:inline>
+      // Countdown to the August SAT — Saturday, August 22, 2026, 8:00 AM.
+      (function () {
+        var root = document.getElementById('countdown');
+        if (!root) return;
+
+        var target = new Date(2026, 7, 22, 8, 0, 0).getTime();
+        var units = root.querySelector('.cd-units');
+        var done = root.querySelector('.cd-done');
+        var fields = {
+          days: root.querySelector('[data-cd="days"]'),
+          hours: root.querySelector('[data-cd="hours"]'),
+          minutes: root.querySelector('[data-cd="minutes"]'),
+          seconds: root.querySelector('[data-cd="seconds"]'),
+        };
+
+        function pad(n) {
+          return n < 10 ? '0' + n : '' + n;
+        }
+
+        function tick() {
+          var diff = target - Date.now();
+          if (diff <= 0) {
+            if (units) units.style.display = 'none';
+            if (done) done.hidden = false;
+            clearInterval(timer);
+            return;
+          }
+          var s = Math.floor(diff / 1000);
+          fields.days.textContent = Math.floor(s / 86400);
+          fields.hours.textContent = pad(Math.floor((s % 86400) / 3600));
+          fields.minutes.textContent = pad(Math.floor((s % 3600) / 60));
+          fields.seconds.textContent = pad(s % 60);
+        }
+
+        tick();
+        var timer = setInterval(tick, 1000);
+      })();
+
+      (function () {
+        var section = document.getElementById('homework');
+        if (!section) return;
+
+        var group = section.querySelector('.toggle[data-toggle="plan"]');
+        if (!group) return;
+
+        group.addEventListener('click', function (e) {
+          var btn = e.target.closest('button');
+          if (!btn) return;
+          group.querySelectorAll('button').forEach(function (b) {
+            b.classList.remove('is-active');
+          });
+          btn.classList.add('is-active');
+          section.setAttribute('data-plan', btn.getAttribute('data-plan'));
+        });
+      })();
+
+      // Smooth accordion open/close (matches the FAQ on the masterclass page).
+      // The <details> is kept permanently open so its body stays rendered;
+      // we collapse/expand purely via max-height, which keeps the transition smooth.
+      (function () {
+        var items = document.querySelectorAll('details.week, details.res');
+        items.forEach(function (detail) {
+          var summary = detail.querySelector('summary');
+          var body = detail.querySelector('.week-body, .res-body');
+          if (!summary || !body) return;
+
+          // Render content up front, start collapsed.
+          detail.open = true;
+          detail.classList.remove('is-open');
+          body.style.maxHeight = '0px';
+
+          summary.addEventListener('click', function (e) {
+            e.preventDefault();
+            var isOpen = detail.classList.contains('is-open');
+
+            if (isOpen) {
+              // Collapse: lock the current height, then animate to 0.
+              body.style.maxHeight = body.scrollHeight + 'px';
+              requestAnimationFrame(function () {
+                body.style.maxHeight = '0px';
+              });
+              detail.classList.remove('is-open');
+            } else {
+              // Expand: animate to the content height, then release to none
+              // so the panel can reflow (e.g. when the plan toggle changes).
+              detail.classList.add('is-open');
+              body.style.maxHeight = body.scrollHeight + 'px';
+              body.addEventListener('transitionend', function handler(ev) {
+                if (ev.propertyName !== 'max-height') return;
+                if (detail.classList.contains('is-open')) {
+                  body.style.maxHeight = 'none';
+                }
+                body.removeEventListener('transitionend', handler);
+              });
+            }
+          });
+        });
+      })();
+
+      // Progress bars: animate from 0 to their target width once on screen.
+      (function () {
+        var bars = document.querySelectorAll('.lb-bar');
+        if (!bars.length) return;
+
+        function fill() {
+          bars.forEach(function (bar) {
+            bar.style.width = bar.getAttribute('data-width') || '0%';
+          });
+        }
+
+        if ('IntersectionObserver' in window) {
+          var section = document.getElementById('progress');
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                fill();
+                io.disconnect();
+              }
+            });
+          }, { threshold: 0.25 });
+          io.observe(section);
+        } else {
+          fill();
+        }
+      })();
+    </script>
+  </body>
+</html>
