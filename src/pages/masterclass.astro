@@ -14,10 +14,10 @@ const IS_FULL = false;
 const SELF_PACED_AVAILABLE = IS_FULL;
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
-const ENROLL_URL = 'https://buy.stripe.com/eVqfZaf5I4AHaWY6LM6wE1t';
+const ENROLL_URL = 'https://buy.stripe.com/cNi14g4r46IP7KM6LM6wE1x';
 const SELF_PACED_PRICE = 395;
 // Next live cohort start date (shown alongside the waitlist CTA).
-const NEXT_COHORT = 'July 11';
+const NEXT_COHORT = 'July 20';
 const CONSULTATION_URL = 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-consultation';
 
 const enrollHref = IS_FULL ? WAITLIST_URL : ENROLL_URL;
@@ -45,7 +45,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           )}
           {!IS_FULL && (
             <span class="inline-block bg-white text-ink border-2 border-ink text-sm font-black px-6 py-3 rounded-full mb-6 shadow-offset-sm">
-              🟢 Enrollment OPEN
+              ⏳ SPOTS LIMITED
             </span>
           )}
           <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">The Masterclass</h1>
@@ -115,7 +115,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <!-- Countdown to cohort start -->
   <section class="bg-ink-mid text-white pb-10 lg:pb-14">
     <div class="max-w-md mx-auto px-6 lg:px-8 text-center" id="cohort-countdown" aria-label="Time until the August cohort starts">
-      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the August&nbsp;Cohort</p>
+      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the 2nd&nbsp;August&nbsp;Cohort</p>
       <div class="grid grid-cols-4 gap-2.5" data-cd-units>
         <div class="flex flex-col items-center gap-1 bg-chalk text-ink border-2 border-ink rounded-xl shadow-offset-sm pt-3 pb-2.5 px-1">
           <span class="text-3xl font-black leading-none tracking-tight tabular-nums" data-cd="days">--</span>
@@ -139,12 +139,12 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   </section>
 
   <script is:inline>
-    // Countdown to the August cohort start — July 11, 2026, 12:00 PM ET (16:00 UTC).
+    // Countdown to the August cohort start — July 20, 2026, 8:00 PM ET.
     (function () {
       var root = document.getElementById('cohort-countdown');
       if (!root) return;
 
-      var target = new Date('2026-07-11T12:00:00-04:00').getTime();
+      var target = new Date('2026-07-20T20:00:00-04:00').getTime();
       var units = root.querySelector('[data-cd-units]');
       var done = root.querySelector('[data-cd-done]');
       var fields = {
