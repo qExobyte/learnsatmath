@@ -258,6 +258,11 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         color: var(--ink);
       }
 
+      .btn-rose {
+        background: var(--rose);
+        color: var(--ink);
+      }
+
       /* Resource action buttons: a touch smaller & lighter than the hero buttons */
       .res-body .btn {
         font-size: 0.9rem;
@@ -556,6 +561,19 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
 
       .sessions .hw-subhead {
         margin-bottom: 0.6rem;
+      }
+
+      /* Prerequisite block that sits above Session 1 */
+      .prereq {
+        background: rgba(255, 214, 209, 0.5);
+        border-radius: 0.75rem;
+        padding: 0.9rem 1.1rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .prereq .hw-subhead {
+        margin-bottom: 0.6rem;
+        color: var(--coral);
       }
 
       /* Mid-class check-in (sits between weeks 3 and 4) */
@@ -955,7 +973,14 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <span><span class="wk-tag">Week 1</span> &nbsp; Algebra with Desmos<span class="wk-date">July 20 &ndash; 26</span></span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
-              <div class="week-body"><div class="dd-inner">                <div class="sessions">
+              <div class="week-body"><div class="dd-inner">
+                <div class="prereq">
+                  <p class="hw-subhead">Prerequisite</p>
+                  <table class="hw-table">
+                    <tr><td class="hw-task"><a href="https://www.youtube.com/watch?v=jCT0jTVzKy0" target="_blank" rel="noopener">Desmos Guide</a><span class="hw-topics">Watch my official Desmos guide <b>before</b> the first session. No need to master everything -- we'll go deeper during the first weekend. However, you should have a basic understanding of how Desmos is used on the SAT, especially regressions.</span></td><td class="hw-time">30m&ndash;2h</td></tr>
+                  </table>
+                </div>
+                <div class="sessions">
                   <table class="hw-table">
                     <tr><td class="hw-task">Session 1<span class="hw-topics">8:00 &ndash; 9:30 PM ET</span></td><td class="hw-time">Mon, July 20</td></tr>
                     <tr><td class="hw-task">Office Hours<span class="hw-topics">8:00 &ndash; 9:00 PM ET</span></td><td class="hw-time">Tue, July 21</td></tr>
@@ -968,7 +993,6 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                   <table class="hw-table">
                     <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
-                    <tr><td class="hw-task"><a href="https://www.youtube.com/watch?v=1bTkbmHx944" target="_blank" rel="noopener">Overview of the SAT Math</a></td><td class="hw-time">30m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">1h</td></tr>
                   </table>
                 </div>
@@ -976,7 +1000,6 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                   <table class="hw-table">
                     <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
-                    <tr><td class="hw-task"><a href="https://www.youtube.com/watch?v=1bTkbmHx944" target="_blank" rel="noopener">Overview of the SAT Math</a></td><td class="hw-time">30m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">3h</td></tr>
                     <tr><td class="hw-task">CookSAT Advanced Questions &middot; 1&ndash;25</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">CookSAT Practice Test &middot; Mod 2</td><td class="hw-time">1h</td></tr>
@@ -1167,17 +1190,17 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
             <details class="res res-rose">
               <summary>
                 <span class="res-name">Bedrock 100</span>
-                <span class="res-meta">In your inbox &#9993;</span>
+                <span class="res-meta">Question bank ↗</span>
                 <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
               </summary>
               <div class="res-body"><div class="dd-inner">
                 <p>100 problems written by me (Eric). These 100 problems cover <i>everything</i> on the SAT math but <b>no topic repeats itself</b>, so this is the densest question bank you'll get.</p>
-                <span class="res-emailed">
+                <a class="btn btn-rose" href="https://www.bedrockprep.com/bedrock-100" target="_blank" rel="noopener">
+                  Visit Bedrock 100
                   <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
                   </svg>
-                  Sent to your email automatically
-                </span>
+                </a>
               </div></div>
             </details>
 
