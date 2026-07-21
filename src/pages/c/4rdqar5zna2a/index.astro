@@ -8,21 +8,22 @@
 // Names can be first names, initials, or nicknames — whatever students prefer.
 // Rows are sorted by points automatically; bar lengths scale to the leader.
 const students = [
-  { name: 'Debaditya', points: 0 },
-  { name: 'Adan', points: 0 },
-  { name: 'Gabby', points: 0 },
-  { name: 'Audrey', points: 0 },
-  { name: 'Arefin', points: 0 },
-  { name: 'Addison', points: 0 },
-  { name: 'Ankit', points: 0 },
-  { name: 'Aarya', points: 0 },
+  { name: 'Debaditya', points: 3 },
+  { name: 'Adan', points: 1 },
+  { name: 'Gabby', points: 1 },
+  { name: 'Audrey', points: 1 },
+  { name: 'Arefin', points: 1 },
+  { name: 'Addison', points: 2 },
+  { name: 'Ankit', points: 3 },
+  { name: 'Aarya', points: 1 },
   { name: 'Eleanor', points: 0 },
-  { name: 'Grace', points: 0 },
-  { name: 'Wyatt', points: 0 },
+  { name: 'Grace', points: 3 },
+  { name: 'Wyatt', points: 3 },
   { name: 'Miles', points: 0 },
   { name: 'Vivian', points: 0 },
-  { name: 'Daxton', points: 0 },
-  { name: 'Ayushi', points: 0 },
+  { name: 'Daxton', points: 1 },
+  { name: 'Ayushi', points: 2 },
+  { name: 'Kate', points: 2 },
 ];
 
 // Cash prizes for the top finishers, in rank order (1st, 2nd, …). Top 5 win.
@@ -31,7 +32,11 @@ const prizes = [50, 40, 30, 20, 10];
 // Palette cycled across the bars (matches the page's design tokens).
 const barColors = ['--coral', '--electric', '--sky', '--mint', '--peach', '--lavender', '--rose'];
 
+// Only the top rows are displayed; the rest are summarized in a note below the list.
+const visibleCount = 10;
 const sorted = [...students].sort((a, b) => b.points - a.points);
+const visible = sorted.slice(0, visibleCount);
+const hiddenCount = sorted.length - visible.length;
 const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
 ---
 
@@ -861,6 +866,27 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         opacity: 0.5;
       }
 
+      /* Note shown when only the top rows of the leaderboard are displayed. */
+      .lb-more {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 0.4rem;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(20, 20, 20, 0.55);
+      }
+
+      .lb-more::before,
+      .lb-more::after {
+        content: '';
+        flex: 1;
+        border-top: 2px dashed var(--ink);
+        opacity: 0.5;
+      }
+
       footer {
         padding: 2.5rem 0 3rem;
         text-align: center;
@@ -1276,7 +1302,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
           <p class="lede">Participation points are earned in class with cash prizes for the top 5!</p>
 
           <div class="leaderboard">
-            {sorted.map((s, i) => {
+            {visible.map((s, i) => {
               const isPrize = i < prizes.length;
               const pct = Math.max(4, Math.round((s.points / maxPoints) * 100));
               return (
@@ -1302,6 +1328,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 </>
               );
             })}
+            {hiddenCount > 0 && <div class="lb-more">more students...</div>}
           </div>
         </div>
       </section>
