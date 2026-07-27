@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
-import CalculatorCTA from '../components/CalculatorCTA.astro';
 import Highlight from '../components/Highlight.astro';
 import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
@@ -21,6 +20,10 @@ const SESSION_DEADLINE = 'September 30, 2026';
   title="1-on-1 Tutoring"
   description="Private SAT math tutoring with Eric. Personalized instruction, flexible scheduling, and proven results. Book a session directly."
 >
+
+  <!-- Warm up connections to Calendly so the booking popup opens faster -->
+  <link rel="preconnect" href="https://calendly.com" crossorigin />
+  <link rel="preconnect" href="https://assets.calendly.com" crossorigin />
 
   <!-- Hero -->
   <section class="bg-ink-mid text-white py-12 lg:py-16 hero-section">
@@ -213,6 +216,7 @@ const SESSION_DEADLINE = 'September 30, 2026';
               href={COACHING_URL}
               target="_blank"
               rel="noopener noreferrer"
+              data-calendly
               class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
             >
               Book a free call
@@ -271,6 +275,7 @@ const SESSION_DEADLINE = 'September 30, 2026';
             href={COACHING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-calendly
             class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
             Book a free call
@@ -289,6 +294,7 @@ const SESSION_DEADLINE = 'September 30, 2026';
           href={CALENDLY_URL}
           target="_blank"
           rel="noopener noreferrer"
+          data-calendly
           class="block text-center bg-white text-ink font-bold py-3 px-8 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 whitespace-nowrap"
         >
           Book a Session
@@ -296,8 +302,6 @@ const SESSION_DEADLINE = 'September 30, 2026';
       </div>
     </div>
   </section>
-
-  <CalculatorCTA />
 
   <!-- FAQ -->
 <section class="py-12 lg:py-16 bg-chalk">
@@ -317,7 +321,7 @@ const SESSION_DEADLINE = 'September 30, 2026';
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
           <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
             <p>If your SAT is less than 2 weeks away → Buy the Jumpstart Plan to prep intensively.</p>
-            <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 630 → Join the live Masterclass.</p>
+            <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 600 → Join the live Masterclass.</p>
             <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then pick the coaching package that fits your goal — or book a free call and we'll figure out the right one together.</p>
           </div>
         </div>
@@ -422,6 +426,9 @@ const SESSION_DEADLINE = 'September 30, 2026';
   </div>
 </section>
 
+<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+<script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
 </Layout>
 
 <script>
@@ -437,6 +444,35 @@ const SESSION_DEADLINE = 'September 30, 2026';
   document.querySelector('a[href="#pricing"]')?.addEventListener('click', (e) => {
     e.preventDefault();
     scrollToPricingCenter();
+  });
+
+  // Open Calendly links in a popup overlay instead of a new tab.
+  // Falls back to the plain link (target="_blank") if the widget script hasn't loaded.
+  const prefetched = new Set<string>();
+
+  // Warm the actual scheduling page the moment the user shows intent (hover / touch),
+  // so the popup has a head start before they click. Fires once per URL.
+  const prefetchCalendly = (url: string) => {
+    if (prefetched.has(url)) return;
+    prefetched.add(url);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = url;
+    link.as = 'document';
+    document.head.appendChild(link);
+  };
+
+  document.querySelectorAll<HTMLAnchorElement>('a[data-calendly]').forEach((link) => {
+    link.addEventListener('pointerenter', () => prefetchCalendly(link.href));
+    link.addEventListener('touchstart', () => prefetchCalendly(link.href), { passive: true });
+
+    link.addEventListener('click', (e) => {
+      const Calendly = (window as any).Calendly;
+      if (Calendly) {
+        e.preventDefault();
+        Calendly.initPopupWidget({ url: link.href });
+      }
+    });
   });
 
   if (window.location.hash === '#pricing') {

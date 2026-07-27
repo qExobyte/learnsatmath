@@ -11,20 +11,17 @@ const { dark = false } = Astro.props;
 <ul class="space-y-3">
   {masterclassFeatures.map((f, i) => {
     const isLast = i === masterclassFeatures.length - 1;
-    const textClass = dark
-      ? (isLast ? 'text-marigold font-bold' : 'text-blue-100')
-      : (isLast ? 'text-navy font-bold' : 'text-gray-700');
     if (isLast) {
       return (
-        <li class={`flex items-center gap-2 text-base font-bold ${dark ? '' : 'text-ink'}`} style={dark ? 'color:#FFE135;' : ''}>
+        <li class={`flex items-center gap-2 text-base font-black ${dark ? '' : 'text-ink'}`} style={dark ? 'color:#FFE135;' : ''}>
           <span>✓</span>
-          <span>Most students end with a 750+</span>
+          <span class={dark ? '' : 'bg-electric px-1'}>Most students end with a 750+</span>
         </li>
       );
     }
     return (
-      <li class={`flex items-start gap-2 text-base ${textClass}`}>
-        <span class="text-coral font-bold mt-0.5">✓</span>
+      <li class={`flex items-start gap-2 text-base font-bold ${dark ? 'text-blue-100' : 'text-ink/80'}`}>
+        <span class="text-coral font-black mt-0.5">✓</span>
         {f}
       </li>
     );

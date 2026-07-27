@@ -4,12 +4,13 @@
 // reduced-motion users see the complete highlight.
 interface Props {
   class?: string;
+  slant?: boolean;
 }
 
-const { class: className = 'px-1.5' } = Astro.props;
+const { class: className = 'px-1.5', slant = true } = Astro.props;
 ---
 
-<span class:list={['relative inline-block text-ink -rotate-1', className]}><span class="absolute inset-0 bg-electric" data-marker aria-hidden="true"></span><span class="relative"><slot /></span></span>
+<span class:list={['relative inline-block text-ink', slant && '-rotate-1', className]}><span class="absolute inset-0 bg-electric" data-marker aria-hidden="true"></span><span class="relative"><slot /></span></span>
 
 <script>
   import { gsap, prefersReducedMotion } from '../scripts/motion';

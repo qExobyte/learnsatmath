@@ -1,10 +1,8 @@
 ---
 const navLinks = [
-  { label: 'Home', href: '/' },
   { label: 'Masterclass', href: '/masterclass' },
   { label: 'Tutoring', href: '/tutoring' },
   { label: 'Book', href: '/book' },
-  { label: 'Resources', href: '/resources' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -12,15 +10,15 @@ const currentPath = Astro.url.pathname;
 
 <nav class="bg-chalk sticky top-0 z-50 border-b-2 border-ink">
   <div class="max-w-6xl mx-auto px-6 lg:px-8 2xl:px-12">
-    <div class="flex items-center justify-between h-16">
+    <div class="relative flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
+      <a href="/home" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
         <img src="/lsmlogo-navy-transparent.svg" alt="LearnSATMath" class="h-8 w-8" />
         <span class="font-sans text-xl font-black text-ink tracking-tight">LearnSATMath</span>
       </a>
 
-      <!-- Desktop nav: links centered, enroll button pinned right -->
-      <div class="hidden lg:flex flex-1 items-center justify-center gap-7">
+      <!-- Desktop nav: links centered in the bar -->
+      <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-7">
         {navLinks.map(link => (
           <a
             href={link.href}

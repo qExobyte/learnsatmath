@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { title, description = 'Premium SAT Math instruction from a two-time perfect scorer. 400+ students across the SAT Math Masterclass and 1-on-1 sessions.' } = Astro.props;
+const { title, description = 'Premium SAT Math instruction from a two-time perfect scorer. 400+ students across the SAT Math Masterclass and 1-on-1 sessions.', noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,6 +17,7 @@ const { title, description = 'Premium SAT Math instruction from a two-time perfe
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/png" href="/favicon-imprecise.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -1,26 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Testimonials from '../components/Testimonials.astro';
-import MasterclassSchedule from '../components/MasterclassSchedule.astro';
 import MasterclassIncluded from '../components/MasterclassIncluded.astro';
+import MasterclassSchedule from '../components/MasterclassSchedule.astro';
 import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 import Highlight from '../components/Highlight.astro';
-import { MASTERCLASS_PRICE } from '../data/pricing';
+import { FREE_CALL_CALENDLY_URL } from '../data/booking';
+import { IS_FULL, NEXT_COHORT, ENROLL_STRIPE_URL } from '../data/enrollment';
+import { cohorts } from '../data/schedule';
+
+const SEP_START = cohorts.find((c) => c.id === 'sep')!.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
 
 // --- ENROLLMENT CONFIG ---
-// Set IS_FULL to false when a new cohort opens enrollment.
-const IS_FULL = false;
+// IS_FULL, NEXT_COHORT, and the cohort Stripe link live in
+// src/data/enrollment.ts (shared with /masterclass/thanks).
 // Self-paced is only offered when the live cohort is full.
 const SELF_PACED_AVAILABLE = IS_FULL;
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
-const WAITLIST_URL = 'https://forms.gle/5njHK2AFm8A3pTsb8';
-const ENROLL_URL = 'https://buy.stripe.com/cNi14g4r46IP7KM6LM6wE1x';
+const WAITLIST_URL = 'https://tally.so/r/1Ag044'; // interest form (embedded in #pricing)
 const SELF_PACED_PRICE = 395;
-// Next live cohort start date (shown alongside the waitlist CTA).
-const NEXT_COHORT = 'July 20';
-const CONSULTATION_URL = 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-consultation';
+// Flip on to show the countdown (targets the September SAT; see the countdown script below).
+const SHOW_COUNTDOWN = false;
 
-const enrollHref = IS_FULL ? WAITLIST_URL : ENROLL_URL;
 const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 // -------------------------
 
@@ -33,89 +34,64 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 
   <!-- Hero -->
   <section class="bg-ink-mid text-white py-10 lg:py-16 hero-section">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[10fr_11fr] gap-12 items-center">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      {IS_FULL && (
+        <span class="inline-block bg-electric text-ink border-2 border-ink text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-6">
+          Join the Waitlist
+        </span>
+      )}
+      <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">Join the Masterclass</h1>
+      <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-8">
+        Score a 750+ in <Highlight>5 weeks</Highlight>
+      </p>
 
-        <!-- Left: text -->
-        <div>
-          {IS_FULL && (
-            <span class="inline-block bg-electric text-ink border-2 border-ink text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-6">
-              Join the Waitlist
-            </span>
-          )}
-          {!IS_FULL && (
-            <span class="inline-block bg-white text-ink border-2 border-ink text-sm font-black px-6 py-3 rounded-full mb-6 shadow-offset-sm">
-              ⏳ SPOTS LIMITED
-            </span>
-          )}
-          <h1 class="font-sans font-black text-4xl lg:text-6xl tracking-tight mb-3">The Masterclass</h1>
-          <p class="font-sans font-extrabold text-2xl lg:text-3xl text-chalk/80 mb-6">
-            Score a 750+ in just <Highlight>5 weeks</Highlight>
-          </p>
-          <p class="text-chalk/80 text-lg lg:text-xl leading-relaxed font-semibold mb-8">
-            An intensive 5-week program of <em>live</em> small-group classes, covering only the <em>hardest</em> topics, to get you to a 750 or higher.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            {IS_FULL ? (
-              <a
-                href={WAITLIST_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
-              >
-                {enrollLabel}
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
-            ) : (
-              <a
-                href="#pricing"
-                id="hero-enroll-btn"
-                class="inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
-              >
-                {enrollLabel}
-              </a>
-            )}
-            <a
-              href="#masterclass-video"
-              id="learn-more-btn"
-              class="inline-flex items-center gap-2 bg-white text-ink font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
-            >
-              Learn More
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </a>
-          </div>
-          {IS_FULL && (
-            <p class="text-chalk/60 text-sm font-semibold mt-5">
-              Next cohort starts <span class="text-chalk font-bold">{NEXT_COHORT}</span> — join the waitlist to be first to know when enrollment opens.
-            </p>
-          )}
-        </div>
-
-        <!-- Right: video -->
-        <div>
-          <video
-            src="/masterclass_clips.mp4"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="w-full rounded-2xl border-2 border-ink shadow-offset-md"
-          ></video>
-        </div>
-
+      <!-- VSL -->
+      <div class="max-w-2xl mx-auto rounded-2xl overflow-hidden border-2 border-ink shadow-offset-md mb-8">
+        <mux-player
+          playback-id="I01siU6wXJBbI7sx3VF6BwMwJsJ100iSsLbWj00U2TVhdI"
+          metadata-video-title="Masterclass Overview"
+          stream-type="on-demand"
+          accent-color="#EE4E29"
+          class="block w-full aspect-video"
+        ></mux-player>
       </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        {IS_FULL ? (
+          <a
+            href={WAITLIST_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-glint inline-flex items-center gap-2 bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
+          >
+            {enrollLabel}
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        ) : (
+          <a
+            href="#interest-form"
+            class="btn-glint inline-block bg-coral text-white font-black px-12 py-5 rounded-full border-2 border-ink shadow-[3px_3px_0_0_rgba(247,246,242,0.4)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-lg tracking-wide"
+          >
+            {enrollLabel}
+          </a>
+        )}
+      </div>
+      {IS_FULL && (
+        <p class="text-chalk/60 text-sm font-semibold mt-5">
+          Next cohort starts <span class="text-chalk font-bold">{NEXT_COHORT}</span> — join the waitlist to be first to know when enrollment opens.
+        </p>
+      )}
     </div>
   </section>
 
-  <!-- Countdown to cohort start -->
+  <!-- Countdown (hidden until SHOW_COUNTDOWN is flipped on) -->
+  {SHOW_COUNTDOWN && (
   <section class="bg-ink-mid text-white pb-10 lg:pb-14">
-    <div class="max-w-md mx-auto px-6 lg:px-8 text-center" id="cohort-countdown" aria-label="Time until the August cohort starts">
-      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the 2nd&nbsp;August&nbsp;Cohort</p>
+    <div class="max-w-md mx-auto px-6 lg:px-8 text-center" id="cohort-countdown" aria-label="Time until the September SAT">
+      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the September&nbsp;SAT</p>
       <div class="grid grid-cols-4 gap-2.5" data-cd-units>
         <div class="flex flex-col items-center gap-1 bg-chalk text-ink border-2 border-ink rounded-xl shadow-offset-sm pt-3 pb-2.5 px-1">
           <span class="text-3xl font-black leading-none tracking-tight tabular-nums" data-cd="days">--</span>
@@ -134,17 +110,18 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           <span class="text-[0.6rem] font-extrabold uppercase tracking-[0.1em] text-ink/55">Seconds</span>
         </div>
       </div>
-      <p class="text-lg font-extrabold mt-2" data-cd-done hidden>The cohort has begun &mdash; let's go! 🎉</p>
+      <p class="text-lg font-extrabold mt-2" data-cd-done hidden>Test day is here &mdash; good luck! 🎉</p>
     </div>
   </section>
+  )}
 
   <script is:inline>
-    // Countdown to the August cohort start — July 20, 2026, 8:00 PM ET.
+    // Countdown to the September SAT — September 12, 2026, 8:00 AM ET.
     (function () {
       var root = document.getElementById('cohort-countdown');
       if (!root) return;
 
-      var target = new Date('2026-07-20T20:00:00-04:00').getTime();
+      var target = new Date('2026-09-12T08:00:00-04:00').getTime();
       var units = root.querySelector('[data-cd-units]');
       var done = root.querySelector('[data-cd-done]');
       var fields = {
@@ -178,21 +155,6 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
     })();
   </script>
 
-  <!-- Video -->
-  <section id="masterclass-video" class="py-12 lg:py-14 bg-chalk">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
-      <div class="aspect-video w-full rounded-2xl overflow-hidden border-2 border-ink shadow-offset-md">
-        <iframe
-          src="https://www.youtube.com/embed/yNRrx2AQUwA"
-          title="Masterclass overview"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          class="w-full h-full"
-        ></iframe>
-      </div>
-    </div>
-  </section>
-
   <!-- Testimonials (Masterclass only) -->
   <section class="py-12 lg:py-16 bg-mint">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -206,17 +168,299 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <!-- vs. The Rest -->
   <MasterclassVsRest />
 
-  <!-- Schedule -->
-  <MasterclassSchedule enrollHref={WAITLIST_URL} enrollLabel={enrollLabel} />
+  <!-- Pricing -->
+  <section id="pricing" class="py-12 lg:py-16 bg-chalk">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
 
-  <!-- Pricing cards -->
-  <section id="pricing" class="py-12 lg:py-16 bg-peach">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
-      <div class={`grid grid-cols-1 gap-8 items-start ${SELF_PACED_AVAILABLE ? 'lg:grid-cols-2' : ''}`}>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-        <!-- Self-Paced Card -->
-        {SELF_PACED_AVAILABLE && (
-        <div data-price-card class="bg-white rounded-2xl border-2 border-ink p-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
+        <!-- Selling points (second on desktop, first on mobile) -->
+        <div data-price-card class="p-2 lg:p-4 lg:order-last">
+
+          <!-- Instructor -->
+          <div class="flex items-center gap-4 mb-4">
+            <img src="/formal.png" alt="Eric" class="w-16 h-16 rounded-full object-cover border-2 border-ink shadow-offset-sm flex-shrink-0" />
+            <div>
+              <h3 class="font-sans text-2xl font-black tracking-tight text-ink">Your Instructor: Eric</h3>
+              <p class="text-sm text-ink/50 font-semibold">(LearnSATMath on YouTube)</p>
+            </div>
+          </div>
+          <p class="text-ink/80 font-semibold leading-relaxed">
+            Learn directly from the most-viewed SAT Math creator on the internet. Eric scored a perfect 800 on SAT Math both times he took it, and has since helped hundreds of students achieve top scores through the Masterclass.
+          </p>
+
+          <hr class="border-t-2 border-ink/10 my-8" />
+
+          <!-- What's included -->
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-lavender">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.5 5.5l1.5 1.5 2.5-2.5" />
+                <path d="M3.5 11.5l1.5 1.5 2.5-2.5" />
+                <path d="M3.5 17.5l1.5 1.5 2.5-2.5" />
+                <line x1="11" y1="6" x2="20" y2="6" />
+                <line x1="11" y1="12" x2="20" y2="12" />
+                <line x1="11" y1="18" x2="20" y2="18" />
+              </svg>
+            </div>
+            <h3 class="font-sans text-2xl font-black tracking-tight text-ink">What's included?</h3>
+          </div>
+          <MasterclassIncluded />
+
+          <hr class="border-t-2 border-ink/10 my-8" />
+
+          <p class="text-sm text-ink/60 font-semibold">✓ Full refund available within 7 days of your first session.</p>
+        </div>
+
+        <!-- Interest form -->
+        <div id="interest-form" data-price-card data-form-card class="scroll-mt-24 bg-chalk rounded-2xl border-2 border-ink shadow-offset-md overflow-hidden">
+          <div class="bg-electric border-b-2 border-ink px-6 py-3.5">
+            <h3 class="font-sans text-lg font-black tracking-tight text-ink">Reserve Your Spot <span class="font-extrabold text-ink/60"> in 60 seconds</span></h3>
+          </div>
+          <div class="p-6 lg:p-8">
+          <iframe
+            data-tally-src="https://tally.so/embed/1Ag044?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="500"
+            class="border-0"
+            title="Masterclass interest form"
+          ></iframe>
+          {IS_FULL && (
+            <p class="text-sm text-ink/60 mt-4 text-center">Next cohort starts {NEXT_COHORT} &mdash; sign up to be first to know when enrollment opens.</p>
+          )}
+
+          <!-- Shown in place of the iframe once Tally reports a submission -->
+          <div id="form-success" hidden class="text-center py-6">
+            <div class="w-16 h-16 rounded-full bg-electric border-2 border-ink shadow-offset-sm flex items-center justify-center mx-auto mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h4 class="font-sans text-2xl font-black tracking-tight text-ink mb-3">Got it! Check your inbox soon.</h4>
+            <p class="text-ink/80 font-semibold leading-relaxed">
+              I look forward to helping you on your path to a 750+.
+            </p>
+          </div>
+
+          <!-- Shown instead when the respondent asked for a free call: the
+               prefilled Calendly widget, populated via the Tally redirect
+               relayed from /masterclass/thanks. -->
+          <div id="form-calendly" hidden data-calendly-url={FREE_CALL_CALENDLY_URL}>
+            <h4 class="font-sans text-2xl font-black tracking-tight text-ink mb-2 text-center">Thanks for applying &mdash; let's talk!</h4>
+            <p class="text-ink/80 font-semibold leading-relaxed text-center mb-4">
+              Pick a time below for your free intro call. We'll go over your goals, answer your questions, and figure out if the Masterclass is the right fit.
+            </p>
+            <div id="calendly-inline" class="w-full" style="min-width:320px;height:700px"></div>
+          </div>
+
+          <!-- Shown instead when the respondent picked "ready to enroll":
+               straight to the Stripe link if enrollment is open, waitlist
+               confirmation otherwise. -->
+          <div id="form-enroll" hidden class="text-center py-6">
+            <h4 class="font-sans text-2xl font-black tracking-tight text-ink mb-3">{!IS_FULL ? 'A 750+ awaits...' : 'Thanks for completing the form!'}</h4>
+            {!IS_FULL ? (
+              <>
+                <!-- Their SAT dates include September (the enrolling cohort) -->
+                <div data-enroll-now hidden>
+                  <p class="text-xl text-ink/80 font-semibold leading-relaxed mb-6">
+                    There are still spots open in the <Highlight>September</Highlight> cohort &mdash; classes start {SEP_START}.
+                  </p>
+                  <a
+                    href={ENROLL_STRIPE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-glint inline-flex items-center gap-2 bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-base tracking-wide"
+                  >
+                    Complete Enrollment
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </a>
+                  <p class="text-sm text-ink/60 font-semibold mt-2">
+                    ✓ Full refund available within 7 days of your first session.
+                  </p>
+                </div>
+                <!-- Later test dates only: pitch September, offer to wait -->
+                <div data-enroll-later hidden>
+                  <p class="text-ink/80 font-semibold leading-relaxed mb-6">
+                    Enrollment is open right now for the <Highlight>September</Highlight> cohort. Even with a later test date, starting early works in your favor &mdash; master the material now, then keep practicing until your SAT.
+                  </p>
+                  <a
+                    href={ENROLL_STRIPE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-glint inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-base tracking-wide"
+                  >
+                    Join the September Cohort
+                  </a>
+                  <p class="text-sm text-ink/60 font-semibold mt-6">
+                    ✓ Full refund available within 7 days of your first session.
+                  </p>
+                  <hr class="border-t-2 border-ink/10 my-6" />
+                  <p class="text-sm text-ink/60 font-semibold">
+                    Prefer a cohort closer to your test date? No action needed &mdash; you're on the list, and you'll get first access when it opens.
+                  </p>
+                </div>
+              </>
+            ) : (
+              <p class="text-ink/80 font-semibold leading-relaxed">
+                The current cohort is full &mdash; you're on the list for the next one, starting {NEXT_COHORT}. You'll get first access when enrollment opens.
+              </p>
+            )}
+          </div>
+          </div>
+        </div>
+
+      </div>
+
+      <script is:inline>
+        // Tally inline-embed loader (also handles dynamicHeight resizing).
+        var d = document, w = 'https://tally.so/widgets/embed.js',
+          v = function () {
+            'undefined' != typeof Tally
+              ? Tally.loadEmbeds()
+              : d.querySelectorAll('iframe[data-tally-src]:not([src])').forEach(function (e) { e.src = e.dataset.tallySrc; });
+          };
+        if ('undefined' != typeof Tally) v();
+        else if (d.querySelector('script[src="' + w + '"]') == null) {
+          var s = d.createElement('script');
+          s.src = w; s.onload = v; s.onerror = v;
+          d.body.appendChild(s);
+        }
+
+        // On submission Tally redirects (inside the iframe) to
+        // /masterclass/thanks, which relays the answers back via postMessage.
+        // We then swap the iframe for either the in-card thank-you or the
+        // prefilled Calendly widget (the visitor never sees Tally's outro).
+        var successTimer = null;
+
+        function hideFrame() {
+          var card = d.getElementById('interest-form');
+          var frame = card && card.querySelector('iframe');
+          if (frame) frame.style.display = 'none';
+          return !!card;
+        }
+
+        function showEmailThanks() {
+          var success = d.getElementById('form-success');
+          if (!hideFrame() || !success) return;
+          success.hidden = false;
+        }
+
+        function showEnroll(p) {
+          var el = d.getElementById('form-enroll');
+          if (!hideFrame() || !el) return;
+          el.hidden = false;
+          // "Now" variant if their SAT dates include September (or the
+          // param is missing); "later" pitch otherwise. No-op when the
+          // cohort is full (no variant sub-divs rendered).
+          var later = p.sat && !/sep/i.test(p.sat);
+          var sub = el.querySelector(later ? '[data-enroll-later]' : '[data-enroll-now]');
+          if (sub) sub.hidden = false;
+        }
+
+        function showCalendly(p) {
+          var holder = d.getElementById('form-calendly');
+          var target = d.getElementById('calendly-inline');
+          if (!hideFrame() || !holder || !target) return;
+          holder.hidden = false;
+          var init = function () {
+            window.Calendly.initInlineWidget({
+              url: holder.dataset.calendlyUrl + '?hide_gdpr_banner=1',
+              parentElement: target,
+              prefill: {
+                name: p.sname || '',
+                email: p.semail || '',
+                // Parent joins the calendar invite as a guest.
+                guests: p.pemail && p.pemail !== p.semail ? [p.pemail] : [],
+                // Calendly invitee questions, in order: Current Score, Goal
+                // Score, "Anything else you'd like to add?".
+                customAnswers: {
+                  a1: p.cur || '',
+                  a2: p.goal || '',
+                  a3: p.notes || '',
+                },
+              },
+            });
+          };
+          if (window.Calendly) init();
+          else {
+            var cs = d.createElement('script');
+            cs.src = 'https://assets.calendly.com/assets/external/widget.js';
+            cs.onload = init;
+            d.body.appendChild(cs);
+          }
+        }
+
+        window.addEventListener('message', function (e) {
+          var data = e.data;
+          if (typeof data === 'string') {
+            try { data = JSON.parse(data); } catch (_) { return; }
+          }
+          if (!data) return;
+
+          if (data.event === 'Tally.FormSubmitted') {
+            document.dispatchEvent(new CustomEvent('lsm:form-submitted'));
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', { form: 'masterclass_interest' });
+            }
+            // Fallback: if the redirect relay never arrives (e.g. redirect
+            // disabled in Tally), show the plain thank-you.
+            successTimer = setTimeout(showEmailThanks, 2500);
+            return;
+          }
+
+          if (data.event === 'lsm:thanks' && e.origin === window.location.origin) {
+            clearTimeout(successTimer);
+            if (data.mode === 'call') showCalendly(data.params || {});
+            else if (data.mode === 'enroll') showEnroll(data.params || {});
+            else showEmailThanks();
+          }
+        });
+
+        // Tally's redirect breaks out of the embed iframe and navigates the
+        // whole window, so it points back HERE with the answers as params.
+        // On arrival, swap the form card for the right branch and scroll to it.
+        (function () {
+          var q = new URLSearchParams(window.location.search);
+          if (!q.get('call')) return;
+          var p = {
+            call: q.get('call') || '',
+            sname: q.get('sname') || '',
+            semail: q.get('semail') || '',
+            pname: q.get('pname') || '',
+            pemail: q.get('pemail') || '',
+            cur: q.get('cur') || '',
+            goal: q.get('goal') || '',
+            notes: q.get('notes') || '',
+            sat: q.get('sat') || '',
+          };
+          // Same low-score downgrade as /masterclass/thanks: at 520 or
+          // below, the enroll pitch becomes the plain thank-you (the
+          // autoresponder email recommends 1-on-1 instead).
+          var nums = p.cur.match(/\d{3}/g);
+          var lowScore = !!nums && Math.max.apply(null, nums.map(Number)) <= 520;
+          var mode = /call/i.test(p.call) ? 'call'
+            : /enroll/i.test(p.call) && !lowScore ? 'enroll'
+            : 'email';
+          if (mode === 'call') showCalendly(p);
+          else if (mode === 'enroll') showEnroll(p);
+          else showEmailThanks();
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', { form: 'masterclass_interest' });
+          }
+          document.dispatchEvent(new CustomEvent('lsm:form-submitted'));
+          history.replaceState(null, '', window.location.pathname);
+          var card = d.getElementById('interest-form');
+          if (card) card.scrollIntoView();
+        })();
+      </script>
+
+      <!-- Self-Paced Card (only offered when the live cohort is full) -->
+      {SELF_PACED_AVAILABLE && (
+        <div data-price-card class="bg-white rounded-2xl border-2 border-ink p-8 mt-8 flex flex-col shadow-offset-md relative hover:-translate-y-1 transition-transform duration-200">
           <div class="mb-6">
             <div class="flex items-center gap-4 mb-4">
               <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-sky">
@@ -274,78 +518,16 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             Enroll Now
           </a>
         </div>
-        )}
+      )}
 
-        <!-- Live Masterclass Card -->
-        <div data-price-card class={`animated-border-wrapper rounded-2xl relative hover:-translate-y-1 transition-transform duration-200 shadow-[5px_5px_0_0_#EE4E29]${!SELF_PACED_AVAILABLE ? ' max-w-md mx-auto w-full' : ''}`}>
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-            <span class="bg-electric text-ink text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border-2 border-ink whitespace-nowrap">
-              Best Results
-            </span>
-          </div>
-          <div class="bg-ink-mid rounded-[14px] p-8 flex flex-col">
-            <div class="mb-6 mt-4">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 h-12 rounded-xl border-2 border-ink shadow-offset-sm flex items-center justify-center flex-shrink-0 bg-electric">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
-                    <path d="M5 21h14" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-widest text-chalk/60 mb-1">Live small group classes</p>
-                  <h3 class="font-sans text-2xl text-chalk font-bold">Masterclass</h3>
-                </div>
-              </div>
-              <div class="flex items-baseline gap-2">
-                <span class="font-sans text-4xl font-black text-chalk">${MASTERCLASS_PRICE}</span>
-                <span class="text-chalk/60 text-sm">$49 per hour</span>
-              </div>
-            </div>
-            <div class="flex-1 mb-8">
-              <MasterclassIncluded dark={true} />
-            </div>
-            {IS_FULL ? (
-              <>
-                <p class="text-xs text-chalk/50 text-center mb-3">Next cohort starts {NEXT_COHORT}.</p>
-                <p class="text-xs text-chalk/40 text-center mb-3">✓ Full refund within 7 days of your first session.</p>
-                <a
-                  href={enrollHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-chalk shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
-                >
-                  {enrollLabel}
-                </a>
-              </>
-            ) : (
-              <>
-                <p class="text-xs text-chalk/40 text-center mb-3">✓ Full refund within 7 days of your first session.</p>
-                <a
-                  href={WAITLIST_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
-                >
-                  Get Started
-                </a>
-                <p class="text-xs text-chalk/60 text-center mt-3">
-                  Ready to commit? <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" class="font-bold text-coral underline hover:no-underline">Enroll &amp; pay now</a> &mdash; skip the form above.
-                </p>
-              </>
-            )}
-          </div>
-        </div>
-
-      </div>
-      <p class="text-center text-base text-ink/50 mt-8">
-        Not sure yet? <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer" class="underline hover:text-ink transition-colors">Book a free consultation call</a> or <a href="mailto:eric.wolpert@learnsatmath.com" class="underline hover:text-ink transition-colors">reach out by email</a>.
-      </p>
     </div>
   </section>
 
+  <!-- Schedule (topics only; dates pending) -->
+  <MasterclassSchedule />
+
   <!-- FAQ -->
-  <section id="faq" class="py-12 lg:py-16 bg-chalk">
+  <section id="faq" class="py-12 lg:py-16 bg-lavender">
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Frequently Asked Questions</h2>
@@ -412,7 +594,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </svg>
           </button>
           <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 630 and 750, who are aiming for a 750-800. If you're below a 630, you can still join, but you'll need to work extra hard to keep up.</p>
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 600 and 750, who are aiming for a 750-800. If you're below a 600, you can still join, but you'll need to work extra hard to keep up.</p>
           </div>
         </div>
 
@@ -438,7 +620,6 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
             <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
               <p>The Masterclass has a hard cap of 15 students. It's much lower than most test prep, because I want the class to feel like a discussion, not a lecture.</p>
-              <p>Also, since the sessions are recorded, expect a lot of absences. Typically each session is only 50-75% full, so don't worry, it's far more interactive than your typical high school class.</p>
             </div>
           </div>
         </div>
@@ -463,7 +644,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </svg>
           </button>
           <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Schedules aren't always predictable this far in advance! If I ever need to cancel a session due to sickness or major events, we'll reschedule to Tuesday 7:00 - 8:30 pm ET the following week.</p>
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">Schedules aren't always predictable this far in advance! If I ever need to cancel a session due to sickness or major events, we'll take a poll and reschedule to the time that works best for everyone.</p>
           </div>
         </div>
 
@@ -510,7 +691,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             </svg>
           </button>
           <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 630 and 750, who are aiming for a 750-800. If you're below a 630, you can still join, but you'll need to work extra hard to keep up.</p>
+            <p class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">The Masterclass is designed for students currently scoring between a 600 and 750, who are aiming for a 750-800. If you're below a 600, you can still join, but you'll need to work extra hard to keep up.</p>
           </div>
         </div>
 
@@ -600,9 +781,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 
       <div class="mt-12 text-center">
         <a
-          href={WAITLIST_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#interest-form"
           class="inline-flex items-center gap-2 bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-base tracking-wide"
         >
           {enrollLabel}
@@ -642,6 +821,23 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
       stagger: 0.15,
       clearProps: 'transform,opacity', // restore CSS hover lift after landing
     });
+
+    // Attention wiggle on the form card: one shake shortly after the cards
+    // land, then a gentle repeat every few seconds while the page is open.
+    const formCard = document.querySelector<HTMLElement>('[data-form-card]');
+    if (formCard) {
+      const wiggle = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 7 })
+        .to(formCard, { rotation: -1.1, duration: 0.09, ease: 'power1.inOut' })
+        .to(formCard, { rotation: 1.1, duration: 0.14, ease: 'power1.inOut' })
+        .to(formCard, { rotation: -0.7, duration: 0.12, ease: 'power1.inOut' })
+        .to(formCard, { rotation: 0.4, duration: 0.1, ease: 'power1.inOut' })
+        .to(formCard, { rotation: 0, duration: 0.1, ease: 'power1.out' });
+      tl.add(() => wiggle.play(), '+=0.5');
+      document.addEventListener('lsm:form-submitted', () => {
+        wiggle.pause();
+        gsap.set(formCard, { rotation: 0 });
+      });
+    }
   }
 </script>
 
@@ -691,25 +887,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
     });
   });
 
-  document.getElementById('learn-more-btn')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    const el = document.getElementById('masterclass-video');
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
-      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
-    }
-  });
+</script>
 
-  document.getElementById('hero-enroll-btn')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    const el = document.getElementById('pricing');
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
-      window.scrollTo({ top: scrollTop, behavior: 'smooth' });
-    }
-  });
+<script>
+  import '@mux/mux-player';
 </script>
 
 <style>
@@ -718,19 +899,45 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
     padding-bottom: clamp(1.5rem, 8vh, 6rem);
   }
 
-  @property --angle {
-    syntax: '<angle>';
-    inherits: false;
-    initial-value: 0deg;
+  /* Periodic shine sweep across the hero CTA */
+  .btn-glint {
+    position: relative;
+    overflow: hidden;
   }
 
-  @keyframes spin-border {
-    to { --angle: 360deg; }
+  .btn-glint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(
+      105deg,
+      transparent,
+      rgba(255, 255, 255, 0.55) 50%,
+      transparent
+    );
+    transform: translateX(-150%) skewX(-20deg);
+    animation: glint 4s ease-in-out infinite;
+    pointer-events: none;
   }
 
-  .animated-border-wrapper {
-    padding: 3px;
-    background: conic-gradient(from var(--angle), #141414 65%, #EE4E29 72%, #EE4E29 78%, #141414 85%);
-    animation: spin-border 3s linear infinite;
+  @keyframes glint {
+    0% {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    35%,
+    100% {
+      transform: translateX(400%) skewX(-20deg);
+    }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-glint::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
 </style>
