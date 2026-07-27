@@ -30,7 +30,9 @@ import { weeks, cohorts } from '../data/schedule';
 
     {cohorts.map((cohort, i) => (
       <div data-cohort-panel={cohort.id} class:list={[i !== 0 && 'hidden']}>
-        <p class="text-center text-ink/60 text-base font-semibold mb-8" set:html={cohort.time} />
+        <p class="text-center mb-8">
+          <span class="bg-electric text-ink text-lg lg:text-xl font-black box-decoration-clone px-2 py-1" set:html={cohort.time} />
+        </p>
 
         <div class="flex flex-col gap-4">
           {weeks.map((week, wi) => (
