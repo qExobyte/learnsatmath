@@ -138,8 +138,13 @@ function isLowScore(lead) {
   return Math.max.apply(null, nums.map(Number)) <= LOW_SCORE_MAX;
 }
 
+// Typo'd addresses that still contain an "@" (e.g. "name@gmail,com") are
+// accepted by Gmail's compose box but rejected by GmailApp.sendEmail, which
+// throws. Anything that isn't a clean single-@ address is treated as absent
+// so we fall back to the other party rather than blowing up the run.
+const EMAIL_RE = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
 function validEmail(e) {
-  return !!e && e.includes('@');
+  return !!e && EMAIL_RE.test(e);
 }
 
 /**
@@ -190,9 +195,19 @@ function processNewRows() {
         sheet.getRange(i + 2, m['Auto Status'] + 1).setValue('SKIPPED_NO_EMAIL');
         return;
       }
-      const msg = buildFirstEmail(lead);
-      deliver(lead, msg);
-      sheet.getRange(i + 2, m['Auto Status'] + 1).setValue(CONFIG.DRAFT_MODE ? 'DRAFTED' : 'SENT');
+      // One bad row must never stall the queue: an uncaught throw here would
+      // abort the whole forEach, leave the row unstamped, and make every
+      // subsequent run die on the same row. Stamp the failure and move on.
+      try {
+        const msg = buildFirstEmail(lead);
+        deliver(lead, msg);
+        sheet.getRange(i + 2, m['Auto Status'] + 1).setValue(CONFIG.DRAFT_MODE ? 'DRAFTED' : 'SENT');
+      } catch (err) {
+        // Daily send quota is the one failure worth retrying: leave the row
+        // unstamped so tomorrow's run picks it up, and stop this run here.
+        if (/too many times/i.test(err.message)) throw err;
+        sheet.getRange(i + 2, m['Auto Status'] + 1).setValue('ERROR: ' + err.message);
+      }
       sheet.getRange(i + 2, m['Auto Sent At'] + 1).setValue(new Date());
     });
   } finally {
