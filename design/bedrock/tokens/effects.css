@@ -1,0 +1,32 @@
+/* Bedrock — borders, shadows, motion.
+   The signature: 2px ink borders + HARD offset shadows (no blur, no spread).
+   The "press-in" interaction collapses the shadow while translating the element
+   into where the shadow was. */
+:root {
+  /* Borders */
+  --border-width: 2px;      /* the default interactive/elevated border */
+  --border-width-thick: 3px;/* occasional heavier edge */
+  --border-width-key: 4px;  /* correct-answer emphasis border */
+  --border: var(--border-width) solid var(--ink);
+
+  /* Hard offset shadows — Xpx Ypx 0 0 ink. Never soft/blurred. */
+  --shadow-sm: 3px 3px 0 0 var(--ink);
+  --shadow-md: 5px 5px 0 0 var(--ink);
+  --shadow-hover: 1px 1px 0 0 var(--ink);   /* the shrunk "pressed" shadow */
+  --shadow-none: 0 0 0 0 var(--ink);
+
+  /* Press-in translate distances — pair with the shadow swap. */
+  --press-sm: 2px;  /* tiles: shadow-sm -> shadow-hover, translate 2px */
+  --press-lg: 3px;  /* pills:  shadow-sm -> none,        translate 3px */
+
+  /* Motion — subtle, always gated on prefers-reduced-motion at use site. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --dur-fast: 150ms;  /* @kind other */
+  --dur-base: 200ms;  /* @kind other */
+  --dur-slow: 600ms;  /* @kind other */
+
+  /* Decorative tilt for "hand-placed" sticker tiles (used with restraint). */
+  --tilt-sm: -1deg;  /* @kind other */
+  --tilt-md: -3deg;  /* @kind other */
+  --tilt-lg: 2deg;   /* @kind other */
+}

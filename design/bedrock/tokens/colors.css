@@ -1,0 +1,39 @@
+/* Bedrock — color tokens.
+   Neo-brutalist palette straight from app/globals.css (@theme). Flat colors
+   only: no gradients. Ink is the single border/shadow/text color. */
+:root {
+  /* ---- Base palette ---- */
+  --chalk: #f7f6f2;      /* page background */
+  --ink: #141414;        /* near-black — text, borders, hard shadows */
+  --ink-mid: #1b2a4a;    /* navy — dark contrast surfaces */
+  --coral: #ee4e29;      /* primary action / brand accent */
+  --coral-dark: #c63c1e; /* pressed coral / boulder shadow facet */
+  --electric: #ffe135;   /* highlighter / marker yellow */
+  --sky: #c9e8ff;        /* pastel fill */
+  --mint: #c8f0d0;       /* pastel fill */
+  --peach: #ffe0cb;      /* pastel fill / boulder lit facet */
+  --lavender: #ede9ff;   /* pastel fill */
+  --white: #ffffff;
+
+  /* ---- Difficulty tiers (grid tiles, badges, gauges) ----
+     Tailwind's green/amber/red/purple 100 fills + darker text/base. */
+  --easy-fill: #dcfce7;   --easy-text: #15803d;   --easy-base: #16a34a;   --easy-track: #c6e8d1;
+  --medium-fill: #fef3c7; --medium-text: #b45309; --medium-base: #f59e0b; --medium-track: #f0dcae;
+  --hard-fill: #fee2e2;   --hard-text: #dc2626;   --hard-base: #dc2626;   --hard-track: #f0c4c4;
+  --expert-fill: #f3e8ff; --expert-text: #7e22ce; --expert-base: #9333ea; --expert-track: #ddc9f5;
+
+  /* Verdict colors (answer grading) */
+  --correct: #15803d;  --correct-fill: #f0fdf4;
+  --wrong: #b91c1c;    --wrong-fill: #fef2f2;
+
+  /* ---- Semantic aliases ---- */
+  --bg-page: var(--chalk);
+  --bg-surface: var(--white);
+  --bg-inverse: var(--ink-mid);
+  --text-body: var(--ink);
+  --text-muted: rgba(20, 20, 20, 0.6);
+  --text-faint: rgba(20, 20, 20, 0.5);
+  --text-on-inverse: var(--chalk);
+  --border-ink: var(--ink);
+  --accent: var(--coral);
+}

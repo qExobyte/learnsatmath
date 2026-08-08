@@ -1,0 +1,28 @@
+/* Bedrock — spacing & radius tokens.
+   The app scales from a 16px root. Spacing follows Tailwind's 0.25rem step,
+   which the source uses (px-6 = 1.5rem, py-4 = 1rem, gap-2.5 = 0.625rem, …). */
+:root {
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-2-5: 0.625rem;/* 10px — grid gap */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px — content gutter */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+
+  /* Radii — the app mixes rounded-xl tiles with rounded-full pills. */
+  --radius-sm: 0.5rem;    /* 8px — small controls (toggle buttons) */
+  --radius-md: 0.75rem;   /* 12px — grid tiles (rounded-xl) */
+  --radius-lg: 1rem;      /* 16px — choice tiles (rounded-2xl) */
+  --radius-xl: 1.5rem;    /* 24px — modals / menus (rounded-3xl) */
+  --radius-pill: 9999px;  /* pills, avatars, progress bar */
+
+  /* Layout */
+  --content-max: 72rem;   /* max-w-6xl page column */
+  --content-wide: 80rem;  /* max-w-7xl app header */
+  --reading-max: 48rem;   /* max-w-3xl problem column */
+  --gutter: var(--space-6);
+}

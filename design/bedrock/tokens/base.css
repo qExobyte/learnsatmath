@@ -1,0 +1,52 @@
+/* Bedrock — base element defaults & shared idiom utilities.
+   Kept minimal: the design system is token- + component-driven. These are the
+   handful of global resets and reusable helper classes the source relies on. */
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+/* --- Highlighter marker: yellow swipe behind key words --- */
+.bd-mark {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.4em;
+  transform: rotate(-1deg);
+}
+.bd-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--electric);
+  z-index: 0;
+}
+.bd-mark > * { position: relative; z-index: 1; }
+
+/* --- The signature press-in interaction, as a utility ---
+   Apply to any bordered element with a --shadow-sm to get the hover press. */
+.bd-press {
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.bd-press:hover {
+  box-shadow: var(--shadow-none);
+  transform: translate(var(--press-lg), var(--press-lg));
+}
+
+/* Reduced-motion: kill transforms/animation but keep final states visible. */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

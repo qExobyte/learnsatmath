@@ -4,15 +4,29 @@ import Testimonials from '../components/Testimonials.astro';
 import Highlight from '../components/Highlight.astro';
 import { TUTORING_HOURLY_PRICE } from '../data/pricing';
 
-const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-sat-math-tutoring';
+const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-session-on-demand';
 const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call';
 
 const JUMPSTART_STRIPE_URL = 'https://buy.stripe.com/aFa3co5v8d7daWY5HI6wE1r';
-const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x25kw8Hk0kr5CE4DE6wE1p';
-const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/00w5kw7Dggjp6GI1rs6wE1q';
+const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x23coaPs3wD1mo9XY6wE1G';
+const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/28E4gs9Loffl4yA2vw6wE1H';
 
 // Deadline by which all sessions in a purchased plan must be used.
 const SESSION_DEADLINE = 'September 30, 2026';
+
+// Sample week of assignments shown in "The plan" section.
+const planTasks = [
+  { task: 'Bedrock 100 Q29–56', time: '2h', done: true },
+  { task: 'Full-length practice test', time: '90m', done: true },
+  { task: 'Quadratics Masterclass', time: '90m', done: false },
+];
+
+// Score trajectory shown under the checklist. Bar measures progress from the
+// starting score toward the goal.
+const planScore = { start: 580, current: 640, goal: 700 };
+const planScorePct = Math.round(
+  ((planScore.current - planScore.start) / (planScore.goal - planScore.start)) * 100
+);
 
 ---
 
@@ -63,23 +77,12 @@ const SESSION_DEADLINE = 'September 30, 2026';
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="py-12 lg:py-16 bg-mint">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From students</h2>
-      </div>
-      <Testimonials filter="other" />
-    </div>
-  </section>
-
   <!-- Coaching selling point -->
   <section class="py-12 lg:py-16 bg-sky">
     <div class="max-w-5xl mx-auto px-6 lg:px-8 2xl:px-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <p class="font-sans font-extrabold text-2xl text-ink mb-4"><span class="inline-block bg-electric text-ink px-1.5 -rotate-1">The plan</span></p>
-          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">Know exactly what and when to study</h2>
+          <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-4">Know <Highlight>exactly</Highlight> how to study</h2>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
             Most test prep treats every student the same. My coaching starts with your current score, your goal, and your schedule, and then builds a custom roadmap to close the gap.
           </p>
@@ -89,18 +92,76 @@ const SESSION_DEADLINE = 'September 30, 2026';
           </p>
           <br>
           <p class="text-ink/80 font-semibold text-lg leading-relaxed">
-            Of course, schedules and progress are not always predictable! After each Bluebook test, we'll look back on the plan and revise as needed.
+            Of course, schedules and progress are not always predictable! After each session, we'll look back on the plan and revise as needed.
           </p>
         </div>
-        <div>
-          <img
-            src="/coaching_plan.png"
-            alt="Example personalized coaching plan"
-            class="w-full rounded-2xl border-2 border-ink shadow-offset-md"
-          />
-          <p class="text-center text-sm text-ink/40 mt-3">yes, the plan will look just like this</p>
+        <div id="plan-card" class="bg-white rounded-2xl border-2 border-ink shadow-offset-md p-5 sm:p-6">
+          <div class="flex items-baseline justify-between gap-3 mb-4">
+            <h3 class="font-sans font-extrabold text-xl text-ink">This week's plan</h3>
+            <span class="text-xs font-bold uppercase tracking-widest text-ink/50 whitespace-nowrap">Week 3 of 8</span>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            {planTasks.map((t) => (
+              <div class="plan-row bg-white rounded-2xl border-2 border-ink shadow-offset-sm p-4 flex items-center gap-4">
+                {t.done ? (
+                  <span class="plan-check w-8 h-8 shrink-0 rounded-full bg-[#23A55A] flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                ) : (
+                  <span class="plan-check w-8 h-8 shrink-0 rounded-full border-2 border-dashed border-ink/40"></span>
+                )}
+                <span class="flex-1 font-bold text-ink text-base sm:text-lg">{t.task}</span>
+                <span class="shrink-0 text-xs font-black px-2.5 py-1 border-2 border-ink rounded-full bg-chalk whitespace-nowrap">{t.time}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-5 pt-5 border-t-2 border-ink/10">
+            <div class="flex items-baseline justify-between gap-3 mb-1">
+              <p class="text-xs font-bold uppercase tracking-widest text-ink/50">Projected score</p>
+              <span
+                id="plan-score-chip"
+                class="text-xs font-black px-2.5 py-0.5 border-2 border-ink rounded-full bg-mint whitespace-nowrap"
+              >
+                +{planScore.current - planScore.start} pts
+              </span>
+            </div>
+            <p
+              id="plan-score-value"
+              class="font-sans text-3xl font-black text-ink mb-2"
+              data-from={planScore.start}
+              data-to={planScore.current}
+            >
+              {planScore.current}
+            </p>
+            <div class="h-6 border-2 border-ink rounded-full bg-white shadow-offset-sm overflow-hidden">
+              <div
+                id="plan-score-bar"
+                class="h-full rounded-full bg-[#23A55A]"
+                style={`width: ${planScorePct}%`}
+                data-width={`${planScorePct}%`}
+              ></div>
+            </div>
+            <div class="flex justify-between mt-1.5 text-xs font-bold text-ink/40">
+              <span>Started at {planScore.start}</span>
+              <span>Goal {planScore.goal}</span>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-12 lg:py-16 bg-mint">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">From students</h2>
+      </div>
+      <Testimonials filter="other" />
     </div>
   </section>
 
@@ -129,7 +190,7 @@ const SESSION_DEADLINE = 'September 30, 2026';
             <div class="flex items-baseline gap-2">
               <span class="font-sans text-4xl font-black text-ink">$695</span>
               <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
-                $1,014
+                $1,115
                 <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
               </span>
             </div>
@@ -141,15 +202,19 @@ const SESSION_DEADLINE = 'September 30, 2026';
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>A clear study plan from your first session</span>
+              <span>Personalized roadmap with every single assignment between now and test day</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Self-paced Masterclass included ($395 value)</span>
+              <span>15 hours of SAT Math Masterclass recordings</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>SAT Math from the Ground Up book ($49 value)</span>
+              <span>Lifetime access to Bedrock Pro; includes 127 video lessons</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span class="font-bold text-ink"><span class="bg-electric px-1.5 -ml-1.5">For self-driven students who need a plan</span></span>
             </li>
           </ul>
           <a
@@ -183,9 +248,9 @@ const SESSION_DEADLINE = 'September 30, 2026';
                 </div>
               </div>
               <div class="flex items-baseline gap-2">
-                <span class="font-sans text-4xl font-black text-ink">$1,695</span>
+                <span class="font-sans text-4xl font-black text-ink">$1,895</span>
                 <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
-                  $2,154
+                  $2,255
                   <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
                 </span>
               </div>
@@ -197,19 +262,23 @@ const SESSION_DEADLINE = 'September 30, 2026';
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
-                <span>Custom week-by-week roadmap with assignments and score targets</span>
-              </li>
-              <li class="flex items-start gap-2 text-base text-ink/80">
-              <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Self-paced Masterclass included</span>
+                <span>Personalized roadmap with every single assignment between now and test day</span>
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
-                <span>SAT Math from the Ground Up book</span>
+                <span>15 hours of SAT Math Masterclass recordings</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span>Lifetime access to Bedrock Pro; includes 127 video lessons</span>
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
                 <span>Add hours anytime at $250/hr</span>
+              </li>
+              <li class="flex items-start gap-2 text-base text-ink/80">
+                <span class="text-coral font-black mt-0.5">✓</span>
+                <span class="font-bold text-ink"><span class="bg-electric px-1.5 -ml-1.5">For a 100+ point improvement</span></span>
               </li>
             </ul>
             <a
@@ -242,9 +311,9 @@ const SESSION_DEADLINE = 'September 30, 2026';
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <span class="font-sans text-4xl font-black text-ink">$2,895</span>
+              <span class="font-sans text-4xl font-black text-ink">$3,095</span>
               <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
-                $3,864
+                $3,965
                 <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
               </span>
             </div>
@@ -256,20 +325,24 @@ const SESSION_DEADLINE = 'September 30, 2026';
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Everything in the Standard Plan: roadmap, focus areas, Masterclass, Ground Up</span>
+              <span>Personalized roadmap with every single assignment between now and test day</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Built for 150+ point jumps or rebuilding fundamentals</span>
+              <span>15 hours of SAT Math Masterclass recordings</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Priority scheduling around your test date</span>
+              <span>Lifetime access to Bedrock Pro; includes 127 video lessons</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
-                <span class="text-coral font-black mt-0.5">✓</span>
-                <span>Add hours anytime at $225/hr</span>
-              </li>
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span>Add hours anytime at $225/hr</span>
+            </li>
+            <li class="flex items-start gap-2 text-base text-ink/80">
+              <span class="text-coral font-black mt-0.5">✓</span>
+              <span class="font-bold text-ink"><span class="bg-electric px-1.5 -ml-1.5">For a 150+ point improvement</span></span>
+            </li>
           </ul>
           <a
             href={COACHING_URL}
@@ -531,6 +604,42 @@ const SESSION_DEADLINE = 'September 30, 2026';
 
     tl.to(slashPrices, { opacity: 1, duration: 0.3 }, '>');
     tl.to(slashes, { scaleX: 1, duration: 0.3, ease: 'power2.inOut', stagger: 0.1 }, '<');
+
+    // "This week's plan": rows slide in one by one with their checkmarks
+    // popping in, then the projected score counts up as its bar fills.
+    const planRows = gsap.utils.toArray<HTMLElement>('.plan-row');
+    const planChecks = gsap.utils.toArray<HTMLElement>('.plan-check');
+    const scoreBar = document.getElementById('plan-score-bar');
+    const scoreChip = document.getElementById('plan-score-chip');
+    const scoreValue = document.getElementById('plan-score-value');
+
+    gsap.set(planRows, { y: 24, opacity: 0 });
+    gsap.set(planChecks, { scale: 0 });
+    if (scoreBar) gsap.set(scoreBar, { width: 0 });
+    if (scoreChip) gsap.set(scoreChip, { scale: 0 });
+
+    const planTl = gsap.timeline({
+      scrollTrigger: { trigger: '#plan-card', start: 'top 75%', once: true },
+    });
+    planTl.to(planRows, { y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.4)', stagger: 0.22 });
+    planTl.to(planChecks, { scale: 1, duration: 0.4, ease: 'back.out(2.5)', stagger: 0.22 }, '<0.2');
+
+    if (scoreBar && scoreValue) {
+      const from = Number(scoreValue.dataset.from);
+      const to = Number(scoreValue.dataset.to);
+      const counter = { v: from };
+      planTl.to(scoreBar, { width: scoreBar.dataset.width, duration: 0.9, ease: 'power2.inOut' }, '>-0.1');
+      planTl.to(counter, {
+        v: to,
+        duration: 0.9,
+        ease: 'power2.inOut',
+        onStart: () => { scoreValue.textContent = String(from); },
+        onUpdate: () => { scoreValue.textContent = String(Math.round(counter.v)); },
+      }, '<');
+    }
+    if (scoreChip) {
+      planTl.to(scoreChip, { scale: 1, duration: 0.4, ease: 'back.out(2.5)' }, '>-0.2');
+    }
   }
 </script>
 
