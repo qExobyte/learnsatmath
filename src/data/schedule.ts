@@ -20,7 +20,7 @@ export interface Cohort {
   time: string;
   weekDates: string[];
   satDate: string;
-  // First week that includes office hours (Sep cohort skips week 1).
+  // First week that includes office hours.
   officeHoursFromWeek: number;
 }
 
@@ -31,7 +31,7 @@ export const cohorts: Cohort[] = [
     time: 'Sat / Sun &middot; 5:00 &ndash; 6:30 pm ET',
     weekDates: ['Aug 8 & 9', 'Aug 15 & 16', 'Aug 22 & 23', 'Aug 29 & 30', 'Sep 5 & 6'],
     satDate: 'september 12',
-    officeHoursFromWeek: 2,
+    officeHoursFromWeek: 1,
   },
   {
     id: 'oct',
