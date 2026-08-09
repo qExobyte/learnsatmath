@@ -7,19 +7,21 @@
 // `points` is the running total of participation points awarded in class.
 // Names can be first names, initials, or nicknames — whatever students prefer.
 // Rows are sorted by points automatically; bar lengths scale to the leader.
-// New cohort — placeholder rows until points are earned in class.
-// Swap the dashes for student names and update points as class runs.
 const students = [
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
-  { name: '-', points: 0 },
+  { name: 'Ramon', points: 1 },
+  { name: 'Vivian', points: 0 },
+  { name: 'Aarya', points: 4 },
+  { name: 'Alex', points: 3 },
+  { name: 'Anabelle', points: 3 },
+  { name: 'Roman', points: 3 },
+  { name: 'Ahmad', points: 4 },
+  { name: 'Jessie', points: 3 },
+  { name: 'Eshal', points: 4 },
+  { name: 'Anthony', points: 5 },
+  { name: 'Mia', points: 4 },
+  { name: 'Adrian', points: 4 },
+  { name: 'Amron', points: 4 },
+  { name: 'Lilly', points: 5 },
 ];
 
 // Cash prizes for the top finishers, in rank order (1st, 2nd, …). Top 5 win.
@@ -1028,7 +1030,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                     <tr><td class="hw-task">Bluebook Practice Test<span class="hw-topics">Review CollegeBoard's answer explanations for any problems you miss. You can also search the test on YouTube to find video explanations (usually better than CollegeBoard but missing Desmos solutions).</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bedrock 100 &middot; Q1&ndash;Q20</td><td class="hw-time">90m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Algebra</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 1&ndash;25</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">CookSAT Practice Test &middot; Mod 2</td><td class="hw-time">1h</td></tr>
                   </table>
                 </div>
@@ -1063,7 +1065,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                     <tr><td class="hw-task">Bedrock 100 &middot; Q21&ndash;Q39</td><td class="hw-time">90m</td></tr>
                     <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Linear Properties from Two Points &middot; Two Points Non-Linear &middot; Equivalent Expression Constants &middot; Simple Percentage Change &middot; Exponential Coefficients &middot; Complex Percentage Relationships</span></td><td class="hw-time">45m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">1h</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 26&ndash;50</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
                   </table>
                 </div>
@@ -1098,7 +1100,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                     <tr><td class="hw-task">Bedrock 100 &middot; Q40&ndash;Q56</td><td class="hw-time">75m</td></tr>
                     <tr><td class="hw-task">Regression Trainer<span class="hw-topics">Remaining topics</span></td><td class="hw-time">30m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Advanced Math</td><td class="hw-time">1h</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 51&ndash;75</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">CookSAT Practice Test &middot; Mod 2</td><td class="hw-time">1h</td></tr>
                   </table>
@@ -1134,7 +1136,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Geometry &amp; Trig</td><td class="hw-time">90m</td></tr>
                     <tr><td class="hw-task">CookSAT Hard Problems &middot; Problem Solving &amp; Data Analysis</td><td class="hw-time">90m</td></tr>
                     <tr><td class="hw-task">Bluebook Practice Test &amp; Review</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Questions &middot; 76&ndash;100</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Advanced Questions</td><td class="hw-time">2h</td></tr>
                   </table>
                 </div>
               </div></div>
@@ -1157,20 +1159,20 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q85&ndash;Q100</td><td class="hw-time">1h</td></tr>
-                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">90m</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Math Questions</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">Bedrock Pro Problems &middot; Q101&ndash;Q143<span class="hw-topics">Excluding Expert problems</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Bluebook Practice Test</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">CookSAT Practice Test</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">CookSAT Practice Test<span class="hw-topics">Only if you have time!</span></td><td class="hw-time">2h</td></tr>
                     <tr><td class="hw-task">Prepare the night before<span class="hw-topics">Aim for 9 hours of sleep, eat a full healthy breakfast, bring water and a snack. Good luck!!</span></td><td class="hw-time"></td></tr>
                   </table>
                 </div>
                 <div class="hw" data-plan="advanced">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 100 &middot; Q85&ndash;Q100</td><td class="hw-time">1h</td></tr>
-                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Review hard problems from entire course</td><td class="hw-time">1h</td></tr>
                     <tr><td class="hw-task">Bluebook Practice Test</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">CookSAT Practice Test</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">Bedrock 100 Expert Problems</td><td class="hw-time">1h</td></tr>
+                    <tr><td class="hw-task">CookSAT Practice Test<span class="hw-topics">Only if you have time!</span></td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock Pro Problems &middot; Q101&ndash;Q143</td><td class="hw-time">3h</td></tr>
                     <tr><td class="hw-task">Prepare the night before<span class="hw-topics">Aim for 9 hours of sleep, eat a full healthy breakfast, bring water and a snack. Good luck!!</span></td><td class="hw-time"></td></tr>
                   </table>
                 </div>
@@ -1187,24 +1189,6 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
           <p class="lede">We'll discuss each of these during the first session.</p>
 
           <div class="resources">
-            <!-- Public resource 1 -->
-            <details class="res res-sky">
-              <summary>
-                <span class="res-name">Bluebook</span>
-                <span class="res-meta">Official ↗</span>
-                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
-              </summary>
-              <div class="res-body"><div class="dd-inner">
-                <p>College Board's official practice tests. These are <i>slightly</i> easier than the actual SAT &mdash; subtract ~30 points from your score to get an estimated SAT score.</p>
-                <a class="btn btn-sky" href="https://bluebook.collegeboard.org/students" target="_blank" rel="noopener">
-                  Open Bluebook
-                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-                  </svg>
-                </a>
-              </div></div>
-            </details>
-
             <!-- Proprietary resource 1 -->
             <details class="res res-rose">
               <summary>
@@ -1223,6 +1207,24 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
               </div></div>
             </details>
 
+            <!-- Public resource 1 -->
+            <details class="res res-sky">
+              <summary>
+                <span class="res-name">Bluebook</span>
+                <span class="res-meta">Official ↗</span>
+                <span class="chevron" aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span>
+              </summary>
+              <div class="res-body"><div class="dd-inner">
+                <p>College Board's official practice tests. These are <i>slightly</i> easier than the actual SAT &mdash; subtract ~30 points from your score to get an estimated SAT score.</p>
+                <a class="btn btn-sky" href="https://bluebook.collegeboard.org/students" target="_blank" rel="noopener">
+                  Open Bluebook
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </div></div>
+            </details>
+
             <!-- Public resource 2 -->
             <details class="res res-peach">
               <summary>
@@ -1234,12 +1236,6 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <p>The best third-party question bank at the moment. The platform has a lot, but the best features are the <b>100 "extreme" difficulty questions</b> and <b>Desmos solutions</b> for every problem.</p>
                 <a class="btn btn-peach" href="https://cooksat.com/" target="_blank" rel="noopener">
                   Visit CookSAT &middot; $24/mo
-                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-                  </svg>
-                </a>
-                <a class="btn btn-peach" href="https://www.oneprep.co/" target="_blank" rel="noopener">
-                  Alt: OnePrep
                   <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M7 17 17 7" /><path d="M7 7h10v10" />
                   </svg>
