@@ -1,3 +1,3 @@
 export const MASTERCLASS_PRICE = 895;
-export const TUTORING_HOURLY_PRICE = 285;
+export const TUTORING_HOURLY_PRICE = 350;
 export const COACHING_STARTING_PRICE = 695;
