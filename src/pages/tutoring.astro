@@ -391,10 +391,86 @@ const planScorePct = Math.round(
           </svg>
         </button>
         <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>If your SAT is less than 2 weeks away → Buy the Jumpstart Plan to prep intensively.</p>
-            <p>If a live Masterclass cohort is starting soon (or has just started) and you're scoring above a 600 → Join the live Masterclass.</p>
-            <p>If neither of the above cases are true, and you're willing to commit time, effort, and money to improve your score, then pick the coaching package that fits your goal — or book a free call and we'll figure out the right one together.</p>
+          <div class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">
+            <div class="font-sans pt-1">
+              <!-- Decision 1 -->
+              <p class="font-bold text-ink text-base sm:text-lg leading-snug mb-1.5">
+                Is your SAT less than 4 weeks away?
+              </p>
+              <!-- Yes branch: routes right, then down the lane to the shared outcome -->
+              <div class="flex items-stretch h-10">
+                <div class="relative w-10 sm:w-14 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                  <div class="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
+                </div>
+                <div class="flex items-center flex-shrink-0">
+                  <span class="text-[11px] leading-none font-black tracking-widest text-ink px-1.5">YES</span>
+                </div>
+                <div class="relative flex-1">
+                  <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
+                </div>
+                <div class="relative w-8 sm:w-10 flex-shrink-0">
+                  <div class="absolute left-0 right-1/2 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
+                  <div class="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-0 w-[2px] bg-ink"></div>
+                </div>
+              </div>
+              <!-- No connector -->
+              <div class="flex items-stretch h-10">
+                <div class="relative w-10 sm:w-14 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                  <span class="absolute left-1/2 ml-2.5 top-1/2 -translate-y-1/2 text-[11px] leading-none font-black tracking-widest text-ink">NO</span>
+                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
+                </div>
+                <div class="flex-1"></div>
+                <div class="relative w-8 sm:w-10 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                </div>
+              </div>
+              <!-- Decision 2 -->
+              <div class="flex items-stretch">
+                <p class="flex-1 min-w-0 font-bold text-ink text-base sm:text-lg leading-snug pt-2 pb-1.5">
+                  Are you scoring a 600 or higher?
+                </p>
+                <div class="relative w-8 sm:w-10 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                </div>
+              </div>
+              <!-- Yes branch -->
+              <div class="flex items-stretch">
+                <div class="relative w-10 sm:w-14 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                  <div class="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
+                </div>
+                <div class="flex-1 flex items-center py-3 min-w-0">
+                  <span class="flex-shrink-0 text-[11px] leading-none font-black tracking-widest text-ink px-1.5">YES</span>
+                  <div class="w-2 sm:w-4 h-[2px] bg-ink flex-shrink-0"></div>
+                  <div class="flex-shrink-0 w-0 h-0 border-t-[5px] border-b-[5px] border-l-[7px] border-t-transparent border-b-transparent border-l-ink"></div>
+                  <div class="flex-1 min-w-0 border-2 border-ink rounded-xl bg-electric shadow-offset-sm px-4 py-3 font-bold text-ink text-sm sm:text-base mr-1">
+                    Join the next Masterclass cohort
+                  </div>
+                </div>
+                <div class="relative w-8 sm:w-10 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                </div>
+              </div>
+              <!-- No connector + lane arrow converging on the shared outcome -->
+              <div class="flex items-stretch h-10">
+                <div class="relative w-10 sm:w-14 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                  <span class="absolute left-1/2 ml-2.5 top-1/2 -translate-y-1/2 text-[11px] leading-none font-black tracking-widest text-ink">NO</span>
+                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
+                </div>
+                <div class="flex-1"></div>
+                <div class="relative w-8 sm:w-10 flex-shrink-0">
+                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
+                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
+                </div>
+              </div>
+              <!-- Shared outcome -->
+              <div class="border-2 border-ink rounded-xl bg-mint shadow-offset-sm px-4 py-3 text-center font-bold text-ink">
+                Pick the coaching package that fits your goal
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -413,10 +489,9 @@ const planScorePct = Math.round(
             <ul class="list-disc list-inside space-y-1">
               <li>SAT Math Masterclass recordings, covering the concepts and problems in-depth</li>
               <li>Bluebook tests with specific score range targets for each test</li>
-              <li>Focus areas – Tasks assigned based on your weaknesses from the last session.</li>
-              <li>130+ of my own proprietary practice problems</li>
+              <li>Proprietary practice problems and video lessons from <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock targeting your specific weaknesses at your optimal difficulty</li>
             </ul>
-            <p>The custom plan schedules tasks based on their expected duration to complete, keeping you on track with your expected weekly prep hours for your goal score.</p>
+            <p>The custom plan is built around your schedule, but keeps you on track for your goal score.</p>
           </div>
         </div>
       </div>
@@ -448,21 +523,6 @@ const planScorePct = Math.round(
             <p>A simple Google search for "Princeton Review tutor salaries" shows they pay tutors $20–$40/hr while charging $250/hr+. You're paying for the brand, not the tutor.</p>
             <p>Their bundles (up to $10,000!) prioritize quantity over quality — hundreds of unengaging videos and thousands of problems, many AI-generated. But students only have so much time.</p>
             <p>My tutoring is focused on efficiency and outcomes. At any point in our prep, we focus entirely on the topic that yields the highest return in the lowest amount of time.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-          <span class="font-sans font-bold text-lg text-ink">Do you offer a score guarantee?</span>
-          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-          <div class="px-6 pb-6 space-y-3 text-ink/80 font-semibold leading-relaxed">
-            <p>I do not offer score guarantees. Almost every test prep platform with score guarantees has caveats in the fineprint (i.e. "must complete all 500 hours of material"). I don't want a score guarantee to relieve students of accountability or disincentivize perseverance.</p>
-            <p>However, my study time calculator is based on data from over 100 students across the masterclass and 1-on-1 sessions. You'll get a reliable metric for how many hours per week are needed to reach your goal score, and there will be periodic Bluebook tests to ensure you're on the right track.</p>
           </div>
         </div>
       </div>
@@ -506,11 +566,16 @@ const planScorePct = Math.round(
 <script>
   function scrollToPricingCenter(smooth = true) {
     const pricing = document.getElementById('pricing');
-    if (pricing) {
-      const top = pricing.getBoundingClientRect().top + window.scrollY;
-      const center = top + pricing.offsetHeight / 2 - window.innerHeight / 2;
-      window.scrollTo({ top: center, behavior: smooth ? 'smooth' : 'instant' });
-    }
+    if (!pricing) return;
+    // Center the section only when it fits below the nav; otherwise centering
+    // clips the heading off the top, so pin the section top just under the nav.
+    const navH = document.querySelector('nav')?.offsetHeight ?? 0;
+    const top = pricing.getBoundingClientRect().top + window.scrollY;
+    const fits = pricing.offsetHeight <= window.innerHeight - navH;
+    const target = fits
+      ? top + pricing.offsetHeight / 2 - window.innerHeight / 2
+      : top - navH - 8;
+    window.scrollTo({ top: target, behavior: smooth ? 'smooth' : 'instant' });
   }
 
   document.querySelector('a[href="#pricing"]')?.addEventListener('click', (e) => {

@@ -41,8 +41,13 @@ borderWidth: { '3': '3px' },
 
 ## Layout / global setup
 - `<body class="bg-chalk font-sans text-ink antialiased">`
-- Root `html { font-size: 18px; }` (everything scales from an 18px root) and
-  `html { scroll-behavior: smooth; }`
+- Root font-size is height-adaptive (everything scales from the root):
+  `html { font-size: 18px; }` by default, dropping to `16px` under
+  `@media (min-width: 1024px) and (max-height: 1000px)` so laptop-height
+  desktop viewports get a denser scale while tall monitors keep the 18px look
+  and mobile is untouched. Also `html { scroll-behavior: smooth; }`.
+- Invariant: nav height (`h-16`) and anchor offsets (`scroll-mt-20`) are both
+  rem, so anchor clearance below the sticky nav holds at either root size.
 - Load fonts in `<head>`:
   ```html
   <link rel="preconnect" href="https://fonts.googleapis.com" />

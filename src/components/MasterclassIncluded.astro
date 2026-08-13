@@ -22,7 +22,7 @@ const { dark = false } = Astro.props;
     return (
       <li class={`flex items-start gap-2 text-base font-bold ${dark ? 'text-blue-100' : 'text-ink/80'}`}>
         <span class="text-coral font-black mt-0.5">✓</span>
-        {f}
+        <span set:html={f} />
       </li>
     );
   })}

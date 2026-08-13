@@ -31,8 +31,13 @@ const { title, description = 'Premium SAT Math instruction from a two-time perfe
       gtag('js', new Date());
       gtag('config', 'G-EKENVY91TK');
     </script>
-    <style>
+    <style is:global>
       html { font-size: 18px; }
+      /* Laptop-height desktop viewports get a denser 16px root. Gated by
+         min-width so mobile keeps 18px (a <16px root risks iOS input zoom). */
+      @media (min-width: 1024px) and (max-height: 1000px) {
+        html { font-size: 16px; }
+      }
     </style>
     <script is:inline>document.documentElement.classList.add('js');</script>
     <style is:global>
