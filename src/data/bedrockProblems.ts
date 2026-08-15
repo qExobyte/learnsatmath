@@ -24,7 +24,7 @@ export const bedrockProblems: BedrockProblem[] = [
   { n: 9, name: "System of Equations", d: 'easy', v: 9 },
   { n: 10, name: "Lines in terms of real numbers", d: 'medium', v: 3 },
   { n: 11, name: "English to Math", d: 'easy', v: 6 },
-  { n: 12, name: "Single variable inequalities", d: 'medium', v: 4 },
+  { n: 12, name: "Inequalities", d: 'medium', v: 4 },
   { n: 13, name: "Consecutive odd/even integers", d: 'medium', v: 3 },
   { n: 14, name: "Inequalities Graphically", d: 'medium', v: 4 },
   { n: 15, name: "Systems of Inequalities", d: 'hard', v: 4 },

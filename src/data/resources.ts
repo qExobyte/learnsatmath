@@ -7,6 +7,8 @@ export interface Resource {
   resourceDescription: string;
   resourceFile: string;
   previewImage: string;
+  /** Skip the email gate: download immediately, then show the Bedrock upsell popup. */
+  bedrockUpsell?: boolean;
 }
 
 export const resources: Resource[] = [
@@ -19,6 +21,7 @@ export const resources: Resource[] = [
     resourceDescription: "If you can solve these, you're in good shape for a 750–800.",
     resourceFile: '25_Challenging_Problems.pdf',
     previewImage: '/hardproblem.png',
+    bedrockUpsell: true,
   },
   {
     slug: 'every-topic',
