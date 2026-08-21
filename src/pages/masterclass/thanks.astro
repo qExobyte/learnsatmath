@@ -5,13 +5,15 @@ import { FREE_CALL_CALENDLY_URL } from '../../data/booking';
 import { IS_FULL, NEXT_COHORT, ENROLL_STRIPE_URL } from '../../data/enrollment';
 import { weeks, cohorts } from '../../data/schedule';
 
-const SEP = cohorts.find((c) => c.id === 'sep')!;
-const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
+const OCT = cohorts.find((c) => c.id === 'oct')!;
+const OCT_START = OCT.weekDates[0].split(' & ')[0]; // e.g. "Aug 29"
 
 // Tally's "Redirect on completion" sends respondents here with their answers
 // as query params: call, sat, sname, semail, pname, pemail, cur, goal, notes.
-// The selected option of the final question ("call") picks the branch:
-// Calendly booking, enrollment link, or plain thank-you.
+// The selected option of the pricing question ("call", now Yes / No) picks
+// the branch: enrollment link or plain thank-you. (The Calendly "call"
+// branch is dormant — the "Maybe, free call" option was removed from the
+// form 2026-08 — but left wired in case it comes back.)
 //
 // If this page ever loads inside the embed iframe on /masterclass, it breaks
 // out to the top window so it always renders as its own full page.
@@ -44,10 +46,10 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
               <h1 class="font-sans text-3xl font-black tracking-tight text-ink mb-3">{!IS_FULL ? 'A 750+ awaits...' : 'Thanks for completing the form!'}</h1>
               {!IS_FULL ? (
                 <>
-                  <!-- Their SAT dates include September (the enrolling cohort) -->
+                  <!-- Their SAT dates include October (the enrolling cohort) -->
                   <div data-enroll-now hidden>
                     <p class="text-xl text-ink/80 font-semibold leading-relaxed mb-6">
-                      There are still spots open in the <Highlight>September</Highlight> cohort &mdash; classes start {SEP_START}.
+                      There are still spots open in the <Highlight>October</Highlight> cohort &mdash; classes start {OCT_START}.
                     </p>
                     <a
                       href={ENROLL_STRIPE_URL}
@@ -65,10 +67,10 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
                       ✓ Full refund available within 7 days of your first session.
                     </p>
                   </div>
-                  <!-- Later test dates only: pitch September, offer to wait -->
+                  <!-- Later test dates (Nov / Dec / 2027): pitch October — later cohorts aren't guaranteed -->
                   <div data-enroll-later hidden>
                     <p class="text-lg lg:text-xl text-ink/80 font-semibold leading-relaxed mb-6">
-                      Enrollment is open right now for the <Highlight>September</Highlight> cohort. Even with a later test date, <b>now</b> is the best time to start. Don't procrastinate!
+                      Enrollment is open right now for the <Highlight>October</Highlight> cohort. Even with a different test date, <b>now</b> is the best time to start &mdash; later cohorts aren't guaranteed, and you keep every recording and a Bedrock Pro subscription indefinitely.
                     </p>
                     <a
                       href={ENROLL_STRIPE_URL}
@@ -76,14 +78,10 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
                       rel="noopener noreferrer"
                       class="btn-glint inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-base tracking-wide"
                     >
-                      Join the September Cohort
+                      Join the October Cohort
                     </a>
                     <p class="text-sm text-ink/60 font-semibold mt-6">
                       ✓ Full refund available within 7 days of your first session.
-                    </p>
-                    <hr class="border-t-2 border-ink/10 my-6" />
-                    <p class="text-sm text-ink/60 font-semibold">
-                      Prefer a cohort closer to your test date? No action needed &mdash; you're on the list, and you'll get first access when it opens.
                     </p>
                   </div>
                 </>
@@ -106,22 +104,26 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
     </div>
   </section>
 
-  <!-- Full September schedule (revealed with the enroll branches) -->
+  <!-- Full October schedule (revealed with the enroll branches) -->
   <section id="thanks-schedule" hidden class="py-12 lg:py-16 bg-sky">
     <div class="max-w-xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-8">
-        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight mb-2">Your September Schedule</h2>
-        <p class="text-ink/60 text-xl font-semibold">5 weeks &middot; 10 live sessions</p>
+        <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Your October Schedule</h2>
       </div>
 
-      <p class="text-center text-ink/60 text-xl font-semibold mb-8" set:html={SEP.time} />
+      <div class="text-center mb-8">
+        <p class="mb-2">
+          <span class="bg-electric text-ink text-lg lg:text-xl font-black box-decoration-clone px-2 py-1">5 weeks &middot; 10 live sessions</span>
+        </p>
+        <p class="text-ink/60 text-xl font-semibold" set:html={OCT.time} />
+      </div>
 
       <div class="flex flex-col gap-4">
         {weeks.map((week, wi) => (
           <div class="relative bg-white border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm transition-transform duration-200 hover:-translate-y-0.5">
             <p class="flex justify-between gap-2 text-xs font-black uppercase tracking-widest text-ink/60 mb-1">
-              <span>Week {week.number} &middot; {SEP.weekDates[wi]}</span>
-              {week.number >= SEP.officeHoursFromWeek && <span class="text-ink/40">+ office hours</span>}
+              <span>Week {week.number} &middot; {OCT.weekDates[wi]}</span>
+              {week.number >= OCT.officeHoursFromWeek && <span class="text-ink/40">+ office hours</span>}
             </p>
             <p class="font-sans text-lg text-ink font-bold leading-snug">{week.name}</p>
           </div>
@@ -129,7 +131,7 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
 
         <!-- SAT -->
         <div class="relative bg-electric border-2 border-ink rounded-2xl px-5 py-4 shadow-offset-sm">
-          <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT &middot; {SEP.satDate}</p>
+          <p class="text-xs font-black uppercase tracking-widest text-ink/50 mb-1">SAT &middot; {OCT.satDate}</p>
           <p class="font-sans text-lg text-ink font-black">Good luck!</p>
         </div>
       </div>
@@ -142,13 +144,15 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
     // Celebrate on arrival — skipped inside the /masterclass embed iframe,
     // where the parent card handles the thank-you UI, and on the plain
     // "Got it" branch (no call/enroll match — nothing to celebrate yet).
-    // Low-score enrollers get the plain card (see the mode logic below),
-    // so no confetti for them either.
+    // Low-score and September-only enrollers get the plain card (see the
+    // mode logic below), so no confetti for them either.
     const q = new URLSearchParams(window.location.search);
     const call = q.get('call') || '';
+    const sat = q.get('sat') || '';
     const nums = (q.get('cur') || '').match(/\d{3}/g);
     const lowScore = !!nums && Math.max(...nums.map(Number)) <= 520;
-    const celebrate = /call/i.test(call) || (/enroll/i.test(call) && !lowScore);
+    const sepOnly = /sep/i.test(sat) && !/oct|nov|dec|2027/i.test(sat);
+    const celebrate = /call/i.test(call) || (/^\s*yes|enroll/i.test(call) && !lowScore && !sepOnly);
     if (window.self === window.top && celebrate) {
       const colors = ['#EE4E29', '#FFE135', '#C9E8FF', '#C8F0D0', '#EDE9FF'];
       const fire = (angle: number, x: number) =>
@@ -185,16 +189,18 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
         sat: q.get('sat') || '',
       };
 
-      // "Maybe - ...free call..." → call; "Yes - ...enroll!" → enroll;
-      // anything else → plain thank-you.
+      // "Maybe - ...free call..." → call (dormant); "Yes..." → enroll;
+      // anything else ("No...") → plain thank-you.
       //
-      // Mirrors the autoresponder's isLowScore(): at 520 or below the honest
-      // recommendation is 1-on-1 (the follow-up email makes it), so the
-      // enroll pitch downgrades to the plain "check your inbox" card.
+      // Mirrors the autoresponder: at 520 or below the honest recommendation
+      // is Bedrock Pro, and September-only leads get the superscore/retake
+      // pitch by email — in both cases the enroll pitch downgrades to the
+      // plain "check your inbox" card and the email does the talking.
       var nums = p.cur.match(/\d{3}/g);
       var lowScore = !!nums && Math.max.apply(null, nums.map(Number)) <= 520;
+      var sepOnly = /sep/i.test(p.sat) && !/oct|nov|dec|2027/i.test(p.sat);
       var mode = /call/i.test(p.call) ? 'call'
-        : /enroll/i.test(p.call) && !lowScore ? 'enroll'
+        : /^\s*yes|enroll/i.test(p.call) && !lowScore && !sepOnly ? 'enroll'
         : 'email';
 
       // Still inside the embed iframe — break out to the top window; the
@@ -214,10 +220,10 @@ const SEP_START = SEP.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
       if (mode === 'enroll') document.getElementById('thanks-schedule').hidden = false;
       if (mode !== 'call') document.getElementById('thanks-card').hidden = false;
       if (mode === 'enroll') {
-        // "Now" variant if their SAT dates include September (or the param
+        // "Now" variant if their SAT dates include October (or the param
         // is missing); "later" pitch otherwise. Sub-divs only exist while
         // enrollment is open.
-        var later = p.sat && !/sep/i.test(p.sat);
+        var later = p.sat && !/oct/i.test(p.sat);
         var sub = document.querySelector(
           '#thanks-enroll ' + (later ? '[data-enroll-later]' : '[data-enroll-now]')
         );

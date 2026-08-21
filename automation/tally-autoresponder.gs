@@ -16,21 +16,25 @@ const CONFIG = {
 
   FROM_NAME: 'Eric Wolpert (LearnSATMath)',
 
-  // The cohort currently enrolling. Later-date leads get the same Stripe
-  // link ("start now, or wait for first access to a closer cohort" — same
-  // framing as the /masterclass/thanks page).
-  STRIPE_LINK: 'https://buy.stripe.com/3cIbIU3n01ov2qs6LM6wE1C',
-  COHORT_MONTH: 'September', // used in the enroll email subject + body
-  COHORT_LABEL: 'September cohort',
-  COHORT_START: 'August 8th', // first session, mentioned in the later-date email
+  // The cohort currently enrolling (October). Only leads whose SAT dates
+  // include this month get the Stripe link.
+  STRIPE_LINK: 'https://buy.stripe.com/8x23cocXA0krd569XY6wE1I',
+  COHORT_MONTH: 'October', // used in the enroll email subject + body
+  COHORT_LABEL: 'October cohort',
+  COHORT_START: 'August 29th', // first session
+  COHORT_TIME: 'Saturdays and Sundays, 12:00-1:30 pm ET',
+  // Regex fragment that must appear in the lead's SAT dates to be eligible.
+  COHORT_MONTH_RE: /oct/i,
 
-  // Free masterclass intro call — same event the /thanks page embeds.
-  CALENDLY_LINK: 'https://calendly.com/eric-wolpert-learnsatmath/masterclass-intro-call',
-  // Free 1-on-1 tutoring consult (August-only leads) — same event as the
-  // "Book a free call" buttons on /tutoring.
-  TUTORING_CALENDLY_LINK: 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call',
-  // Free practice-problem site, for out-of-budget leads.
-  BEDROCK_LINK: 'https://www.bedrockprep.com/bedrock-100',
+  // The cohort that just filled up. Leads whose ONLY date is this month get
+  // the "full" email.
+  FULL_MONTH_RE: /sep/i,
+  FULL_MONTH_LABEL: 'September',
+
+  // Bedrock Pro — the paid subscription to the practice platform. Every
+  // non-enrolling branch pitches it.
+  BEDROCK_PRO_LINK: 'https://www.bedrockprep.com/pro',
+  BEDROCK_PRO_PRICE: '$49/month',
 
   SITE_MASTERCLASS: 'https://learnsatmath.com/masterclass',
 };
@@ -46,7 +50,6 @@ const COLS = {
   goalScore: 'goal sat math score',
   satDates: 'which sat',
   priceOk: 'willing to make this investment',
-  tutoring: '1-on-1 tutoring',
   filledBy: 'filling', // "Who is filling out this form?"
 };
 
@@ -100,37 +103,45 @@ function rowToLead(row, m) {
     goalScore: val(m.goalScore),
     satDates: val(m.satDates),
     priceTier: parsePriceTier(val(m.priceOk)),
-    wantsTutoring: /^yes/i.test(val(m.tutoring)),
     // Blank/missing answer defaults to student (pre-question submissions).
     filledBy: /parent/i.test(val(m.filledBy)) ? 'parent' : 'student',
   };
 }
 
 /**
- * The pricing question has three options (wording may drift; matching is
- * on the stable fragments):
- *   "Yes - I'm ready to enroll!"          -> 'enroll'
- *   "Maybe - I'd like a free call ..."    -> 'call'
- *   "No. It's out of budget."             -> 'no'
- * Unrecognized/blank answers fall back to 'call' (the neutral middle).
+ * The pricing question is now Yes / No (wording may drift; matching is on
+ * the stable fragments):
+ *   "Yes ..." / "...ready to enroll..."   -> 'enroll'
+ *   "No ..."  / "...out of budget..."     -> 'no'
+ * Unrecognized/blank answers fall back to 'enroll' — the question is
+ * required on the form, so a blank only happens if the wording drifts, and
+ * the in-budget emails are the safer default (they still pitch Bedrock Pro
+ * where relevant).
  */
 function parsePriceTier(raw) {
-  if (/ready to enroll/i.test(raw)) return 'enroll';
-  if (/^no|out of budget/i.test(raw)) return 'no';
-  return 'call';
+  if (/^no\b|out of budget/i.test(raw)) return 'no';
+  return 'enroll';
 }
 
-// Anyone whose ONLY selected SAT date is August: the August cohort has
-// already started, so they get the 1-on-1 tutoring email instead.
-// Matches abbreviated month names too ("Aug 23", "Sep 12", ...).
-const COHORT_MONTHS = /(sep|oct|nov|dec)/i;
-function isAugustOnly(lead) {
-  return /aug/i.test(lead.satDates) && !COHORT_MONTHS.test(lead.satDates);
+// Date-option parsing. The form's SAT-date checkboxes are Sep / Oct / Nov /
+// Dec / 2027 (abbreviated month names like "Sep 12" match too).
+const ALL_DATE_RE = /(sep|oct|nov|dec|2027)/gi;
+function selectedDates(lead) {
+  return (String(lead.satDates).match(ALL_DATE_RE) || []).map((d) => d.toLowerCase());
+}
+// Only the just-filled cohort's month selected (e.g. September alone).
+function isFullMonthOnly(lead) {
+  const dates = selectedDates(lead);
+  return dates.length > 0 && dates.every((d) => CONFIG.FULL_MONTH_RE.test(d));
+}
+// The enrolling cohort's month is among their dates (with or without others).
+function wantsCohortMonth(lead) {
+  return CONFIG.COHORT_MONTH_RE.test(lead.satDates);
 }
 
 // The Masterclass assumes a ~600 starting score (530–590 is quietly let
-// slide). At 520 or below, 1-on-1 tutoring is the honest recommendation —
-// in-budget leads with a low current score get routed there instead.
+// slide). At 520 or below, building fundamentals on Bedrock Pro is the
+// honest recommendation — in-budget leads with a low score get routed there.
 const LOW_SCORE_MAX = 520;
 function isLowScore(lead) {
   const nums = String(lead.currentScore).match(/\d{3}/g);
@@ -246,53 +257,53 @@ function deliver(lead, msg) {
 // Templates — plain text on purpose; they should read like you typed them.
 // ---------------------------------------------------------------------------
 
+/**
+ * The Bedrock Pro pitch, shared by every non-enrolling branch. Selling
+ * points mirror learnsatmath.com/bedrock and bedrockprep.com/pro.
+ */
+function bedrockProPitch(opts) {
+  const compare = !(opts && opts.compare === false);
+  return [
+    `Over the past few months, I've been building Bedrock, an SAT Math platform that organizes the entire SAT Math curriculum into 125 problem types. Each one comes with a video lesson from me, and there are hundreds of variations to drill.`,
+    compare && `It's more challenging than Khan Academy, more efficient than OnePrep, and more affordable than Princeton Review.`,
+    `Bedrock Pro is ${CONFIG.BEDROCK_PRO_PRICE} with no commitment (you can cancel anytime). Get a subscription here! >> ${CONFIG.BEDROCK_PRO_LINK}`,
+  ].filter(Boolean).join('\n\n');
+}
+
+/** Condensed pitch for emails that already made a primary ask (September-only). */
+function bedrockProPitchShort() {
+  return `Bedrock is the SAT Math platform I've been building, which condenses the entire SAT Math curriculum into 125 problem types, each with a video lesson from me, plus hundreds of variations to drill. It's ${CONFIG.BEDROCK_PRO_PRICE} with no commitment (you can cancel anytime). Get a subscription here! >> ${CONFIG.BEDROCK_PRO_LINK}`;
+}
+
 function buildFirstEmail(lead) {
   const v = voiceOf(lead);
-  const goal = lead.goalScore ? ` Great to hear ${v.youre} aiming for a ${lead.goalScore}!` : '';
-  const tutoringPS = lead.wantsTutoring
-    ? `\n\nP.S. You mentioned 1-on-1 tutoring. Happy to talk through whether the Masterclass, tutoring, or a mix makes sense for ${v.you}. Just reply here!`
-    : '';
+  const goal = lead.goalScore ? ` Great to hear ${v.youre} aiming for a ${lead.goalScore}.` : '';
+  // Reply invitations live in a P.S. (the second-most-read line of any
+  // email), so each body ends on its actual call to action.
+  const bedrockPS = `\n\nP.S. If you have any questions about the platform or ${v.your} prep in general, just reply to this email. I'll try my best to reply!`;
+  const cohortPS = `\n\nP.S. If you have any questions about the class, ${v.your} score, or whether it's the right fit, just reply to this email. I read and answer everything myself!`;
 
-  // 1. Out of budget (regardless of dates): point them at Bedrock Prep.
+  // 1. Out of budget (regardless of dates): Bedrock Pro.
   if (lead.priceTier === 'no') {
     return {
-      subject: `Free SAT Math Practice`,
+      subject: `SAT Math Advice`,
       body: `Hi ${v.greetName},
 
 Thanks for filling out the interest form!${goal}
 
-I completely understand if the masterclass is out of budget. $895 is a real investment!
+I completely understand if the masterclass is out of budget. However, I still want to give ${v.you} something valuable to study with.
 
-However, I still want to give you something to help with ${v.your} prep. My platform Bedrock has plenty of high-quality practice problems completely for free. Check it out here >> ${CONFIG.BEDROCK_LINK}
-
-You're still on my list, so if anything changes, just reply to this email and we'll figure something out.
-
-Best,
-Eric${tutoringPS}`,
-    };
-  }
-
-  // 2. Only August selected: that cohort already started; route to 1-on-1.
-  if (isAugustOnly(lead)) {
-    return {
-      subject: `About the August SAT`,
-      body: `Hi ${v.greetName},
-
-Thanks for your interest in the SAT Math Masterclass!${goal}
-
-You marked that ${v.youre} taking the August SAT, but unfortunately, the August cohort has already begun and has no spots currently available.
-
-The good news is that 1-on-1 tutoring is always an option! With a test this close, it's honestly the stronger option anyway: we skip what's already solid and focus entirely on ${v.your} greatest weaknesses.
-
-If you'd like to talk through what a 1-on-1 plan would look like, grab a free call here >> ${CONFIG.TUTORING_CALENDLY_LINK}
+${bedrockProPitch()}
 
 Best,
 Eric`,
     };
   }
 
-  // 2b. In budget but starting at 520 or below: the Masterclass assumes
-  // ~600+, so the honest recommendation is 1-on-1 tutoring.
+  // 2. In budget but starting at 520 or below: the Masterclass assumes
+  // ~600+, so the honest recommendation is to build the foundation first.
+  // Checked before the September-only branch so low scorers are never
+  // pitched the October cohort.
   if (isLowScore(lead)) {
     return {
       subject: `SAT Math Advice`,
@@ -302,35 +313,43 @@ Thanks for filling out the interest form!${goal}
 
 I want to be upfront about the best path forward: the Masterclass is designed for students starting around 600 or higher. It moves fast and covers only the hardest problems.
 
-Starting from ${lead.currentScore}, ${v.you} would get far more from 1-on-1 tutoring. We build the math from the ground up, at the right pace, and every session goes toward ${v.your} specific weaknesses.
+Starting from ${lead.currentScore}, ${v.you} would get far more from building the fundamentals first, at the right pace, with a lesson for every problem type. That's exactly what Bedrock Pro is for.
 
-If you'd like to talk through what a 1-on-1 plan would look like, grab a free call here >> ${CONFIG.TUTORING_CALENDLY_LINK}
+${bedrockProPitch({ compare: false })}
 
 Best,
-Eric`,
+Eric${bedrockPS}`,
     };
   }
 
-  // 5/6. Wants a free call: the /thanks page already showed them the
-  // Calendly embed, so this is a backstop in case they didn't book.
-  if (lead.priceTier === 'call') {
+  // 2b. Only the just-filled month selected (September): that cohort is
+  // full. Pitch a fall retake + the October cohort (superscoring), with one
+  // month of Bedrock Pro as the plan for September itself.
+  if (isFullMonthOnly(lead)) {
     return {
-      subject: `Your free SAT intro call`,
+      subject: `About the ${CONFIG.FULL_MONTH_LABEL} SAT`,
       body: `Hi ${v.greetName},
 
-Thanks for filling out the interest form!${goal} A call is a great next step: 15 minutes and you'll know for sure whether the class is the right fit.
+Thanks for your interest in the SAT Math Masterclass!${goal}
 
-If you already grabbed a time on the confirmation page, you're all set and I'll see you then! If not, here's my calendar >> ${CONFIG.CALENDLY_LINK}
+You marked that ${v.youre} taking the ${CONFIG.FULL_MONTH_LABEL} SAT, but unfortunately, the ${CONFIG.FULL_MONTH_LABEL} cohort is full and has already begun.
 
-${v.isParent ? `${v.you} is very welcome to join the call. Most of my best calls are with a parent and student together!` : `Parents are very welcome on the call. Most of my best calls are with a parent and student together!`}
+Here's my honest recommendation: plan on a retake this fall. Many colleges superscore, so a second sitting is very advantageous. The ${CONFIG.COHORT_LABEL} starts ${CONFIG.COHORT_START} and still has spots available. You can enroll here >> ${CONFIG.STRIPE_LINK}
+
+The class is capped at 15 students and recent cohorts have filled within days. Purchases are fully refundable within 7 days of the first session.
+
+However, if ${v.isParent ? `${v.you} is` : "you're"} unable to retake, I recommend signing up for one month of Bedrock Pro to make the most of the time before ${CONFIG.FULL_MONTH_LABEL}.
+
+${bedrockProPitchShort()}
 
 Best,
-Eric${tutoringPS}`,
+Eric${bedrockPS}`,
     };
   }
 
-  // 3. Ready to enroll + September in their dates: Stripe link.
-  if (lead.priceTier === 'enroll' && /sep/i.test(lead.satDates)) {
+  // 3. Ready to enroll + the enrolling cohort's month (October) in their
+  // dates: Stripe link.
+  if (lead.priceTier === 'enroll' && wantsCohortMonth(lead)) {
     return {
       subject: `${CONFIG.COHORT_MONTH} SAT Math Masterclass - Spot open!`,
       body: `Hi ${v.greetName},
@@ -341,47 +360,49 @@ If you already claimed ${v.your} spot on the confirmation page, you're all set! 
 
 If not, here is the enrollment link >> ${CONFIG.STRIPE_LINK}
 
+The cohort starts ${CONFIG.COHORT_START} and meets ${CONFIG.COHORT_TIME}, running twice a week through the ${CONFIG.COHORT_MONTH} SAT. There are weekly office hours and every student gets a lifetime subscription to Bedrock Pro.
+
 To keep the class small and personalized, there is a hard cap of 15 students. Recent cohorts have filled up within days, so please enroll sooner rather than later! As a reminder, purchases are fully refundable within 7 days of the first session.
 
-If you have any questions about the class, ${v.your} score, or whether it's the right fit, just reply to this email. I read and answer everything myself!
-
 Best,
-Eric${tutoringPS}`,
+Eric${cohortPS}`,
     };
   }
 
-  // 4. Ready to enroll, later test date: same Stripe link + the
-  // "start now or wait for a closer cohort" framing from /thanks.
+  // 4. Ready to enroll, only later dates (Nov / Dec / 2027): pitch the
+  // October cohort now — later cohorts aren't guaranteed, and the materials
+  // are theirs to keep.
   if (lead.priceTier === 'enroll' && lead.satDates) {
     return {
-      subject: `SAT Math Masterclass - Enrollment is open!`,
+      subject: `SAT Math Masterclass - Enroll now for ${CONFIG.COHORT_MONTH}`,
       body: `Hi ${v.greetName},
 
 Thanks for filling out the interest form!${goal}
 
-Enrollment is open right now for the next cohort. It starts ${CONFIG.COHORT_START}, with sessions twice a week through the ${CONFIG.COHORT_MONTH} SAT. Even with a later test date, don't procrastinate! The best time to start is always the present. And you'll keep all the materials indefinitely after the sessions end.
+I'll be straightforward with you: the ${CONFIG.COHORT_LABEL} is the one to join, even with a later test date. I can't promise there will be a cohort for ${v.your} exact date later this year, and the ${CONFIG.COHORT_MONTH} cohort is open right now. It starts ${CONFIG.COHORT_START} and meets ${CONFIG.COHORT_TIME}, twice a week through the ${CONFIG.COHORT_MONTH} SAT.
 
-If you already claimed ${v.your} spot on the confirmation page, you're all set! If not, here is the enrollment link >> ${CONFIG.STRIPE_LINK}
+Starting early is also just the better plan. Even after the sessions end, ${v.isParent ? `${v.you} keeps` : 'you keep'} indefinite access to all 15 hours of recordings and a Bedrock Pro subscription, so the weeks between the last session and ${v.your} test date become review time with everything already in hand. Here is the enrollment link >> ${CONFIG.STRIPE_LINK}
 
-As a reminder, purchases are fully refundable within 7 days of the first session.
-
-Finally, if you prefer a cohort closer to ${v.your} test date, no action is needed. I'll reach back out when the next cohort opens.
+The class is capped at 15 students and recent cohorts have filled within days. Purchases are fully refundable within 7 days of the first session.
 
 Best,
-Eric${tutoringPS}`,
+Eric${cohortPS}`,
     };
   }
 
-  // 7. Fallback: shouldn't normally hit (blank dates + enroll).
+  // 5. Fallback: shouldn't normally hit (enroll + blank dates). Still on the
+  // list, plus the Bedrock Pro pitch.
   return {
     subject: `You're on the list`,
     body: `Hi ${v.greetName},
 
 Thanks for filling out the interest form!${goal} You're on my list, and I'll email you everything you need for the cohort ahead of ${v.your} test date.
 
-As always, let me know if you have any questions!
+In the meantime, the best thing ${v.you} can do is start drilling.
+
+${bedrockProPitch()}
 
 Best,
-Eric${tutoringPS}`,
+Eric${bedrockPS}`,
   };
 }

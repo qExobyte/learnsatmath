@@ -1,4 +1,6 @@
 ---
+import { bedrockProblems } from '../data/bedrockProblems';
+
 // Leaderboard snapshot shown on the third carousel slide. Mock data — purely
 // illustrative of the in-class cash-prize competition.
 const leaders = [
@@ -7,6 +9,15 @@ const leaders = [
   { rank: 3, name: 'Ava L.', points: 48, prize: 30, bar: 'bg-sky' },
 ];
 const maxPoints = Math.max(...leaders.map((l) => l.points));
+
+// Slide 4: Bedrock Pro teaser. Same tile/lockup language and difficulty colors
+// as /bedrock (diffBg mirrors the platform's DIFFICULTY_TILE_STYLES).
+const diffBg: Record<string, string> = {
+  easy: 'bg-green-100 text-green-700',
+  medium: 'bg-amber-100 text-amber-700',
+  hard: 'bg-red-100 text-red-600',
+};
+const bedrockTeaser = bedrockProblems.slice(0, 30);
 ---
 
 <section class="py-12 lg:py-16 bg-peach overflow-hidden">
@@ -33,12 +44,12 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
             <div class="flex flex-col items-center text-center gap-6 h-full justify-center">
               <div class="max-w-2xl">
                 <h3 class="font-sans text-2xl lg:text-3xl font-extrabold text-ink tracking-tight">
-                  Small cohort, real discussion
+                  Only a few students per cohort
                 </h3>
                 <p class="mt-3 text-ink/70 font-semibold text-base lg:text-lg leading-relaxed">
-                  Just <strong class="text-ink">8&ndash;15 students</strong> per cohort in a
-                  <strong class="text-ink">discussion-based</strong> class where every student
-                  participates and asks questions as needed.
+                  Spots are limited to just <strong class="text-ink">15 ambitious students</strong> so sessions
+                  feel like <strong class="text-ink">discussions, not lectures</strong>. Every student
+                  participates and asks questions.
                 </p>
               </div>
               <video
@@ -121,6 +132,65 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
             </div>
           </div>
 
+          <!-- Slide 4: Bedrock Pro, lifetime -->
+          <div class="shrink-0 w-full px-2 pb-2">
+            <div class="flex flex-col items-center text-center gap-6 h-full justify-center">
+              <div class="max-w-2xl">
+                <h3 class="font-sans text-2xl lg:text-3xl font-extrabold text-ink tracking-tight">
+                  Lifetime access to Bedrock Pro
+                </h3>
+                <p class="mt-3 text-ink/70 font-semibold text-base lg:text-lg leading-relaxed">
+                  Every student gets Bedrock Pro <strong class="text-ink">for life</strong>: 125 problem
+                  types, video lessons, and 600+ variations. Keep drilling long
+                  after the cohort ends.
+                </p>
+              </div>
+
+              <div
+                id="vs-bedrock"
+                class="w-full max-w-2xl rounded-2xl border-2 border-ink shadow-offset-md bg-white p-5 sm:p-6 flex flex-col items-center gap-5"
+              >
+                <!-- The Bedrock 125 lockup: bars rise, numeral counts up (ported from /bedrock) -->
+                <svg
+                  id="vs-bp-lockup"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 336 120"
+                  fill="none"
+                  role="img"
+                  aria-label="The Bedrock 125"
+                  class="h-auto w-[220px] sm:w-[280px]"
+                >
+                  <g stroke="#141414" stroke-width="3" stroke-linejoin="round">
+                    <rect class="vs-bp-bar" x="2" y="62" width="17" height="56" rx="3" fill="#16A34A" />
+                    <rect class="vs-bp-bar" x="29" y="42" width="17" height="76" rx="3" fill="#F59E0B" />
+                    <rect class="vs-bp-bar" x="56" y="22" width="17" height="96" rx="3" fill="#EE4E29" />
+                    <rect class="vs-bp-bar" x="83" y="2" width="17" height="116" rx="3" fill="#9333EA" />
+                  </g>
+                  <text x="130" y="34" font-family="'DM Sans', system-ui, sans-serif" font-weight="800" font-size="15" letter-spacing="1.1" fill="#141414">THE BEDROCK</text>
+                  <text id="vs-bp-count" x="127" y="107" font-family="'DM Sans', system-ui, sans-serif" font-weight="900" font-size="76" letter-spacing="-2" fill="#141414">125</text>
+                </svg>
+
+                <!-- Problem-grid teaser: 3 rows, fading out to say "there are more" -->
+                <div class="vs-bp-grid-mask w-full">
+                  <div id="vs-bp-grid" class="vs-bp-grid" aria-label="The first 30 of the 125 Bedrock problems, colored by difficulty">
+                    {bedrockTeaser.map((p) => (
+                      <div
+                        class={`vs-bp-tile ${diffBg[p.d]} aspect-square rounded-md sm:rounded-lg border-2 border-ink shadow-offset-sm flex items-center justify-center font-sans font-black text-[10px] sm:text-[12px] select-none`}
+                        title={`#${p.n} ${p.name} — ${p.d} · ${p.v} variations`}
+                      >
+                        {p.n}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <a href="/bedrock" class="font-sans font-bold text-sm text-ink hover:text-coral transition-colors">
+                  See what&rsquo;s inside Bedrock &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -151,6 +221,7 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
         <button class="vs-dot w-2.5 h-2.5 rounded-full border-2 border-ink bg-ink transition-colors" aria-label="Go to slide 1"></button>
         <button class="vs-dot w-2.5 h-2.5 rounded-full border-2 border-ink bg-white transition-colors" aria-label="Go to slide 2"></button>
         <button class="vs-dot w-2.5 h-2.5 rounded-full border-2 border-ink bg-white transition-colors" aria-label="Go to slide 3"></button>
+        <button class="vs-dot w-2.5 h-2.5 rounded-full border-2 border-ink bg-white transition-colors" aria-label="Go to slide 4"></button>
       </div>
 
       <!-- Right arrow (mobile only) -->
@@ -187,6 +258,17 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
     transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  /* Bedrock Pro slide — same tile language as /bedrock. */
+  .vs-bp-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+  .vs-bp-grid-mask {
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent 99%);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .vs-nudge { animation: none; }
     .vs-lb-row, .vs-lb-bar { transition: none; }
@@ -202,7 +284,7 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
     const dots = Array.from(document.querySelectorAll('.vs-dot'));
     if (!track) return;
 
-    const COUNT = 3;
+    const COUNT = 4;
     let index = 0;
     let nudged = false;
 
@@ -231,6 +313,8 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
         dot.classList.toggle('bg-white', i !== index);
       });
       if (index === 2) revealLeaderboard();
+      // The Bedrock slide's GSAP choreography lives in the bundled script below.
+      document.dispatchEvent(new CustomEvent('vs:slide', { detail: { index } }));
     }
 
     function go(to) {
@@ -250,4 +334,54 @@ const maxPoints = Math.max(...leaders.map((l) => l.points));
 
     update();
   })();
+</script>
+
+<script>
+  import { gsap, prefersReducedMotion } from '../scripts/motion';
+
+  // Slide 4 choreography, ported from /bedrock: bars rise + "125" counts up
+  // and the problem tiles pop in from random spots. Replays every time the
+  // slide comes into view. Final states live in the markup; reduced-motion
+  // users just see them.
+  const card = document.getElementById('vs-bedrock');
+  if (card && !prefersReducedMotion()) {
+    const bars = gsap.utils.toArray<SVGRectElement>('.vs-bp-bar');
+    const count = document.getElementById('vs-bp-count');
+    const grid = document.getElementById('vs-bp-grid');
+    const barGeom = bars.map((b) => ({ y: Number(b.getAttribute('y')), h: Number(b.getAttribute('height')) }));
+
+    let tl: gsap.core.Timeline | null = null;
+
+    function hide() {
+      bars.forEach((b, i) => gsap.set(b, { attr: { y: barGeom[i].y + barGeom[i].h, height: 0 }, opacity: 0 }));
+      if (grid) gsap.set(grid.children, { opacity: 0, scale: 0 });
+    }
+
+    function play() {
+      tl?.kill();
+      hide();
+      tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      bars.forEach((bar, i) => {
+        tl!.to(bar, { attr: { y: barGeom[i].y, height: barGeom[i].h }, opacity: 1, duration: 0.55, ease: 'back.out(1.4)' }, 0.1 + i * 0.09);
+      });
+      if (count) {
+        const n = { v: 0 };
+        tl.to(n, { v: 125, duration: 1.1, ease: 'power2.out', onUpdate: () => { count.textContent = String(Math.round(n.v)); } }, 0.1);
+      }
+      if (grid) {
+        tl.to(
+          grid.children,
+          { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', stagger: { each: 0.02, from: 'random' }, clearProps: 'transform' },
+          0.45,
+        );
+      }
+    }
+
+    hide();
+    document.addEventListener('vs:slide', (e) => {
+      const { index } = (e as CustomEvent<{ index: number }>).detail;
+      if (index === 3) play();
+    });
+  }
 </script>

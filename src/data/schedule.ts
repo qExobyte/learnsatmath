@@ -26,17 +26,9 @@ export interface Cohort {
 
 export const cohorts: Cohort[] = [
   {
-    id: 'sep',
-    label: 'September',
-    time: 'Sat / Sun &middot; 5:00 &ndash; 6:30 pm ET',
-    weekDates: ['Aug 8 & 9', 'Aug 15 & 16', 'Aug 22 & 23', 'Aug 29 & 30', 'Sep 5 & 6'],
-    satDate: 'september 12',
-    officeHoursFromWeek: 1,
-  },
-  {
     id: 'oct',
     label: 'October',
-    time: 'Sat / Sun &middot; 12:00 &ndash; 1:30 pm ET',
+    time: 'Sat &amp; Sun &middot; 12:00 &ndash; 1:30 pm ET',
     weekDates: ['Aug 29 & 30', 'Sep 5 & 6', 'Sep 12 & 13', 'Sep 19 & 20', 'Sep 26 & 27'],
     satDate: 'october 3',
     officeHoursFromWeek: 1,

@@ -7,9 +7,9 @@ import MasterclassVsRest from '../components/MasterclassVsRest.astro';
 import Highlight from '../components/Highlight.astro';
 import { FREE_CALL_CALENDLY_URL } from '../data/booking';
 import { IS_FULL, NEXT_COHORT, ENROLL_STRIPE_URL } from '../data/enrollment';
-import { cohorts } from '../data/schedule';
 
-const SEP_START = cohorts.find((c) => c.id === 'sep')!.weekDates[0].split(' & ')[0]; // e.g. "Aug 8"
+// First session of the October cohort (used in the interest-form enroll copy below).
+const OCT_START = 'Aug 29';
 
 // --- ENROLLMENT CONFIG ---
 // IS_FULL, NEXT_COHORT, and the cohort Stripe link live in
@@ -19,7 +19,7 @@ const SELF_PACED_AVAILABLE = IS_FULL;
 const SELF_PACED_URL = 'https://buy.stripe.com/7sY3cobTw2sz6GI3zA6wE16';
 const WAITLIST_URL = 'https://tally.so/r/1Ag044'; // interest form (embedded in #pricing)
 const SELF_PACED_PRICE = 395;
-// Flip on to show the countdown (targets the September SAT; see the countdown script below).
+// Flip on to show the countdown (targets the October SAT; see the countdown script below).
 const SHOW_COUNTDOWN = false;
 
 const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
@@ -90,8 +90,8 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   <!-- Countdown (hidden until SHOW_COUNTDOWN is flipped on) -->
   {SHOW_COUNTDOWN && (
   <section class="bg-ink-mid text-white pb-10 lg:pb-14">
-    <div class="max-w-md mx-auto px-6 lg:px-8 text-center" id="cohort-countdown" aria-label="Time until the September SAT">
-      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the September&nbsp;SAT</p>
+    <div class="max-w-md mx-auto px-6 lg:px-8 text-center" id="cohort-countdown" aria-label="Time until the October SAT">
+      <p class="text-xs font-black uppercase tracking-[0.16em] text-chalk/65 mb-4">Countdown to the October&nbsp;SAT</p>
       <div class="grid grid-cols-4 gap-2.5" data-cd-units>
         <div class="flex flex-col items-center gap-1 bg-chalk text-ink border-2 border-ink rounded-xl shadow-offset-sm pt-3 pb-2.5 px-1">
           <span class="text-3xl font-black leading-none tracking-tight tabular-nums" data-cd="days">--</span>
@@ -116,12 +116,12 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
   )}
 
   <script is:inline>
-    // Countdown to the September SAT — September 12, 2026, 8:00 AM ET.
+    // Countdown to the October SAT — October 3, 2026, 8:00 AM ET.
     (function () {
       var root = document.getElementById('cohort-countdown');
       if (!root) return;
 
-      var target = new Date('2026-09-12T08:00:00-04:00').getTime();
+      var target = new Date('2026-10-03T08:00:00-04:00').getTime();
       var units = root.querySelector('[data-cd-units]');
       var done = root.querySelector('[data-cd-done]');
       var fields = {
@@ -265,10 +265,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             <h4 class="font-sans text-2xl font-black tracking-tight text-ink mb-3">{!IS_FULL ? 'A 750+ awaits...' : 'Thanks for completing the form!'}</h4>
             {!IS_FULL ? (
               <>
-                <!-- Their SAT dates include September (the enrolling cohort) -->
+                <!-- Their SAT dates include October (the enrolling cohort) -->
                 <div data-enroll-now hidden>
                   <p class="text-xl text-ink/80 font-semibold leading-relaxed mb-6">
-                    There are still spots open in the <Highlight>September</Highlight> cohort &mdash; classes start {SEP_START}.
+                    There are still spots open in the <Highlight>October</Highlight> cohort &mdash; classes start {OCT_START}.
                   </p>
                   <a
                     href={ENROLL_STRIPE_URL}
@@ -286,10 +286,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
                     ✓ Full refund available within 7 days of your first session.
                   </p>
                 </div>
-                <!-- Later test dates only: pitch September, offer to wait -->
+                <!-- Later test dates (Nov / Dec / 2027): pitch October — later cohorts aren't guaranteed -->
                 <div data-enroll-later hidden>
                   <p class="text-ink/80 font-semibold leading-relaxed mb-6">
-                    Enrollment is open right now for the <Highlight>September</Highlight> cohort. Even with a later test date, starting early works in your favor &mdash; master the material now, then keep practicing until your SAT.
+                    Enrollment is open right now for the <Highlight>October</Highlight> cohort. Even with a different test date, <b>now</b> is the best time to start &mdash; later cohorts aren't guaranteed, and you keep every recording and a Bedrock Pro subscription indefinitely.
                   </p>
                   <a
                     href={ENROLL_STRIPE_URL}
@@ -297,14 +297,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
                     rel="noopener noreferrer"
                     class="btn-glint inline-block bg-coral text-white font-black px-10 py-4 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-base tracking-wide"
                   >
-                    Join the September Cohort
+                    Join the October Cohort
                   </a>
                   <p class="text-sm text-ink/60 font-semibold mt-6">
                     ✓ Full refund available within 7 days of your first session.
-                  </p>
-                  <hr class="border-t-2 border-ink/10 my-6" />
-                  <p class="text-sm text-ink/60 font-semibold">
-                    Prefer a cohort closer to your test date? No action needed &mdash; you're on the list, and you'll get first access when it opens.
                   </p>
                 </div>
               </>
@@ -357,10 +353,10 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
           var el = d.getElementById('form-enroll');
           if (!hideFrame() || !el) return;
           el.hidden = false;
-          // "Now" variant if their SAT dates include September (or the
+          // "Now" variant if their SAT dates include October (or the
           // param is missing); "later" pitch otherwise. No-op when the
           // cohort is full (no variant sub-divs rendered).
-          var later = p.sat && !/sep/i.test(p.sat);
+          var later = p.sat && !/oct/i.test(p.sat);
           var sub = el.querySelector(later ? '[data-enroll-later]' : '[data-enroll-now]');
           if (sub) sub.hidden = false;
         }
@@ -441,13 +437,14 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
             notes: q.get('notes') || '',
             sat: q.get('sat') || '',
           };
-          // Same low-score downgrade as /masterclass/thanks: at 520 or
-          // below, the enroll pitch becomes the plain thank-you (the
-          // autoresponder email recommends 1-on-1 instead).
+          // Same downgrades as /masterclass/thanks: at 520 or below, or
+          // September-only dates, the enroll pitch becomes the plain
+          // thank-you (the autoresponder email makes the recommendation).
           var nums = p.cur.match(/\d{3}/g);
           var lowScore = !!nums && Math.max.apply(null, nums.map(Number)) <= 520;
+          var sepOnly = /sep/i.test(p.sat) && !/oct|nov|dec|2027/i.test(p.sat);
           var mode = /call/i.test(p.call) ? 'call'
-            : /enroll/i.test(p.call) && !lowScore ? 'enroll'
+            : /^\s*yes|enroll/i.test(p.call) && !lowScore && !sepOnly ? 'enroll'
             : 'email';
           if (mode === 'call') showCalendly(p);
           else if (mode === 'enroll') showEnroll(p);
@@ -792,20 +789,25 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
       clearProps: 'transform,opacity', // restore CSS hover lift after landing
     });
 
-    // Attention wiggle on the form card: one shake shortly after the cards
-    // land, then a gentle repeat every few seconds while the page is open.
+    // Attention pulse on the form card: a soft breathe (slight scale-up and
+    // back) shortly after the cards land, repeating every few seconds until
+    // the user interacts with the card (hover, tap, or keyboard focus — the
+    // Tally iframe swallows its own events, but these fire on the wrapper
+    // first). Scale keeps the card's layout position intact, so
+    // #interest-form anchor scrolls still land correctly.
     if (formCard) {
-      const wiggle = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 7 })
-        .to(formCard, { rotation: -1.1, duration: 0.09, ease: 'power1.inOut' })
-        .to(formCard, { rotation: 1.1, duration: 0.14, ease: 'power1.inOut' })
-        .to(formCard, { rotation: -0.7, duration: 0.12, ease: 'power1.inOut' })
-        .to(formCard, { rotation: 0.4, duration: 0.1, ease: 'power1.inOut' })
-        .to(formCard, { rotation: 0, duration: 0.1, ease: 'power1.out' });
-      tl.add(() => wiggle.play(), '+=0.5');
-      document.addEventListener('lsm:form-submitted', () => {
-        wiggle.pause();
-        gsap.set(formCard, { rotation: 0 });
-      });
+      const pulse = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 6 })
+        .to(formCard, { scale: 1.025, duration: 0.4, ease: 'sine.out' })
+        .to(formCard, { scale: 1, duration: 0.6, ease: 'sine.inOut' });
+      tl.add(() => pulse.play(), '+=0.5');
+      const stopPulse = () => {
+        pulse.kill();
+        gsap.to(formCard, { scale: 1, duration: 0.3, ease: 'sine.out', clearProps: 'transform' });
+      };
+      for (const evt of ['pointerenter', 'pointerdown', 'focusin'] as const) {
+        formCard.addEventListener(evt, stopPulse, { once: true });
+      }
+      document.addEventListener('lsm:form-submitted', stopPulse);
     }
   }
 

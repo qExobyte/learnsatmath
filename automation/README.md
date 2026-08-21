@@ -39,16 +39,16 @@ Evaluated top-to-bottom; the first match wins:
 
 | Lead's answers | Email they get |
 |---|---|
-| Out of budget (said no to the price) | **"Free SAT Math Practice"** — points to the free Bedrock practice site |
-| Only an August test date | **"About the August SAT"** — August cohort has started; routes to a free 1-on-1 tutoring call |
-| In budget, but current score ≤ 520 | **"SAT Math Advice"** — recommends 1-on-1 tutoring (the Masterclass assumes ~600+) |
-| Wants a free call ("Maybe...") | **"Your free SAT intro call"** — masterclass intro-call Calendly link |
-| Ready to enroll + a September date | **"September ... Spot open!"** — Stripe enrollment link |
-| Ready to enroll + a later date | **"Enrollment is open!"** — same Stripe link, start-now framing |
-| Ready to enroll, no date given | **"You're on the list"** — fallback, no link |
+| Out of budget (said no to the price) | **"SAT Math Advice"** — Bedrock Pro pitch ($49/mo) |
+| In budget, but current score ≤ 520 | **"SAT Math Advice"** — Masterclass assumes ~600+; build fundamentals on Bedrock Pro |
+| Only a September test date | **"About the September SAT"** — Sep cohort full; superscoring → retake this fall + October Stripe link; else one month of Bedrock Pro |
+| Ready to enroll + an October date (alone or with others) | **"October SAT Math Masterclass - Spot open!"** — October Stripe link |
+| Ready to enroll + only later dates (Nov / Dec / 2027, or Sep+later without Oct) | **"Enroll now for October"** — later cohorts not guaranteed; October Stripe link, materials kept indefinitely |
+| Ready to enroll, no date given | **"You're on the list"** — fallback, Bedrock Pro pitch |
 
-Anyone who ticked interest in **1-on-1 tutoring** gets a short P.S. added to
-their email (except the two branches that are already all about tutoring).
+The pricing question is now Yes / No (the old "Maybe — free call" option and
+its Calendly email are gone). The out-of-budget, September-only, low-score, and fallback branches share one
+Bedrock Pro paragraph (`bedrockProPitch()`), so update the pitch in one place.
 
 ## Things to know
 
@@ -57,8 +57,10 @@ their email (except the two branches that are already all about tutoring).
   columns on the sheet.)
 - **Renamed a form question?** Update the matching fragment in `COLS` at the
   top of the script so it still finds the right answer column.
-- **New cohort?** Update `COHORT_MONTH`, `COHORT_LABEL`, and `COHORT_START`
-  in `CONFIG` (and the templates if the framing changed).
+- **New cohort?** Update `STRIPE_LINK`, `COHORT_MONTH`, `COHORT_LABEL`,
+  `COHORT_START`, `COHORT_TIME`, and `COHORT_MONTH_RE` in `CONFIG`; move the
+  just-filled month into `FULL_MONTH_RE` / `FULL_MONTH_LABEL`.
+- **Bedrock Pro price/links change?** `BEDROCK_PRO_PRICE` and `BEDROCK_PRO_LINK` in `CONFIG`.
 - **Volume limits:** a consumer @gmail.com account allows ~100 recipients/day
   from Apps Script; Google Workspace allows ~1,500/day. You're nowhere near
   either.
