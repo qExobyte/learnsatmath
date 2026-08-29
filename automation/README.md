@@ -64,6 +64,19 @@ Bedrock Pro paragraph (`bedrockProPitch()`), so update the pitch in one place.
 - **Volume limits:** a consumer @gmail.com account allows ~100 recipients/day
   from Apps Script; Google Workspace allows ~1,500/day. You're nowhere near
   either.
+- **October catch-up blast** (`october-catchup.gs`) — one-off for leads who
+  submitted before the October promo went live. Hardcoded recipient list;
+  paste it as a second file in the same Apps Script project and run
+  `sendOctoberCatchup()`. Remembers sent addresses in script properties so
+  it's safe to re-run.
+- **October "starts tomorrow" follow-up** (`october-followup.gs`) — replies
+  *in thread* to each catch-up email with the last-call push (cohort starts
+  tomorrow, 5 spots left). Third file in the same project; run
+  `sendOctoberFollowup()`. Three skip rules: an address in `FOLLOWUP_EXCLUDE`
+  appearing in the lead record or the real To/Cc headers, and any thread the
+  lead has written back in. Logs, rather than guesses, when it can't find a
+  lead's catch-up thread. Same script-properties dedupe.
+  The body says "tomorrow", so it warns in the log if run on the wrong day.
 - **Schedule-lock announcement** — the "here are the exact dates" blast to
   everyone already in the sheet — is a separate one-off, not built here.
   Generate it from the sheet when the schedule is final.
