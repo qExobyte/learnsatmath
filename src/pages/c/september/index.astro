@@ -547,6 +547,12 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         color: rgba(20, 20, 20, 0.7);
       }
 
+      /* Inline emphasis inside a session/homework note (e.g. an extended end time). */
+      .hw-emph {
+        color: var(--coral);
+        font-weight: 800;
+      }
+
       .hw-time {
         text-align: right;
         font-weight: 800;
@@ -1115,14 +1121,14 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 125 &middot; Q66&ndash;Q103 &amp; Variations</td><td class="hw-time">3.5h</td></tr>
-                    <tr><td class="hw-task">CookSAT Advanced Questions</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock Practice Test 1<span class="hw-topics">After completing the test, Bedrock will give you recommended problems to complete based on your missed problems. Complete those as well!</span></td><td class="hw-time">2.5h</td></tr>
                   </table>
                 </div>
                 <div class="hw" data-plan="advanced">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 125 &middot; Q66&ndash;Q103 &amp; Variations</td><td class="hw-time">3.5h</td></tr>
                     <tr><td class="hw-task">Bedrock 125 &middot; Q66&ndash;Q103 Hard &amp; Expert Variations</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">Bluebook Practice Test</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock Practice Test 1<span class="hw-topics">After completing the test, Bedrock will give you recommended problems to complete based on your missed problems. Complete those as well!</span></td><td class="hw-time">2.5h</td></tr>
                   </table>
                 </div>
               </div></div>
@@ -1135,8 +1141,8 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
               </summary>
               <div class="week-body"><div class="dd-inner">                <div class="sessions">
                   <table class="hw-table">
-                    <tr><td class="hw-task">Session 9<span class="hw-topics">5:00 &ndash; 6:30 PM ET</span></td><td class="hw-time">Sat, September 5</td></tr>
-                    <tr><td class="hw-task">Session 10<span class="hw-topics">5:00 &ndash; 6:30 PM ET</span></td><td class="hw-time">Sun, September 6</td></tr>
+                    <tr><td class="hw-task">Session 9<span class="hw-topics">5:00 &ndash; <span class="hw-emph">7:00 PM</span> ET</span></td><td class="hw-time">Sat, September 5</td></tr>
+                    <tr><td class="hw-task">Session 10<span class="hw-topics">5:00 &ndash; <span class="hw-emph">7:00 PM</span> ET</span></td><td class="hw-time">Sun, September 6</td></tr>
                     <tr><td class="hw-task">Office Hours<span class="hw-topics">8:00 &ndash; 9:00 PM ET</span></td><td class="hw-time">Thu, September 10</td></tr>
                   </table>
                 </div>
