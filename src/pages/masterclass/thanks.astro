@@ -49,7 +49,7 @@ const OCT_START = OCT.weekDates[0].split(' & ')[0]; // e.g. "Aug 29"
                   <!-- Their SAT dates include October (the enrolling cohort) -->
                   <div data-enroll-now hidden>
                     <p class="text-xl text-ink/80 font-semibold leading-relaxed mb-6">
-                      There are still spots open in the <Highlight>October</Highlight> cohort &mdash; classes start {OCT_START}.
+                      There are still spots open in the <Highlight>October</Highlight> cohort! Even though classes started {OCT_START}, you can rewatch session recordings to easily catch up.
                     </p>
                     <a
                       href={ENROLL_STRIPE_URL}
@@ -64,13 +64,13 @@ const OCT_START = OCT.weekDates[0].split(' & ')[0]; // e.g. "Aug 29"
                       </svg>
                     </a>
                     <p class="text-sm text-ink/60 font-semibold mt-2">
-                      ✓ Full refund available within 7 days of your first session.
+                      ✓ Full refund available within 7 days after purchasing.
                     </p>
                   </div>
                   <!-- Later test dates (Nov / Dec / 2027): pitch October — later cohorts aren't guaranteed -->
                   <div data-enroll-later hidden>
                     <p class="text-lg lg:text-xl text-ink/80 font-semibold leading-relaxed mb-6">
-                      Enrollment is open right now for the <Highlight>October</Highlight> cohort. Even with a different test date, <b>now</b> is the best time to start &mdash; later cohorts aren't guaranteed, and you keep every recording and a Bedrock Pro subscription indefinitely.
+                      Enrollment is open right now for the <Highlight>October</Highlight> cohort! Even though classes started {OCT_START}, you can rewatch session recordings to easily catch up. And with a different test date, <b>now</b> is still the best time to start &mdash; later cohorts aren't guaranteed, and you keep every recording and a Bedrock Pro subscription indefinitely.
                     </p>
                     <a
                       href={ENROLL_STRIPE_URL}
@@ -81,7 +81,7 @@ const OCT_START = OCT.weekDates[0].split(' & ')[0]; // e.g. "Aug 29"
                       Join the October Cohort
                     </a>
                     <p class="text-sm text-ink/60 font-semibold mt-6">
-                      ✓ Full refund available within 7 days of your first session.
+                      ✓ Full refund available within 7 days after purchasing.
                     </p>
                   </div>
                 </>
