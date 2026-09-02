@@ -107,11 +107,13 @@ function buildCatchupEmail(lead) {
     subject: `${CONFIG.COHORT_MONTH} SAT Math Masterclass - Spot open!`,
     body: `Hi ${v.greetName},
 
-It's Eric (LearnSATMath on YouTube). A few weeks ago, you filled out the interest form for the SAT Math Masterclass. I wanted to reach back out since the next cohort is about to begin, and spots are still available!
+It's Eric (LearnSATMath on YouTube). A few weeks ago, you filled out the interest form for the SAT Math Masterclass. I wanted to reach back out since the next cohort is underway, and a few spots are still available!
 
-In the Masterclass, ${youll} join 14 other ambitious students all aiming for a 750+. The cohort starts ${CONFIG.COHORT_START} and meets ${CONFIG.COHORT_TIME} through the ${CONFIG.COHORT_MONTH} SAT. There are weekly office hours and ${youll} get a lifetime subscription to Bedrock Pro.${laterDate}
+In the Masterclass, ${youll} join 14 other ambitious students all aiming for a 750+. The cohort started ${CONFIG.COHORT_START} but still has a few spots available, and meets ${CONFIG.COHORT_TIME} through the ${CONFIG.COHORT_MONTH} SAT. There are weekly office hours and ${youll} get a lifetime subscription to Bedrock Pro.${laterDate}
 
-I only take 15 students per cohort and half the spots are already filled, so please sign up sooner rather than later. Here is the enrollment link >> ${CONFIG.STRIPE_LINK} . As a reminder, purchases are fully refundable within 7 days of the first session.
+I only take 15 students per cohort, so please sign up sooner rather than later. Here is the enrollment link >> ${CONFIG.STRIPE_LINK}
+
+${catchUpAndRefund()}
 
 Best,
 Eric

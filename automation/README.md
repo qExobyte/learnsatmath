@@ -39,7 +39,7 @@ Evaluated top-to-bottom; the first match wins:
 
 | Lead's answers | Email they get |
 |---|---|
-| Out of budget (said no to the price) | **"SAT Math Advice"** — Bedrock Pro pitch ($49/mo) |
+| Out of budget (said no to the price) | **"SAT Math Advice"** — Bedrock Pro pitch ($79/mo) |
 | In budget, but current score ≤ 520 | **"SAT Math Advice"** — Masterclass assumes ~600+; build fundamentals on Bedrock Pro |
 | Only a September test date | **"About the September SAT"** — Sep cohort full; superscoring → retake this fall + October Stripe link; else one month of Bedrock Pro |
 | Ready to enroll + an October date (alone or with others) | **"October SAT Math Masterclass - Spot open!"** — October Stripe link |

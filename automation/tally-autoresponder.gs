@@ -18,10 +18,10 @@ const CONFIG = {
 
   // The cohort currently enrolling (October). Only leads whose SAT dates
   // include this month get the Stripe link.
-  STRIPE_LINK: 'https://buy.stripe.com/8x23cocXA0krd569XY6wE1I',
+  STRIPE_LINK: 'https://buy.stripe.com/14A00cbTw0krfdec666wE1L',
   COHORT_MONTH: 'October', // used in the enroll email subject + body
   COHORT_LABEL: 'October cohort',
-  COHORT_START: 'August 29th', // first session
+  COHORT_START: 'August 29th', // first session (already past — copy says "started")
   COHORT_TIME: 'Saturdays and Sundays, 12:00-1:30 pm ET',
   // Regex fragment that must appear in the lead's SAT dates to be eligible.
   COHORT_MONTH_RE: /oct/i,
@@ -34,7 +34,7 @@ const CONFIG = {
   // Bedrock Pro — the paid subscription to the practice platform. Every
   // non-enrolling branch pitches it.
   BEDROCK_PRO_LINK: 'https://www.bedrockprep.com/pro',
-  BEDROCK_PRO_PRICE: '$49/month',
+  BEDROCK_PRO_PRICE: '$79/month',
 
   SITE_MASTERCLASS: 'https://learnsatmath.com/masterclass',
 };
@@ -261,13 +261,20 @@ function deliver(lead, msg) {
  * The Bedrock Pro pitch, shared by every non-enrolling branch. Selling
  * points mirror learnsatmath.com/bedrock and bedrockprep.com/pro.
  */
-function bedrockProPitch(opts) {
-  const compare = !(opts && opts.compare === false);
+function bedrockProPitch() {
   return [
     `Over the past few months, I've been building Bedrock, an SAT Math platform that organizes the entire SAT Math curriculum into 125 problem types. Each one comes with a video lesson from me, and there are hundreds of variations to drill.`,
-    compare && `It's more challenging than Khan Academy, more efficient than OnePrep, and more affordable than Princeton Review.`,
     `Bedrock Pro is ${CONFIG.BEDROCK_PRO_PRICE} with no commitment (you can cancel anytime). Get a subscription here! >> ${CONFIG.BEDROCK_PRO_LINK}`,
-  ].filter(Boolean).join('\n\n');
+  ].join('\n\n');
+}
+
+/**
+ * The closing reassurance shared by every cohort-pitch email. The cohort is
+ * already underway, so the job of this paragraph is to defuse "I've missed
+ * too much" and "what if it's wrong for me".
+ */
+function catchUpAndRefund() {
+  return `All the previous sessions have been recorded, so you can catch up easily. And if you decide the class isn't a good fit, you can request a full refund within the first 7 days after purchasing.`;
 }
 
 /** Condensed pitch for emails that already made a primary ask (September-only). */
@@ -315,7 +322,7 @@ I want to be upfront about the best path forward: the Masterclass is designed fo
 
 Starting from ${lead.currentScore}, ${v.you} would get far more from building the fundamentals first, at the right pace, with a lesson for every problem type. That's exactly what Bedrock Pro is for.
 
-${bedrockProPitch({ compare: false })}
+${bedrockProPitch()}
 
 Best,
 Eric${bedrockPS}`,
@@ -334,9 +341,9 @@ Thanks for your interest in the SAT Math Masterclass!${goal}
 
 You marked that ${v.youre} taking the ${CONFIG.FULL_MONTH_LABEL} SAT, but unfortunately, the ${CONFIG.FULL_MONTH_LABEL} cohort is full and has already begun.
 
-Here's my honest recommendation: plan on a retake this fall. Many colleges superscore, so a second sitting is very advantageous. The ${CONFIG.COHORT_LABEL} starts ${CONFIG.COHORT_START} and still has spots available. You can enroll here >> ${CONFIG.STRIPE_LINK}
+Here's my honest recommendation: plan on a retake this fall. Many colleges superscore, so a second sitting is very advantageous. The ${CONFIG.COHORT_LABEL} started ${CONFIG.COHORT_START} but still has a few spots available. You can enroll here >> ${CONFIG.STRIPE_LINK}
 
-The class is capped at 15 students and recent cohorts have filled within days. Purchases are fully refundable within 7 days of the first session.
+${catchUpAndRefund()}
 
 However, if ${v.isParent ? `${v.you} is` : "you're"} unable to retake, I recommend signing up for one month of Bedrock Pro to make the most of the time before ${CONFIG.FULL_MONTH_LABEL}.
 
@@ -360,9 +367,11 @@ If you already claimed ${v.your} spot on the confirmation page, you're all set! 
 
 If not, here is the enrollment link >> ${CONFIG.STRIPE_LINK}
 
-The cohort starts ${CONFIG.COHORT_START} and meets ${CONFIG.COHORT_TIME}, running twice a week through the ${CONFIG.COHORT_MONTH} SAT. There are weekly office hours and every student gets a lifetime subscription to Bedrock Pro.
+The cohort started ${CONFIG.COHORT_START} but still has a few spots available. It meets ${CONFIG.COHORT_TIME}, running twice a week through the ${CONFIG.COHORT_MONTH} SAT. There are weekly office hours and every student gets a lifetime subscription to Bedrock Pro.
 
-To keep the class small and personalized, there is a hard cap of 15 students. Recent cohorts have filled up within days, so please enroll sooner rather than later! As a reminder, purchases are fully refundable within 7 days of the first session.
+To keep the class small and personalized, there is a hard cap of 15 students, so please enroll sooner rather than later!
+
+${catchUpAndRefund()}
 
 Best,
 Eric${cohortPS}`,
@@ -379,11 +388,11 @@ Eric${cohortPS}`,
 
 Thanks for filling out the interest form!${goal}
 
-I'll be straightforward with you: the ${CONFIG.COHORT_LABEL} is the one to join, even with a later test date. I can't promise there will be a cohort for ${v.your} exact date later this year, and the ${CONFIG.COHORT_MONTH} cohort is open right now. It starts ${CONFIG.COHORT_START} and meets ${CONFIG.COHORT_TIME}, twice a week through the ${CONFIG.COHORT_MONTH} SAT.
+I'll be straightforward with you: the ${CONFIG.COHORT_LABEL} is the one to join, even with a later test date. I can't promise there will be a cohort for ${v.your} exact date later this year, and the ${CONFIG.COHORT_MONTH} cohort is open right now. It started ${CONFIG.COHORT_START} but still has a few spots available, and meets ${CONFIG.COHORT_TIME}, twice a week through the ${CONFIG.COHORT_MONTH} SAT.
 
 Starting early is also just the better plan. Even after the sessions end, ${v.isParent ? `${v.you} keeps` : 'you keep'} indefinite access to all 15 hours of recordings and a Bedrock Pro subscription, so the weeks between the last session and ${v.your} test date become review time with everything already in hand. Here is the enrollment link >> ${CONFIG.STRIPE_LINK}
 
-The class is capped at 15 students and recent cohorts have filled within days. Purchases are fully refundable within 7 days of the first session.
+${catchUpAndRefund()}
 
 Best,
 Eric${cohortPS}`,

@@ -10,9 +10,9 @@ export const IS_FULL = false;
 export const NEXT_COHORT = 'Aug 29';
 
 // Live cohort price (shown beside the enroll button; must match Stripe).
-export const COHORT_PRICE = 895;
+export const COHORT_PRICE = 1195;
 
 // Stripe payment link for the live cohort (also sent by email after the
 // interest form — keep in sync with CONFIG.STRIPE_LINK in
 // automation/tally-autoresponder.gs). October cohort.
-export const ENROLL_STRIPE_URL = 'https://buy.stripe.com/8x23cocXA0krd569XY6wE1I';
+export const ENROLL_STRIPE_URL = 'https://buy.stripe.com/14A00cbTw0krfdec666wE1L';
