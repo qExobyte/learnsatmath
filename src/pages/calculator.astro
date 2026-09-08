@@ -21,21 +21,6 @@ import Highlight from '../components/Highlight.astro';
     }
   </style>
 
-  <!-- 1-on-1 coaching banner (shown when 1 week selected) -->
-  <div id="coaching-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
-    <div class="bg-coral border-b-2 border-ink px-6 py-4">
-      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p id="coaching-text" class="font-sans font-extrabold text-white text-center sm:text-left"></p>
-        <a
-          href="/tutoring#pricing"
-          class="flex-shrink-0 bg-white text-ink font-bold py-2.5 px-6 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-sm"
-        >
-          Book a 1-on-1 Session →
-        </a>
-      </div>
-    </div>
-  </div>
-
   <!-- Masterclass banner (shown conditionally by JS) -->
   <div id="masterclass-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
     <div class="bg-electric border-b-2 border-ink px-6 py-4">
@@ -46,21 +31,6 @@ import Highlight from '../components/Highlight.astro';
           class="flex-shrink-0 bg-white text-ink font-bold py-2.5 px-6 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-sm"
         >
           Join the Masterclass →
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Long-term plan banner (shown conditionally by JS) -->
-  <div id="longterm-banner" class="overflow-hidden transition-[max-height] duration-500 ease-in-out" style="max-height:0">
-    <div class="bg-mint border-b-2 border-ink px-6 py-4">
-      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p id="longterm-text" class="font-sans font-extrabold text-ink text-center sm:text-left"></p>
-        <a
-          href="/tutoring#pricing"
-          class="flex-shrink-0 bg-white text-ink font-bold py-2.5 px-6 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-sm"
-        >
-          Book a Strategy Call →
         </a>
       </div>
     </div>
@@ -174,10 +144,10 @@ import Highlight from '../components/Highlight.astro';
       <div class="flex flex-col items-center gap-4 mt-8">
         <p class="font-sans text-base font-bold text-ink">Want to see this plan in action?</p>
         <a
-          href="/tutoring#pricing"
+          href="/masterclass"
           class="bg-coral text-white text-sm font-bold px-5 py-2.5 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
-          Book a strategy call
+          Explore the Masterclass
         </a>
       </div>
 
@@ -260,25 +230,6 @@ function update() {
     banner.style.maxHeight = banner.scrollHeight + 'px';
   } else {
     banner.style.maxHeight = '0px';
-  }
-
-  const coachingBanner = document.getElementById('coaching-banner');
-  const coachingText = document.getElementById('coaching-text');
-  if (weeks <= 2) {
-    const wkLabel = weeks === 1 ? '1 week' : '2 weeks';
-    coachingText.innerHTML = `Your test is just ${wkLabel} away! A <span class="underline decoration-2 underline-offset-2">1-on-1 session</span> can make sure you're fully prepared.`;
-    coachingBanner.style.maxHeight = coachingBanner.scrollHeight + 'px';
-  } else {
-    coachingBanner.style.maxHeight = '0px';
-  }
-
-  const longtermBanner = document.getElementById('longterm-banner');
-  const masterclassShown = goal >= 730 && score >= 600 && weeks >= 6;
-  if (!masterclassShown && weeks >= 4 && (goal - score) >= 100) {
-    document.getElementById('longterm-text').textContent = `Book a free strategy call and we'll set up a ${weeks}-week plan to get you to a ${goal}.`;
-    longtermBanner.style.maxHeight = longtermBanner.scrollHeight + 'px';
-  } else {
-    longtermBanner.style.maxHeight = '0px';
   }
 
   const G = goal - score;
