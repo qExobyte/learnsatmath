@@ -9,21 +9,23 @@
 // Rows are sorted by points automatically; bar lengths scale to the leader.
 const students = [
   { name: 'Veronica', points: 7 },
-  { name: 'Chiara', points: 7 },
-  { name: 'Bella', points: 2 },
-  { name: 'Addie', points: 6 },
+  { name: 'Chiara', points: 13 },
+  { name: 'Bella', points: 6 },
+  { name: 'Addie', points: 14 },
   { name: 'Ben', points: 12 },
   { name: 'Emily', points: 0 },
-  { name: 'Mahum', points: 4 },
+  { name: 'Mahum', points: 8 },
   { name: 'Hanbyeol', points: 6 },
   { name: 'Saif', points: 1 },
   { name: 'Heloisa', points: 9 },
-  { name: 'Bryce', points: 12 },
-  { name: 'Layla', points: 2 },
-  { name: 'Alisha', points: 7 },
+  { name: 'Bryce', points: 16 },
+  { name: 'Layla', points: 8 },
+  { name: 'Alisha', points: 9 },
   { name: 'Adi', points: 7 },
-  { name: 'Jaslyn', points: 5 },
-  { name: 'Faizaan', points: 12 },
+  { name: 'Jaslyn', points: 13 },
+  { name: 'Faizaan', points: 17 },
+  { name: 'Justine', points: 0 },
+  { name: 'Melina', points: 4 },
 ];
 
 // Cash prizes for the top finishers, in rank order (1st, 2nd, …). Top 5 win.
@@ -545,6 +547,12 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
         font-weight: 500;
         line-height: 1.4;
         color: rgba(20, 20, 20, 0.7);
+      }
+
+      /* Highlights a session time that changed from the original schedule */
+      .hw-topics.is-changed {
+        color: #D62828;
+        font-weight: 700;
       }
 
       .hw-time {
@@ -1073,7 +1081,7 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                   <table class="hw-table">
                     <tr><td class="hw-task">Session 5<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, September 12</td></tr>
                     <tr><td class="hw-task">Session 6<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, September 13</td></tr>
-                    <tr><td class="hw-task">Office Hours<span class="hw-topics">8:00 &ndash; 9:00 PM ET</span></td><td class="hw-time">Mon, September 14</td></tr>
+                    <tr><td class="hw-task">Office Hours<span class="hw-topics is-changed">9:00 &ndash; 10:00 PM ET</span></td><td class="hw-time">Mon, September 14</td></tr>
                   </table>
                 </div>
 
@@ -1081,14 +1089,14 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
                 <div class="hw" data-plan="standard">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 125 &middot; Q46&ndash;Q65 &amp; Variations</td><td class="hw-time">3h</td></tr>
-                    <tr><td class="hw-task">Bluebook Practice Test</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock Practice Test 2</td><td class="hw-time">2h</td></tr>
                   </table>
                 </div>
                 <div class="hw" data-plan="advanced">
                   <table class="hw-table">
                     <tr><td class="hw-task">Bedrock 125 &middot; Q46&ndash;Q65 &amp; Variations</td><td class="hw-time">3h</td></tr>
                     <tr><td class="hw-task">Bedrock 125 &middot; Q46&ndash;Q65 Hard &amp; Expert Variations</td><td class="hw-time">2h</td></tr>
-                    <tr><td class="hw-task">Bluebook Practice Test</td><td class="hw-time">2h</td></tr>
+                    <tr><td class="hw-task">Bedrock Practice Test 2</td><td class="hw-time">2h</td></tr>
                   </table>
                 </div>
               </div></div>
@@ -1101,8 +1109,8 @@ const maxPoints = Math.max(1, ...sorted.map((s) => s.points));
               </summary>
               <div class="week-body"><div class="dd-inner">                <div class="sessions">
                   <table class="hw-table">
-                    <tr><td class="hw-task">Session 7<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sat, September 19</td></tr>
-                    <tr><td class="hw-task">Session 8<span class="hw-topics">12:00 &ndash; 1:30 PM ET</span></td><td class="hw-time">Sun, September 20</td></tr>
+                    <tr><td class="hw-task">Session 7<span class="hw-topics is-changed">12:00 &ndash; 2:00 PM ET</span></td><td class="hw-time">Sat, September 19</td></tr>
+                    <tr><td class="hw-task">Session 8<span class="hw-topics is-changed">12:00 &ndash; 2:00 PM ET</span></td><td class="hw-time">Sun, September 20</td></tr>
                     <tr><td class="hw-task">Office Hours<span class="hw-topics">8:30 &ndash; 9:30 PM ET</span></td><td class="hw-time">Tue, September 22</td></tr>
                   </table>
                 </div>
