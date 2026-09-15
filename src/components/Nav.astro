@@ -1,7 +1,7 @@
 ---
 const navLinks = [
   { label: 'Masterclass', href: '/masterclass' },
-  { label: 'Bedrock', href: '/bedrock' },
+  { label: 'Bedrock', href: 'https://www.bedrockprep.com/' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-6xl mx-auto px-6 lg:px-8 2xl:px-12">
     <div class="relative flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/home" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
         <img src="/lsmlogo-navy-transparent.svg" alt="LearnSATMath" class="h-8 w-8" />
         <span class="font-sans text-xl font-black text-ink tracking-tight">LearnSATMath</span>
       </a>

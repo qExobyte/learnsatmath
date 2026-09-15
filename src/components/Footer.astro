@@ -1,48 +1,28 @@
----
-const navLinks = [
-  { label: 'Masterclass', href: '/masterclass' },
-];
----
-
 <footer class="bg-ink-mid text-chalk/80">
   <div class="max-w-6xl mx-auto px-6 lg:px-8 2xl:px-12 py-8 lg:py-12">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8">
 
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <a href="/home" class="font-sans text-xl font-black text-chalk hover:text-electric transition-colors">
+        <a href="/" class="font-sans text-xl font-black text-chalk hover:text-electric transition-colors">
           LearnSATMath
         </a>
         <p class="mt-3 text-sm text-chalk/70 leading-relaxed max-w-xs">
-          Expert SAT math instruction from a two-time perfect scorer. 400+ students helped.
+          Expert SAT math instruction from a two-time perfect scorer.
         </p>
       </div>
 
-      <!-- Nav links -->
-      <div>
-        <p class="text-xs font-bold uppercase tracking-widest text-chalk/50 mb-4">Pages</p>
-        <ul class="space-y-2">
-          {navLinks.map(link => (
-            <li>
-              <a href={link.href} class="text-sm text-chalk/70 hover:text-chalk transition-colors">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- CTA -->
-      <div>
+      <!-- CTA: right column, with the middle column left empty -->
+      <div class="lg:col-start-3">
         <p class="text-xs font-bold uppercase tracking-widest text-chalk/50 mb-4">Get Started</p>
         <p class="text-sm text-chalk/70 mb-4 leading-relaxed">
-          Score a 750+ in 5 weeks. Live classes taught by a two-time perfect scorer.
+          Fast-track your way to a 750+ on Bedrock.
         </p>
         <a
-          href="/masterclass"
+          href="https://www.bedrockprep.com/problems"
           class="inline-block bg-coral text-white text-sm font-bold px-6 py-3 rounded-full border-2 border-ink shadow-[3px_3px_0_0_#141414] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
         >
-          Join the Masterclass
+          Get Started for Free &rarr;
         </a>
         <p class="text-sm text-chalk/70 mt-6 leading-relaxed">
           Have a question? <a href="mailto:eric.wolpert@learnsatmath.com" class="text-chalk hover:text-electric transition-colors underline">Send me an email</a>.

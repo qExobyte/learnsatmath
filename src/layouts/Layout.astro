@@ -6,9 +6,13 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  /** Hides the navbar. */
+  minimal?: boolean;
+  /** Hides only the navbar. */
+  hideNav?: boolean;
 }
 
-const { title, description = 'Premium SAT Math instruction from a two-time perfect scorer. 400+ students across the SAT Math Masterclass and 1-on-1 sessions.', noindex = false } = Astro.props;
+const { title, description = 'Premium SAT Math instruction from a two-time perfect scorer. 400+ students across the SAT Math Masterclass and 1-on-1 sessions.', noindex = false, minimal = false, hideNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -54,7 +58,7 @@ const { title, description = 'Premium SAT Math instruction from a two-time perfe
     </style>
   </head>
   <body class="bg-chalk font-sans text-ink antialiased">
-    <Nav />
+    {!minimal && !hideNav && <Nav />}
     <main>
       <slot />
     </main>

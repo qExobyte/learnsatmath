@@ -4,7 +4,7 @@ import Highlight from '../components/Highlight.astro';
 import { resources } from '../data/resources';
 ---
 
-<Layout title="Resources" description="Free SAT Math resources from Eric — PDFs and practice material to accompany each video.">
+<Layout title="Resources" hideNav description="Free SAT Math resources from Eric — PDFs and practice material to accompany each video.">
 
   <!-- Hero -->
   <section class="bg-ink-mid text-chalk py-10 text-center">
@@ -67,7 +67,7 @@ import { resources } from '../data/resources';
                 <button
                   class="download-trigger bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200 text-center"
                   data-resource-file={r.resourceFile}
-                  data-bedrock-upsell={r.bedrockUpsell ? 'true' : undefined}
+                  data-bedrock-upsell={r.bedrockUpsell ? r.slug : undefined}
                 >
                   Download PDF
                 </button>
@@ -126,7 +126,7 @@ import { resources } from '../data/resources';
         >
           Get started for free &rarr;
         </a>
-        <a href="/bedrock" class="block mt-3 font-sans text-sm font-semibold text-ink/50 hover:text-coral transition-colors">
+        <a href="https://www.bedrockprep.com/" class="block mt-3 font-sans text-sm font-semibold text-ink/50 hover:text-coral transition-colors">
           or learn more &rarr;
         </a>
       </div>
@@ -181,20 +181,22 @@ import { resources } from '../data/resources';
         </a>
       </div>
 
-      <!-- Bedrock upsell: shown after a direct (ungated) download -->
-      <div id="modal-bedrock" class="hidden text-center">
-        <h2 class="font-sans font-extrabold text-2xl text-ink mb-2">Wait!</h2>
-        <p class="text-ink/70 font-semibold text-sm leading-relaxed mb-5">
-          These problems are a bit outdated. I've written <b class="text-ink">over 250</b> hard problems on my platform
-          <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock, updated for recent SATs.
-        </p>
-        <a
-          href="https://www.bedrockprep.com/problems"
-          class="block bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
-        >
-          Check out Bedrock →
-        </a>
-      </div>
+      <!-- Bedrock upsells: shown after a direct (ungated) download -->
+      {resources.filter((r) => r.bedrockUpsell).map((r) => (
+        <div id={`modal-bedrock-${r.slug}`} class="modal-bedrock hidden text-center">
+          <h2 class="font-sans font-extrabold text-2xl text-ink mb-2">Wait!</h2>
+          <p
+            class="text-ink/70 font-semibold text-sm leading-relaxed mb-5"
+            set:html={r.bedrockUpsell!.message.replace('{logo}', '<img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" />')}
+          />
+          <a
+            href={r.bedrockUpsell!.href}
+            class="block bg-coral text-chalk font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
+          >
+            {r.bedrockUpsell!.cta}
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 
@@ -232,7 +234,7 @@ import { resources } from '../data/resources';
   const submitBtn = document.getElementById('submit-download')!;
   const modalForm = document.getElementById('modal-form')!;
   const modalSuccess = document.getElementById('modal-success')!;
-  const modalBedrock = document.getElementById('modal-bedrock')!;
+  const modalBedrocks = document.querySelectorAll<HTMLElement>('.modal-bedrock');
   let activeFile = '';
 
   function triggerDownload(file: string) {
@@ -253,7 +255,7 @@ import { resources } from '../data/resources';
         triggerDownload(activeFile);
         modalForm.classList.add('hidden');
         modalSuccess.classList.add('hidden');
-        modalBedrock.classList.remove('hidden');
+        modalBedrocks.forEach(el => el.classList.toggle('hidden', el.id !== `modal-bedrock-${btn.dataset.bedrockUpsell}`));
         modal.classList.remove('hidden');
         return;
       }
@@ -263,7 +265,7 @@ import { resources } from '../data/resources';
       errorMsg.classList.add('hidden');
       modalForm.classList.remove('hidden');
       modalSuccess.classList.add('hidden');
-      modalBedrock.classList.add('hidden');
+      modalBedrocks.forEach(el => el.classList.add('hidden'));
       modal.classList.remove('hidden');
     });
   });
