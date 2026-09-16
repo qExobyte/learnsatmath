@@ -1,17 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Highlight from '../components/Highlight.astro';
+// Private 1-on-1 tutoring page. Unlisted: nothing links here and the Layout is
+// passed `noindex`, so it's reachable only by the URL /t/1on1-m4kp7v2q/.
+// The public /tutoring route stays redirected to bedrockprep.com (astro.config.mjs).
+import Layout from '../../../layouts/Layout.astro';
+import Testimonials from '../../../components/Testimonials.astro';
+import Highlight from '../../../components/Highlight.astro';
 
 const CALENDLY_URL = 'https://calendly.com/eric-wolpert-learnsatmath/1-on-1-session-on-demand';
-const COACHING_URL = 'https://calendly.com/eric-wolpert-learnsatmath/coaching-call';
 
 const JUMPSTART_STRIPE_URL = 'https://buy.stripe.com/aFa3co5v8d7daWY5HI6wE1r';
 const STANDARD_STRIPE_URL = 'https://buy.stripe.com/8x23coaPs3wD1mo9XY6wE1G';
-const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/28E4gs9Loffl4yA2vw6wE1H';
+const INTENSIVE_STRIPE_URL = 'https://buy.stripe.com/14AcMY6zc2sz5CE3zA6wE1M';
 
 // Deadline by which all sessions in a purchased plan must be used.
-const SESSION_DEADLINE = 'September 30, 2026';
+const SESSION_DEADLINE = 'October 3, 2026';
 
 // Sample week of assignments shown in "The plan" section.
 const planTasks = [
@@ -210,7 +212,7 @@ const planScorePct = Math.round(
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 600+ exclusive problems</span>
+              <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 800+ exclusive problems</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
@@ -270,11 +272,7 @@ const planScorePct = Math.round(
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
-                <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 600+ exclusive problems</span>
-              </li>
-              <li class="flex items-start gap-2 text-base text-ink/80">
-                <span class="text-coral font-black mt-0.5">✓</span>
-                <span>Add hours anytime at $250/hr</span>
+                <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 800+ exclusive problems</span>
               </li>
               <li class="flex items-start gap-2 text-base text-ink/80">
                 <span class="text-coral font-black mt-0.5">✓</span>
@@ -282,17 +280,13 @@ const planScorePct = Math.round(
               </li>
             </ul>
             <a
-              href={COACHING_URL}
+              href={STANDARD_STRIPE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              data-calendly
               class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
             >
-              Book a free call
+              Get Started
             </a>
-            <p class="text-xs text-ink/60 text-center mt-3">
-              or <a href={STANDARD_STRIPE_URL} target="_blank" rel="noopener noreferrer" class="font-bold text-coral underline hover:no-underline">skip the call and enroll now</a>
-            </p>
           </div>
         </div>
 
@@ -311,7 +305,7 @@ const planScorePct = Math.round(
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <span class="font-sans text-4xl font-black text-ink">$3,095</span>
+              <span class="font-sans text-4xl font-black text-ink">$3,495</span>
               <span class="relative text-ink/40 text-lg font-bold" data-slash-price>
                 $3,965
                 <span class="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-coral" data-slash></span>
@@ -333,11 +327,7 @@ const planScorePct = Math.round(
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 600+ exclusive problems</span>
-            </li>
-            <li class="flex items-start gap-2 text-base text-ink/80">
-              <span class="text-coral font-black mt-0.5">✓</span>
-              <span>Add hours anytime at $225/hr</span>
+              <span>Lifetime access to <img src="/bedrock-pro-logo.svg" alt="" class="inline-block w-5 h-5 align-[-4px]" /> Bedrock Pro; 127 video lessons and 800+ exclusive problems</span>
             </li>
             <li class="flex items-start gap-2 text-base text-ink/80">
               <span class="text-coral font-black mt-0.5">✓</span>
@@ -345,17 +335,13 @@ const planScorePct = Math.round(
             </li>
           </ul>
           <a
-            href={COACHING_URL}
+            href={INTENSIVE_STRIPE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            data-calendly
             class="block text-center bg-coral text-white font-bold py-3 rounded-full border-2 border-ink shadow-offset-sm hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all duration-200"
           >
-            Book a free call
+            Get Started
           </a>
-          <p class="text-xs text-ink/60 text-center mt-3">
-            or <a href={INTENSIVE_STRIPE_URL} target="_blank" rel="noopener noreferrer" class="font-bold text-coral underline hover:no-underline">skip the call and enroll now</a>
-          </p>
         </div>
 
       </div>
@@ -383,98 +369,6 @@ const planScorePct = Math.round(
       <h2 class="font-sans text-2xl lg:text-4xl font-extrabold text-ink tracking-tight">Common questions</h2>
     </div>
     <div class="space-y-3" id="faq-list">
-
-      <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
-          <span class="font-sans font-bold text-lg text-ink">Should I join the masterclass or do 1-on-1 tutoring?</span>
-          <svg class="faq-arrow flex-shrink-0 w-5 h-5 text-ink transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-        <div class="faq-body max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
-          <div class="px-6 pb-6 text-ink/80 font-semibold leading-relaxed">
-            <div class="font-sans pt-1">
-              <!-- Decision 1 -->
-              <p class="font-bold text-ink text-base sm:text-lg leading-snug mb-1.5">
-                Is your SAT less than 4 weeks away?
-              </p>
-              <!-- Yes branch: routes right, then down the lane to the shared outcome -->
-              <div class="flex items-stretch h-10">
-                <div class="relative w-10 sm:w-14 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                  <div class="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
-                </div>
-                <div class="flex items-center flex-shrink-0">
-                  <span class="text-[11px] leading-none font-black tracking-widest text-ink px-1.5">YES</span>
-                </div>
-                <div class="relative flex-1">
-                  <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
-                </div>
-                <div class="relative w-8 sm:w-10 flex-shrink-0">
-                  <div class="absolute left-0 right-1/2 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
-                  <div class="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-0 w-[2px] bg-ink"></div>
-                </div>
-              </div>
-              <!-- No connector -->
-              <div class="flex items-stretch h-10">
-                <div class="relative w-10 sm:w-14 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                  <span class="absolute left-1/2 ml-2.5 top-1/2 -translate-y-1/2 text-[11px] leading-none font-black tracking-widest text-ink">NO</span>
-                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
-                </div>
-                <div class="flex-1"></div>
-                <div class="relative w-8 sm:w-10 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                </div>
-              </div>
-              <!-- Decision 2 -->
-              <div class="flex items-stretch">
-                <p class="flex-1 min-w-0 font-bold text-ink text-base sm:text-lg leading-snug pt-2 pb-1.5">
-                  Are you scoring a 600 or higher?
-                </p>
-                <div class="relative w-8 sm:w-10 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                </div>
-              </div>
-              <!-- Yes branch -->
-              <div class="flex items-stretch">
-                <div class="relative w-10 sm:w-14 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                  <div class="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-ink"></div>
-                </div>
-                <div class="flex-1 flex items-center py-3 min-w-0">
-                  <span class="flex-shrink-0 text-[11px] leading-none font-black tracking-widest text-ink px-1.5">YES</span>
-                  <div class="w-2 sm:w-4 h-[2px] bg-ink flex-shrink-0"></div>
-                  <div class="flex-shrink-0 w-0 h-0 border-t-[5px] border-b-[5px] border-l-[7px] border-t-transparent border-b-transparent border-l-ink"></div>
-                  <div class="flex-1 min-w-0 border-2 border-ink rounded-xl bg-electric shadow-offset-sm px-4 py-3 font-bold text-ink text-sm sm:text-base mr-1">
-                    Join the next Masterclass cohort
-                  </div>
-                </div>
-                <div class="relative w-8 sm:w-10 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                </div>
-              </div>
-              <!-- No connector + lane arrow converging on the shared outcome -->
-              <div class="flex items-stretch h-10">
-                <div class="relative w-10 sm:w-14 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                  <span class="absolute left-1/2 ml-2.5 top-1/2 -translate-y-1/2 text-[11px] leading-none font-black tracking-widest text-ink">NO</span>
-                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
-                </div>
-                <div class="flex-1"></div>
-                <div class="relative w-8 sm:w-10 flex-shrink-0">
-                  <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-ink"></div>
-                  <div class="absolute left-1/2 bottom-0 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent border-t-ink"></div>
-                </div>
-              </div>
-              <!-- Shared outcome -->
-              <div class="border-2 border-ink rounded-xl bg-mint shadow-offset-sm px-4 py-3 text-center font-bold text-ink">
-                Pick the coaching package that fits your goal
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="faq-item border-2 border-ink rounded-2xl bg-white shadow-offset-sm overflow-hidden">
         <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left gap-4">
