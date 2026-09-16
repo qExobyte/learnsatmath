@@ -1,12 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/Testimonials.astro';
-import MasterclassIncluded from '../components/MasterclassIncluded.astro';
-import MasterclassSchedule from '../components/MasterclassSchedule.astro';
-import MasterclassVsRest from '../components/MasterclassVsRest.astro';
-import Highlight from '../components/Highlight.astro';
-import { FREE_CALL_CALENDLY_URL } from '../data/booking';
-import { IS_FULL, NEXT_COHORT, ENROLL_STRIPE_URL } from '../data/enrollment';
+// Private archive of the live Masterclass page. Unlisted: nothing links here
+// and the Layout is passed `noindex`, so it's reachable only by the URL
+// /m/masterclass-v9hq2t7b/. The public /masterclass route shows the
+// "moved to Bedrock" page (src/pages/masterclass.astro).
+import Layout from '../../../layouts/Layout.astro';
+import Testimonials from '../../../components/Testimonials.astro';
+import MasterclassIncluded from '../../../components/MasterclassIncluded.astro';
+import MasterclassSchedule from '../../../components/MasterclassSchedule.astro';
+import MasterclassVsRest from '../../../components/MasterclassVsRest.astro';
+import Highlight from '../../../components/Highlight.astro';
+import { FREE_CALL_CALENDLY_URL } from '../../../data/booking';
+import { IS_FULL, NEXT_COHORT, ENROLL_STRIPE_URL } from '../../../data/enrollment';
 
 // First session of the October cohort (used in the interest-form enroll copy below).
 const OCT_START = 'Aug 29';
@@ -28,6 +32,7 @@ const enrollLabel = IS_FULL ? 'Join the Waitlist' : 'Enroll Now';
 ---
 
 <Layout
+  noindex
   title="Masterclass"
   description="15 hours of live SAT math instruction with Eric. Small groups, office hours, recordings, and proven results. Most students finish with 750+."
 >
