@@ -80,3 +80,9 @@ Bedrock Pro paragraph (`bedrockProPitch()`), so update the pitch in one place.
 - **Schedule-lock announcement** — the "here are the exact dates" blast to
   everyone already in the sheet — is a separate one-off, not built here.
   Generate it from the sheet when the schedule is final.
+- **Bedrock redirect** (`bedrock-redirect.gs`) — one-off to Nov/Dec/2027 test-takers
+  (Oct-only optional via `INCLUDE_OCT_ONLY`) pointing them to Bedrock Pro.
+  Reads the live sheet; skips anyone on the **Exclude** tab (masterclass
+  students + Stripe customers — kept in the sheet, not this repo), duplicates,
+  and anyone who has emailed you. Sends `BATCH_SIZE` per day via
+  `setupBedrockDaily()`; progress in the `Bedrock Status` column.

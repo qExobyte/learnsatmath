@@ -239,7 +239,7 @@ function toHtml(text) {
 }
 
 function deliver(lead, msg) {
-  const options = { name: CONFIG.FROM_NAME, htmlBody: toHtml(msg.body) };
+  const options = { name: CONFIG.FROM_NAME, htmlBody: msg.html || toHtml(msg.body) };
   // To: whoever filled out the form; CC: the other party.
   const parentFilled = lead.filledBy === 'parent';
   const primary = parentFilled ? lead.parentEmail : lead.email;

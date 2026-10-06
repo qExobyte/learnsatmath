@@ -8,6 +8,7 @@ export default defineConfig({
     '/bedrock': 'https://www.bedrockprep.com/',
     '/home': 'https://www.bedrockprep.com/',
     '/tutoring': 'https://www.bedrockprep.com/',
+    '/book': '/masterclass',
   },
   integrations: [tailwind()],
 });
