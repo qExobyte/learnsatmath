@@ -31,7 +31,7 @@ export const resources: Resource[] = [
     bedrockUpsell: {
       message: 'These problems are a bit outdated. I\'ve written <b class="text-ink">over 250</b> hard problems on my platform {logo} Bedrock, updated for recent SATs.',
       cta: 'Check out Bedrock →',
-      href: 'https://www.bedrockprep.com/problems',
+      href: 'https://www.bedrockprep.com/problems?via=25hardqs',
     },
   },
   {
@@ -46,7 +46,7 @@ export const resources: Resource[] = [
     bedrockUpsell: {
       message: 'This PDF is just a quick reference. On my platform {logo} Bedrock, I teach <b class="text-ink">every topic</b> from the ground up, with lessons and practice problems for each one.',
       cta: 'Learn every topic on Bedrock →',
-      href: 'https://www.bedrockprep.com/',
+      href: 'https://www.bedrockprep.com/problems?via=25hardqs',
     },
   },
 ];
